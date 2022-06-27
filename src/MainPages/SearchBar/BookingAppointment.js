@@ -21,12 +21,14 @@ var displayTodaysDate = showDate.getDate()+'/'+(showDate.getMonth()+1)+'/'+showD
       const address = event.target.address.value;
       const date = event.target.date.value;
     
+    
       
 
        const booking = {
         appointmentId: _id,
         doctor: doctorName,
         doctorEmail: email,
+        chamber: chamber,
         slot,
         date,
         age,
@@ -86,6 +88,7 @@ body: JSON.stringify(booking)
                         <input type="text" name='doctorName' placeholder={doctorName} class="mb-2 input input-bordered w-full max-w-xs " />
                         <input type="email" name='doctorEmail' placeholder={email} class="mb-2 input input-bordered w-full max-w-xs " />
                         <input  type="text" name='phoneNumber' placeholder="Phone Number" class=" mb-2 input input-bordered w-full max-w-xs" />
+                        <input  type="text" name='chamber' placeholder={chamber} class=" mb-2 input input-bordered w-full max-w-xs" />
                         <input  type="text" name='age' placeholder='Age'   class=" mb-2 input input-bordered w-full max-w-xs" />
                         <input  type="text" name='address' placeholder='address'   class=" mb-2 input input-bordered w-full max-w-xs" />
                         <input type="text"   name='serial' placeholder={slots.length} class=" mb-2 input input-bordered w-full max-w-xs" />

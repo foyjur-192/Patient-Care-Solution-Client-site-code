@@ -15,6 +15,7 @@ import RequiredAuth from './Shared/RequiredAuth';
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; //Must Import Css for toast
 import DetailsSearch from './MainPages/SearchBar/DetailsSearch';
+import PrescriptionDetails from './MainPages/Doctor/PrescriptionDetails';
 
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
         <Route path='/doctorSignUp' element={<DoctorSignUp></DoctorSignUp>}></Route>
         <Route path='/diagnosticSignUp' element={<DiagnosticSignUp></DiagnosticSignUp>}></Route>
         <Route path='/PatientSignUp' element={<PatientSignUp></PatientSignUp>}></Route>
+       
         {/* <Route path='/searchBar' element={ <SearchBar></SearchBar> }></Route> */}
 
 

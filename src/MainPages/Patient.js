@@ -21,15 +21,31 @@ const Patient = () => {
      
      },[])
 
-     //Reports
-    useEffect(() => {
-      fetch('report.JSON')
-      .then(res => res.json())
-      .then(data => setReports(data));
+    //  //Reports
+    // useEffect(() => {
+    //   fetch('report.JSON')
+    //   .then(res => res.json())
+    //   .then(data => setReports(data));
      
-     },[])
+    //  },[])
 
-  
+
+  //Reports
+  useEffect ( () => {
+    const getReports = async() => {
+        const email = user.email;
+        const url =`http://localhost:5000/userReport?email=${email}`;
+      console.log(url);
+        const {data} = await axios.get(url);
+        setReports(data);
+        console.log(data);
+    }
+     getReports();
+ }, [user])
+
+
+
+  //Booked Appointment
     useEffect ( () => {
         const getAppointment = async() => {
             const email = user.email;
@@ -100,8 +116,11 @@ const Patient = () => {
                          <p className='mt-2 ml-3'>Doctor: {appointment.doctor}</p>
                          </div>
                          <div className='flex content-center'>
-                             <div className='flex-initial'> <p className=''>Your Appointment Time </p>
-                        <p className='ml-3'>{appointment.slot}</p><br/></div>
+                             <div className='flex-initial text-left'> <p className=''>Your Appointment Time </p>
+                        <p className='ml-3'>{appointment.slot}</p>
+                        <p className='ml-3'>{appointment.date}</p>
+                        </div>
+
                          </div>
                        
                          <p className='mt-3 text-red-500'>Alart- You should arrive in Chamber 2 Hours Earlier of appointment time</p>
@@ -161,8 +180,8 @@ const Patient = () => {
                             reports.map(report => 
                                 <tr>
                                 <td>{report.reportName}</td>
-                                <td>{report.Date}</td>
-                                <td className='text-primary'><Link to='prescription'>{report.reports}</Link></td>
+                                <td>{report.date}</td>
+                                <td className='text-primary'><Link to='prescription'>View Report</Link></td>
                             </tr>
                             )
                               

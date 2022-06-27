@@ -3,9 +3,12 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import Report from './Report';
 import SearchDetails from './SearchDetails';
-
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init';
+import axios from 'axios';
 
 const Diagnostic = () => {
+    const [user, loading, error] = useAuthState (auth);
     const [lists, setList] = useState([]);
     const [patients, setPatient] = useState([]);
     const [query, setQuery] = useState([]);
@@ -16,6 +19,19 @@ const Diagnostic = () => {
         return patients.filter((patient) => patient.patient.toLowerCase().includes(query))
     }
 
+
+  //Booked Appointment
+  useEffect ( () => {
+    const getAppointment = async() => {
+        const email = user.email;
+        const url =`http://localhost:5000/diagnosticCenter?email=${email}`;
+      console.log(url);
+        const {data} = await axios.get(url);
+        setList(data);
+        console.log(data);
+    }
+     getAppointment();
+ }, [user])
 
 
     useEffect(() => {
@@ -34,7 +50,7 @@ const Diagnostic = () => {
             <div className='grid lg:w-full sm:w-full gap-6 px-6  '>
                 <div className=' col-span-2 shadow-lg  sm:col-pan-1 h-screen p-5'>
                     <div className='border border-inherit flex justify-between p-3 mb-3'>
-                        <p className='text-2xl'>100 Report Delivered today</p>
+                        <p className='text-2xl'>Report Delivered today({lists.length})</p>
                      
                        
                         <label for="booking-modal" class="btn modal-button ">Delivery Report</label>
@@ -66,9 +82,9 @@ const Diagnostic = () => {
                             <thead className='bg-none'>
                                 <tr>
                                     <th>Patient Name</th>
-                                    <th>Report View</th>
                                     <th>Report Type</th>
-                                    <th>Delivery Time & Date</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -76,9 +92,9 @@ const Diagnostic = () => {
                                     lists.map(list =>
                                         <tr>
                                             <td>{list.patientName}</td>
-                                            <td>{list.viewReport}</td>
-                                            <td>{list.reportType}</td>
-                                            <td>{list.deliveryTime}</td>
+                                            <td>{list.reportName}</td>
+                                            <td>{list.date}</td>
+                                            <td>{list.time}</td>
 
                                         </tr>
                                     )
