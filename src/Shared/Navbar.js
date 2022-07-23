@@ -1,7 +1,7 @@
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { signOut } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import DetailsSearch from '../MainPages/SearchBar/DetailsSearch';
 import BookingAppointment from '../MainPages/SearchBar/BookingAppointment';
 import auth from '../firebase.init';
@@ -13,6 +13,7 @@ const Navbar = () => {
   const [appointment, setAppointment] = useState(null);
 //authState
   const [user, loading, error] = useAuthState (auth);
+  const navigate = useNavigate()
 
   const Logout = () => {
     signOut (auth);
@@ -33,7 +34,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <div class="navbar  bg-base-100 px-8">
+      <div class="navbar  background-color px-8">
         <div class="navbar-start  ">
           <h2>Find Doctor</h2>
         </div>
@@ -57,7 +58,7 @@ const Navbar = () => {
       
         
 
-        <div class="navbar-end  ">
+        <div class="navbar-end text-white ">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
           </svg>
@@ -77,10 +78,7 @@ const Navbar = () => {
               </label>
               <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                 <li>
-                  <a class="justify-between">
-                    Profile
-                    <span class="badge">New</span>
-                  </a>
+                  <a className="justify-between cursor-pointer" onClick={() => navigate('/profile')}>Profile</a>
                 </li>
                 <li><a>Settings</a></li>
                 <li> { user ? <button class="btn btn-ghost" onClick={Logout}>log Out</button> : <Link to="/login">Log in</Link>} </li>
@@ -88,7 +86,7 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-        <ul>
+        <ul className='text-white'>
           <li><Link to='patient'>Patient</Link>   </li>
           <li><Link to='doctor'>Doctor</Link>   </li>
           <li><Link to='prescription'>Prescription</Link></li>
@@ -99,7 +97,7 @@ const Navbar = () => {
         </ul>
       </div>
       <div className='flex justify-center  '>
-      <div className='lg:w-6/12 sm:w-96 absolute  backdrop-blur-sm bg-white/30 p-5  min-h-[auto]'>
+      <div className='lg:w-6/12 sm:w-96 absolute  p-5  min-h-[auto]'>
       <DetailsSearch setAppointment={setAppointment} users={search(users)}  />
       </div>
       {

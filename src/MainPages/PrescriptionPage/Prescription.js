@@ -1,63 +1,35 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init';
 
 const Prescription = () => {
-    const handleBooking = event => {
-        event.preventDefault()
-        const prescription = event.target.prescription.value;
-        const textBox = event.target.textBox.value;
-        const patientProfile = event.target.patientProfile.value;
-        const patientName = event.target.patientName.value;
-        const age = event.target.age.value;
-        const Address = event.target.Address.value;
-        const visit = event.target.visit.value;
-        //
-        const doctorProfile = event.target.doctorProfile.value;
-        const doctorName = event.target.doctorName.value;
-        const degree = event.target.degree.value;
-        const specialist = event.target.specialist.value;
-        const chamber = event.target.chamber.value;
-        const closed = event.target.closed.value;
+    const [user, loading, error] = useAuthState (auth );
+   const [medicines, setMedicine] = useState([])
 
-     
-         const booking = {
-          prescription,
-          textBox,
-          patientProfile,
-          patientName,
-          age,
-          Address,
-          visit,
-          doctorProfile,
-          doctorName,
-          degree,
-          specialist,
-          chamber,
-          closed
 
-      }
-   console.log(booking);
-    }
-//Patient Profile
-    const patientName = 'Abidur Rahman';
-    const patientProfile= 'Patient Profile';
-    const age = '30 years old';
-    const address = 'sherPur';
-    const lastVisit = '2 month Ago'
 
-//Doctor Profile
-   
-   const doctorProfile = 'Doctor Profile'
-   const doctorName = 'md.Wahidur Rahman'
-   const degree =  "MBBS (Dhaka),FCPS (Med), <br/> FACP(USA, FRCP, Edin)"
-   const specialist = "Medicine Specialist"
-   const chamber = "Popular MedicalCenter, Sylhet"
-   const closed = "(Friday and Govt holiday Closed)"
+
+
 
     
+    useEffect(() => {
+        const getMedicine = async () => {
+            const email = user.email;
+            const url = `http://localhost:5000/prescriptionMedicine?email=${email}`;
+            console.log(url);
+            const { data } = await axios.get(url);
+            setMedicine(data);
+            console.log(data);
+        }
+        getMedicine();
+    }, [user])
+
   
     return (
         <div>
-            <form onSubmit={handleBooking}>
+           
             <div className='grid lg:grid-cols-4 sm:grid-cols-1 gap-5 mt-8'>
                 <div className='bg-state-200 shadow-lg min-h-[700px] p-8'>
                     {/* <div className='text-left'>
@@ -79,26 +51,44 @@ const Prescription = () => {
            
                 <div className='bg-state-200 shadow-lg col-span-2 min-h-[700px]'>
                     <div className='flex justify-between bg-gray-50 pt-8 px-5 py-3'>
-                        <div className='text-left w-30'>
-                        <input type="text" name='patientProfile' className='text-xl mb-2'  value={patientProfile} disabled /> <br/>
-                           <span>Patient Name: <input type="text" name='patientName'  value={patientName} disabled /></span> <br/>
-                          <span>Age: <input type="text" name='age' placeholder='' value={age} disabled /></span>  <br/>
-                           <span>Address: <input type="text" name='Address'  value={address} disabled /></span> <br/>
-                           <span>Last Visit: <input type="text" name='visit' value={lastVisit} disabled /></span> 
-                            
-                        </div>
-                        <div className='text-left'>
-                        <input type="text" name='doctorProfile' className='text-xl mb-2'  value={doctorProfile} disabled /> <br/>
-                           <span>Doctor Name: <input type="text" name='doctorName'  value={doctorName} disabled /></span> <br/>
-                          <span>Degree: <input type="text" name='degree'  value={degree} disabled /></span>  <br/>
-                           <span>Specialist: <input type="text" name='specialist'  value={specialist} disabled /></span> <br/>
-                           <span>Chamber: <input type="text" name='chamber' value={chamber} disabled /></span> <br/>
-                           <span>Closed: <input type="text" name='closed' value={closed} disabled /></span> 
-                        </div>
+                      <>
+                      {
+                          medicines.map(medicine=>
+                            <div className='text-left w-30'>
+                              <p>Doctor Profile</p>
+                              <p>{medicine.doctorName}</p>
+                              <p>{medicine.degree}</p>
+                              <p>{medicine.expertise}</p>
+                              <p>{medicine.chamber}</p>
+                            </div>
+                            )
+                        }
+                        </>
+                      <>
+                      {
+                          medicines.map(medicine=>
+                            <div className='text-left w-30'>
+                              <p>Patient Profile</p>
+                              <p>Name: {medicine.patient}</p>
+                              <p>Age: {medicine.age}</p>
+                              <p>Address: {medicine.address}</p>
+                              <p>Patient Type: {medicine.patientType}</p>
+                            </div>
+                            )
+                        }
+                        </>
+                    
+
+                   
                     </div>
                     <div className='grid grid-cols-1 p-5 min-h-[600px] '>
-                    <textarea className='p-5' type='text' name='prescription'>Write prescription</textarea>
-                    <button className='btn mt-5 btn-primary'>Saved Prescription</button>
+                    {
+                          medicines.map(medicine=>
+                            <textarea className='p-5' type='text' name='prescription'>{medicine.prescriptionText}</textarea>
+                            )
+                        }
+                   
+              
 
 
                     </div>
@@ -121,7 +111,7 @@ const Prescription = () => {
                 </div>
               
             </div>
-            </form>
+          
         </div>
     );
 };

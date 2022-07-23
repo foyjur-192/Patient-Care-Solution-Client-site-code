@@ -36,3 +36,18 @@
     transform: rotate(360deg);
   }
 }
+
+
+.background-Color{
+  background-color: #282c34;
+  background: cover;
+ 
+}
+
+.secondary-color{
+  background-color: #353767;
+}
+
+.secondary-color-2 {
+  color: #15D1DF;
+}

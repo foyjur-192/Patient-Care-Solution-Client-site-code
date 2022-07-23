@@ -1,62 +1,109 @@
 import axios from 'axios';
+import auth from '../firebase.init';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { Link } from 'react-router-dom';
-import auth from '../firebase.init';
+import { Link, useNavigate } from 'react-router-dom';
+import ReactApexChart from 'react-apexcharts';
+import { toast, ToastContainer } from 'react-toastify';
+import ReportView from './ReportView';
+
+
+
+
 
 
 
 const Patient = () => {
     const [user] = useAuthState(auth);
-    const [doctors, setDoctors] = useState([]);
     const [reports, setReports] = useState([]);
+    const [pressures, setPressure] = useState([])
+    const [problems, setProblem] = useState([])
     const [appointments, setAppointment] = useState([]);
-
-
+    const [medicines, setMedicine] = useState([])
+    const navigate = useNavigate()
+    var currentDate = new Date().toLocaleDateString();
+    //Report PopUp
+    const [popUpContents, setPopUpContent] = useState([]);
+    const changeContent = (report) => {
+        setPopUpContent([report])
+    };
     // Doctors
-    useEffect(() => {
-      fetch('visitDoctor.JSON')
-      .then(res => res.json())
-      .then(data => setDoctors(data));
-     
-     },[])
 
     //  //Reports
     // useEffect(() => {
     //   fetch('report.JSON')
     //   .then(res => res.json())
     //   .then(data => setReports(data));
-     
+
     //  },[])
-
-
-  //Reports
-  useEffect ( () => {
-    const getReports = async() => {
-        const email = user.email;
-        const url =`http://localhost:5000/userReport?email=${email}`;
-      console.log(url);
-        const {data} = await axios.get(url);
-        setReports(data);
-        console.log(data);
-    }
-     getReports();
- }, [user])
-
-
-
-  //Booked Appointment
-    useEffect ( () => {
-        const getAppointment = async() => {
+    //Prescription
+    useEffect(() => {
+        const getMedicine = async () => {
             const email = user.email;
-            const url =`http://localhost:5000/appointment?email=${email}`;
-          console.log(url);
-            const {data} = await axios.get(url);
+            const url = `http://localhost:5000/prescriptionMedicine?email=${email}`;
+            console.log(url);
+            const { data } = await axios.get(url);
+            setMedicine(data);
+            console.log(data);
+        }
+        getMedicine();
+    }, [user])
+
+
+    //Reports
+    useEffect(() => {
+        const getReports = async () => {
+            const email = user.email;
+            const url = `http://localhost:5000/userReport?email=${email}`;
+            console.log(url);
+            const { data } = await axios.get(url);
+            setReports(data);
+            console.log(data);
+        }
+        getReports();
+    }, [user])
+
+
+    //update Blood Pressure
+    useEffect(() => {
+        const getBloodPressure = async () => {
+            const email = user.email;
+            const url = `http://localhost:5000/pressureData?email=${email}`;
+            console.log(url);
+            const { data } = await axios.get(url);
+            setPressure(data);
+            console.log(data);
+        }
+        getBloodPressure();
+    }, [user])
+
+    //update Heart Data
+    useEffect(() => {
+        const getBloodPressure = async () => {
+            const email = user.email;
+            const url = `http://localhost:5000/heartData?email=${email}`;
+            console.log(url);
+            const { data } = await axios.get(url);
+            setProblem(data);
+            console.log(data);
+        }
+        getBloodPressure();
+    }, [user])
+
+
+
+    //Booked Appointment
+    useEffect(() => {
+        const getAppointment = async () => {
+            const email = user.email;
+            const url = `http://localhost:5000/appointment?email=${email}`;
+            console.log(url);
+            const { data } = await axios.get(url);
             setAppointment(data);
             console.log(data);
         }
-         getAppointment();
-     }, [user])
+        getAppointment();
+    }, [user])
 
     // useEffect ( () => {
     //     const getAppointment = async() => {
@@ -69,191 +116,503 @@ const Patient = () => {
     //     getAppointment();
     // }, [])
 
+    //Handle the Blood Pressure update
+    const handlePressureUpdate = event => {
+        event.preventDefault()
+
+        const update = event.target.update.value;
+        const email = event.target.email.value;
+        const date = event.target.date.value;
+
+
+        const pressureData = {
+            update,
+            email,
+            date
+        }
+        console.log(pressureData);
+
+        fetch('http://localhost:5000/pressureData', {
+
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(pressureData)
+
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    toast(`Updated Successfully set`)
+                }
+            })
+    }
+
+
+
+
+    //Handle the Heart problem update
+    const handleHeartUpdate = event => {
+        event.preventDefault()
+
+        const heartUpdate = event.target.heartUpdate.value;
+        const email = event.target.email.value;
+        const dates = event.target.dates.value;
+
+        const heartProblem = {
+            heartUpdate,
+            email,
+            dates
+
+        }
+        console.log(heartProblem);
+
+        fetch('http://localhost:5000/heartData', {
+
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(heartProblem)
+
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    toast(`Updated Successfully set`)
+                }
+            })
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    const [state, setState] = useState({
+        series: [{
+
+            name: 'series1',
+            data: [31, 40, 28, 51, 42, 109, 100]
+        }, {
+            name: 'series2',
+            data: [11, 32, 45, 32, 34, 52, 41]
+        }],
+        options: {
+            chart: {
+                height: 200,
+                type: 'area'
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                curve: 'smooth'
+            },
+
+            yaxis: {
+                labels: {
+                    style: {
+                        color: '#fff'
+                    }
+                },
+                xaxis: {
+
+                    type: 'datetime',
+                    categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+                },
+            },
+
+
+
+            tooltip: {
+                x: {
+                    format: 'dd/MM/yy HH:mm'
+                },
+            },
+        },
+
+
+    })
+
 
 
 
 
 
     return (
-        <div className='mt-12'>
-           <div className='grid lg:grid-cols-2 sm:grid-cols-1 md:grid-cols-1  gap-5 px-6'>
-           <div className='bg-Slate-100 min-h-[500px]'>
-           <div class="overflow-x-auto">
-                    <table class="table  w-full">
-                        {/* <!-- head --> */}
-                        <thead>
-                            <tr>
-                                <th>Doctor Name</th>
-                                <th>Chamber</th>
-                                <th>Location</th>
-                                <th>Prescription</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+        <div className='grid lg:grid-cols-4  gap-4 px-8 md:grid-cols-2 sm:grid-cols-1'>
+            <div className='lg:col-span-3  overflow-auto min-h-[700px] secondary-color'>
+                <div className='flex justify-between px-5 py-5'>
+                    <div><p className='text-white font-bold lg:text-base sm:text-sm'>Visited Doctors</p></div>
+                    <div><p className='text-white font-bold sm:text-sm'>2021-2022</p></div>
+                </div>
+                <table className='table-auto w-full text-left whitespace-no-wrap mb-5 text-white ' >
+                    <thead className='pt-6 mb-5'  >
+                        <tr className='' >
+                            <th className=' text-left px-5 py-4 ' >Doctor Name</th>
+                            <th className='text-left  py-4'>Chamber</th>
+                            <th className='text-left  py-4'>Location</th>
+                            <th className='text-left  py-4'>Prescription</th>
+                        </tr>
+                    </thead>
+                    <tbody className='pt-12 border border-blue-900 border-y-gray-600 py-5'>
                         {
-                            doctors.slice(0,5).map(doctor => 
+                            medicines.map(medicine =>
                                 <tr>
-                                <td>{doctor.doctorName}</td>
-                                <td>{doctor.chamber}</td>
-                                <td>{doctor.location}</td>
-                                <td className='text-primary'><Link to='prescription'>{doctor.prescription}</Link></td>
-                            </tr>
-                            )
-                            }
-                  </tbody>
-                    </table>
-                </div>
-           </div>
-           <div className='bg-Slate-100 min-h-[500px]'>
-           <div className=''>
-                <div className='bg-Slate-300  shadow-lg text-left px-4 min-h-[200px] py-8'>
-                    <h2 className='text-2xl font-median-bold mb-6 '>Appointment</h2>
-                   {
-                       appointments.slice(0,3).map(appointment =>
-                        <div>
-                        <div className='flex inline-block mt-5'>
-                         <img alt="doctor" class="w-12 h-12 mb-3 object-cover object-center rounded-full inline-block border-2" src="https://t4.ftcdn.net/jpg/00/58/33/17/240_F_58331714_RO7gYyfIE19CcD9MzJZxwEqqeetvtyhA.jpg"/> 
-                         <p className='mt-2 ml-3'>Doctor: {appointment.doctor}</p>
-                         </div>
-                         <div className='flex content-center'>
-                             <div className='flex-initial text-left'> <p className=''>Your Appointment Time </p>
-                        <p className='ml-3'>{appointment.slot}</p>
-                        <p className='ml-3'>{appointment.date}</p>
-                        </div>
-
-                         </div>
-                       
-                         <p className='mt-3 text-red-500'>Alart- You should arrive in Chamber 2 Hours Earlier of appointment time</p>
-                        </div>
-                        
-                        )
-                   }
-                </div>
+                                    <td className='text-sm text-left pl-5'>{medicine.doctorName}</td>
+                                    <td className='text-sm text-left'>{medicine.chamber}</td>
+                                    <td className='text-sm text-left'>{medicine.chamberAddress}</td>
+                                    <td className='text-white text-left cursor-pointer secondary-color-2 ' onClick={() => navigate('/prescription')}> View</td>
+                                </tr>
+                            )}
+                    </tbody>
+                </table>
             </div>
-            <div className='grid lg:grid-cols-2 sm:grid-cols-1 md:grid-cols-1  gap-3 px-2 py-2' >
-                <div className='bg-Slate-300 shadow-lg h-72'>
-                <div className='Chart-one'>
-                <h1>Hello</h1>
-                </div>
-                <div className='bg-Slate-300 shadow-lg h-72'></div>
-            </div>
-                <div className='bg-Slate-300 shadow-lg h-72'>
-                <div className='Chart-one'>
-                <h1>Hello</h1>
-                </div>
-                <div className='bg-Slate-300 shadow-lg h-72'></div>
-            </div>
-                <div className='bg-Slate-300 shadow-lg h-72'>
-                <div className='Chart-one'>
-                <h1>Hello</h1>
-                </div>
-                <div className='bg-Slate-300 shadow-lg h-72'></div>
-            </div>
-                <div className='bg-Slate-300 shadow-lg h-72'>
-                <div className='Chart-one'>
-                <h1>Hello</h1>
-                </div>
-                <div className='bg-Slate-300 shadow-lg h-72'></div>
-            </div>
-              
-      
-
-           </div>
-           </div>
-
-        {/* Section-Two */}
-               <div className=''>
-            <div className='bg-Slate-100 min-h-[500px] mt-8 shadow-lg p-5 '>
-           <div class="overflow-x-auto">
-           <table class="table  w-full">
-                        {/* <!-- head --> */}
-                        <thead>
-                            <tr>
-                               
-                                <th>Recent Medical Report</th>
-                                <th>Date</th>
-                                <th>Reports</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+            <div className='lg:col-span-1 min-h-[250px] secondary-color text-white '>
+                <div className=''>
+                    <div className='bg-Slate-300  text-left px-4  py-8'>
+                        <h2 className='text-2xl font-median-bold mb-6 '>Appointment</h2>
                         {
-                            reports.map(report => 
-                                <tr>
-                                <td>{report.reportName}</td>
-                                <td>{report.date}</td>
-                                <td className='text-primary'><Link to='prescription'>View Report</Link></td>
-                            </tr>
+                            appointments.slice(0, 3).map(appointment =>
+                                <div>
+                                    <div className='flex inline-block mt-5'>
+                                        <img alt="doctor" class="w-12 h-12 mb-3 object-cover object-center rounded-full inline-block border-2" src="https://t4.ftcdn.net/jpg/00/58/33/17/240_F_58331714_RO7gYyfIE19CcD9MzJZxwEqqeetvtyhA.jpg" />
+                                        <p className='mt-2 ml-3'>Doctor: {appointment.doctor}</p>
+                                    </div>
+                                    <div className='flex content-center'>
+                                        <div className='flex-initial text-left'> <p className=''>Your Appointment Time </p>
+                                            <p className='ml-3'>{appointment.slot}</p>
+                                            <p className='ml-3'>{appointment.date}</p>
+                                        </div>
+
+                                    </div>
+
+                                    <p className='mt-3 text-red-500'>Alart- You should arrive in Chamber 2 Hours Earlier of appointment time</p>
+                                </div>
+
                             )
-                              
                         }
-                  </tbody>
-                    </table>
+                    </div>
                 </div>
-           </div>
+            </div>
+            <div className='lg:col-span-1 text-white  min-h-[200px] secondary-color'>
+                <p className='text-left font-medium font-base pl-5 pt-5'>Blood Pressures</p>
+
+                <div className='max-w-full'>
+                    <ReactApexChart options={state.options} series={state.series} type="area" height={200} className="max-w-full" />
+                </div>
+
+
+            </div>
+            <div className='lg:col-span-1 text-white  min-h-[200px] secondary-color'>
+                <p className='text-left font-medium font-base pl-5 pt-5'>Heart Rate</p>
+                <div >
+                    <ReactApexChart options={state.options} series={state.series} type="area" height={200} className="max-w-full" />
+                </div>
+            </div>
+            <div className='lg:col-span-1 text-white  min-h-[200px] secondary-color'>
+                <p className='text-left font-medium font-base pl-5 pt-5'>Cholesterol</p>
+                <div >
+                    <ReactApexChart options={state.options} series={state.series} type="area" height={200} className="max-w-full" />
+                </div>
+            </div>
+            <div className='lg:col-span-1 text-white  min-h-[200px] secondary-color'>
+                <p className='text-left font-medium font-base pl-5 pt-5'>Glucose Room</p>
+                <div >
+                    <ReactApexChart options={state.options} series={state.series} type="area" height={200} className="max-w-full" />
+                </div>
             </div>
 
-      
-           
-           <div className='bg-Slate-100 min-h-[500px]'>
-      
-            {/* <div className='grid lg:grid-cols-2 sm:grid-cols-1 md:grid-cols-1  gap-3 px-2 py-2' >
-                <div className='bg-Slate-300 shadow-lg h-72'>Hi joosh</div>
-                <div className='bg-Slate-300 shadow-lg h-72'>Hello bosh</div>
-            </div> */}
-            <div className=''>
-            <div className='bg-Slate-100 min-h-[500px] mt-8 shadow-lg p-5 '>
-           <div class="overflow-x-auto">
-                    <table class="table  w-full ">
-                        {/* <!-- head --> */}
-                        <thead>
-                            <tr>
+            <div className='lg:col-span-2  min-h-[336px] secondary-color'>
+                <table className='table-auto w-full text-left whitespace-no-wrap mb-5 text-white ' >
+                    <thead className='pt-6 mb-5'  >
+                        <tr className='' >
+                            <th className=' text-left px-5 py-4 ' >Recent Medical Report</th>
+                            <th className='text-left  py-4'>Date</th>
+                            <th className='text-left  py-4'>Report</th>
+
+                        </tr>
+                    </thead>
+                    <tbody className='pt-12 border border-blue-900 border-y-gray-600 py-5'>
+                        {
+                            reports.map(report =>
+                                <tr>
+                                    <td className='text-sm text-left pl-5'>{report.reportName}</td>
+                                    <td className='text-sm text-left'>{report.date}</td>
+                                    <td className='text-white text-left cursor-pointer secondary-color-2 '><label onClick={() => changeContent(report)} for="report-modal" >View Report</label></td>
+
+
+                                </tr>
+                            )}
+                        <input type="checkbox" id="report-modal" class="modal-toggle" />
+                        <div class="modal">
+                            <div class="modal-box lg:max-w-5xl sm:max-w-xs sm:modal-middle  ">
+                                <label for="report-modal" class="btn btn-sm btn-circle absolute secondary-color-2 right-2 top-2">✕</label>
+                               {
+                                popUpContents.map(pop => 
+                                    <>
+                                    <h1 className='text-black text-2xl mb-3'>{pop.reportName}</h1>
+                                    <img className='w-full h-full' src={pop.img} alt="No Image"/>
+                                    </>
+                            
+                                )
+                               }
                                
-                                <th>Decreased Names</th>
-                                <th>Common Decease</th>
-                                <th>2010-2021</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        
-                            <tr>
-                                <td>High Blood Pressure</td>
-                                <td>Running</td>
-                                <td className='text-primary'><Link to='prescription'>Edit</Link></td>
-                            </tr>
-                            <tr>
-                                <td>Heart Problem</td>
-                                <td>Running</td>
-                                <td className='text-primary'><Link to='prescription'>Edit</Link></td>
-                            </tr>
-                            <tr>
-                                <td>Cholesterols</td>
-                                <td>Running</td>
-                                <td className='text-primary'><Link to='prescription'>Edit</Link></td>
-                            </tr>
-                            <tr>
-                                <td>Zoint Pain</td>
-                                <td>Running</td>
-                                <td className='text-primary'><Link to='prescription'>Edit</Link></td>
-                            </tr>
-                            <tr>
-                                <td>Fever</td>
-                                <td>Sometimes</td>
-                                <td className='text-primary'><Link to='prescription'>Edit</Link></td>
-                            </tr>
-                       
-                  </tbody>
-                    </table>
-                </div>
-           </div>
-            </div>
-      
-           </div>
-           </div>
+                               
+                                
 
- 
-   
+                            </div>
+                        </div>
+
+
+
+                    </tbody>
+                </table>
+            </div>
+            <div className='lg:col-span-2  min-h-[336px] secondary-color '>
+                <table className='table-auto w-full text-left whitespace-no-wrap mb-5 text-white ' >
+                    <thead className='pt-6 mb-5'  >
+                        <tr className='' >
+                            <th className=' text-left px-5 py-4 ' >Decreased Names</th>
+                            <th className='text-left  py-4'>Common Decease</th>
+                            <th className='text-left  py-4'>2010-2021</th>
+                        </tr>
+                    </thead>
+                    <tbody className='pt-12 border border-blue-900 py-5 px-5'>
+                        <tr >
+                            <td className=' border-y-gray-600 pl-5'>High Blood Pressure</td><td>
+                                {
+                                    pressures.slice(0, 1).map(pressure =>
+
+                                        <p>{pressure.update}</p>
+
+                                    )
+                                }
+
+                            </td>
+                            <td>
+                                <label for="pressure-modal" class="secondary-color-2 cursor-pointer">Update</label>
+
+
+                                <input type="checkbox" id="pressure-modal" class="modal-toggle" />
+                                <div class="modal modal-bottom sm:modal-middle">
+                                    <div class="modal-box secondary-color">
+                                        <label for="pressure-modal" class="btn btn-sm secondary-color-2 absolute right-2 top-2">✕</label>
+                                        <p className='text-white text-xl'>Update the Blood Pressure Condition</p>
+                                        <form onSubmit={handlePressureUpdate}>
+                                            <input type="text" name='update' class="mb-2 mt-5 text-black input input-bordered w-full max-w-xs " required />
+                                            <input type="hidden" name='email' value={user?.email} class=" mb-2 input input-bordered w-full max-w-xs" />
+                                            <input type="hidden" name='date' value={currentDate} class=" mb-2 input input-bordered w-full max-w-xs" />
+
+                                            <div class="modal-action justify-start" >
+                                                <input for="pressure-modal" type="submit" value="Update" class="btn bg-teal-500 mb-2 ml-2  cursor-pointer " />
+
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className='pl-5'>Heart Problem</td>
+                            <td>
+                                {
+                                    // eslint-disable-next-line array-callback-return
+                                    problems.slice(0, 1).map(problem =>
+
+                                        <p>{problem.update}</p>
+
+                                    )
+                                }
+
+
+
+
+
+                            </td>
+                            <td className='text-primary'>
+                                <label for="heart-modal" class="secondary-color-2 cursor-pointer">Update</label>
+
+
+                                <input type="checkbox" id="heart-modal" class="modal-toggle" />
+                                <div class="modal modal-bottom sm:modal-middle  ">
+                                    <div class="modal-box secondary-color ">
+                                        <label for="heart-modal" class="btn btn-sm btn-circle absolute secondary-color-2 right-2 top-2">✕</label>
+                                        <p className='text-white text-xl'>Update the Heart Condition</p>
+                                        <form onSubmit={handleHeartUpdate}>
+                                            <input type="text" name='heartUpdate' class="mb-2 mt-5 text-black input input-bordered-white w-full max-w-xs " required />
+                                            <input type="hidden" name='email' value={user?.email} class=" mb-2 input input-bordered w-full max-w-xs" />
+                                            <input type="hidden" name='dates' value={currentDate} class=" mb-2 input input-bordered w-full max-w-xs" />
+                                            <div class="modal-action justify-start">
+                                                <input for="heart-modal" type="submit" value="Update" class="btn bg-teal-500 mb-2 ml-2  cursor-pointer " />
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+
+
+
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className='pl-5'>cholesterol's</td>
+                            <td>Running</td>
+                            <td className='secondary-color-2 cursor-pointer'>Update</td>
+                        </tr>
+                        <tr>
+                            <td className='pl-5'>Zoint Pain</td>
+                            <td>Running</td>
+                            <td className='secondary-color-2 cursor-pointer'>Update</td>
+                        </tr>
+                        <tr>
+                            <td className='pl-5'>Fever</td>
+                            <td>Sometimes</td>
+                            <td className='secondary-color-2 cursor-pointer'>Update</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <ToastContainer />
         </div>
-      
+
+
+
+
+
+
+
+
+        // <div className='mt-12'>
+        //    <div className=' lg:w-4/5 sm:max-w-xs gap-5 px-6'>
+        //    <div className='bg-Slate-100 min-h-[500px]'>
+        //    <div class="overflow-x-auto">
+        //     <table class="table  w-full">
+
+        //         <thead>
+        //             <tr>
+        //                 <th>Doctor Name</th>
+        //                 <th>Chamber</th>
+        //                 <th>Location</th>
+        //                 <th>Prescription</th>
+        //             </tr>
+        //         </thead>
+        //         <tbody>
+        //         {
+        //             medicines.map(medicine => 
+        //                 <tr>
+        //                 <td>{medicine.doctorName}</td>
+        //                 <td>{medicine.chamber}</td>
+        //                 <td>{medicine.chamberAddress}</td>
+        //                 <td className='text-primary cursor-pointer ' onClick={() => navigate('/prescription')}> View</td>
+        //             </tr>
+        //             )
+        //             }
+        //   </tbody>
+        //     </table>
+        //         </div>
+        //    </div>
+        // <div className=''>
+        //     <div className='bg-Slate-100 min-h-[500px] mt-8 shadow-lg p-5 '>
+        //    <div class="overflow-x-auto">
+        //    <table class="table  w-full">
+        //                 <thead>
+        //                     <tr>
+        //                         <th>Recent Medical Report</th>
+        //                         <th>Date</th>
+        //                         <th>Reports</th>
+        //                     </tr>
+        //                 </thead>
+        //                 <tbody>
+        //                 {
+        //                     reports.map(report => 
+        //                         <tr>
+        //                         <td>{report.reportName}</td>
+        //                         <td>{report.date}</td>
+        //                         <td className='text-primary'><Link to='prescription'>View Report</Link></td>
+        //                     </tr>
+        //                     )
+
+        //                 }
+        //           </tbody>
+        //             </table>
+        //         </div>
+        //    </div>
+        // </div>
+
+
+
+        //    <div className='bg-Slate-100 min-h-[500px]'>
+        //     <div className=''>
+        //     <div className='bg-Slate-100 min-h-[500px] mt-8 shadow-lg p-5 '>
+        //    <div class="overflow-x-auto">
+        //             <table class="table  w-full ">
+
+        //                 <thead>
+        //                     <tr>
+
+        //                         <th>Decreased Names</th>
+        //                         <th>Common Decease</th>
+        //                         <th>2010-2021</th>
+        //                     </tr>
+        //                 </thead>
+        //                 <tbody>
+
+        //                     <tr>
+        //                         <td>High Blood Pressure</td>
+        //                         <td>Running</td>
+        //                         <td className='text-primary'><Link to='prescription'>Edit</Link></td>
+        //                     </tr>
+        //                     <tr>
+        //                         <td>Heart Problem</td>
+        //                         <td>Running</td>
+        //                         <td className='text-primary'><Link to='prescription'>Edit</Link></td>
+        //                     </tr>
+        //                     <tr>
+        //                         <td>Cholesterols</td>
+        //                         <td>Running</td>
+        //                         <td className='text-primary'><Link to='prescription'>Edit</Link></td>
+        //                     </tr>
+        //                     <tr>
+        //                         <td>Zoint Pain</td>
+        //                         <td>Running</td>
+        //                         <td className='text-primary'><Link to='prescription'>Edit</Link></td>
+        //                     </tr>
+        //                     <tr>
+        //                         <td>Fever</td>
+        //                         <td>Sometimes</td>
+        //                         <td className='text-primary'><Link to='prescription'>Edit</Link></td>
+        //                     </tr>
+
+        //           </tbody>
+        //             </table>
+        //         </div>
+        //    </div>
+        //     </div>
+
+        //    </div>
+        //    </div>
+
+
+
+        // </div>
+
     );
 };
 

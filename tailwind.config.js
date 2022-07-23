@@ -4,7 +4,7 @@ module.exports = {
     extend: {},
     daisyui: {
       DoctorTheme: {
-        primary: "#ef4444",
+        primary: "#282B4C",
         secondary: "#262626",
         accent: "#37cdbe",
         neutral: "#3d4451",

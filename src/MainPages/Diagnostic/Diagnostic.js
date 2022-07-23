@@ -24,7 +24,7 @@ const Diagnostic = () => {
   useEffect ( () => {
     const getAppointment = async() => {
         const email = user.email;
-        const url =`http://localhost:5000/diagnosticCenter?email=${email}`;
+        const url =`http://localhost:5000/patientReport?email=${email}`;
       console.log(url);
         const {data} = await axios.get(url);
         setList(data);
@@ -34,13 +34,9 @@ const Diagnostic = () => {
  }, [user])
 
 
+
     useEffect(() => {
-        fetch('diagnostic.JSON')
-            .then(res => res.json())
-            .then(data => setList(data));
-    }, [])
-    useEffect(() => {
-        fetch('http://localhost:5000/booking')
+        fetch('http://localhost:5000/dataForSearch')
             .then(res => res.json())
             .then(data => setPatient(data));
     }, [])
@@ -51,7 +47,7 @@ const Diagnostic = () => {
                 <div className=' col-span-2 shadow-lg  sm:col-pan-1 h-screen p-5'>
                     <div className='border border-inherit flex justify-between p-3 mb-3'>
                         <p className='text-2xl'>Report Delivered today({lists.length})</p>
-                     
+                       
                        
                         <label for="booking-modal" class="btn modal-button ">Delivery Report</label>
                         <input type="checkbox" id="booking-modal" class="modal-toggle" />

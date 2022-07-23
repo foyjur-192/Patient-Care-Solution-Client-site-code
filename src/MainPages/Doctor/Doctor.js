@@ -2,7 +2,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import auth from '../../firebase.init';
 import PrescriptionDetails from './PrescriptionDetails';
 
@@ -13,7 +13,7 @@ const Doctor = () => {
     const [newPatients, setNewPatients] = useState([]);
    const [prescriptions, setPrescription] = useState(null);
     const [user, loading, error] = useAuthState(auth);
-    const navigate = useNavigate()
+   
     // Doctors
     // useEffect(() => {
     //     fetch('latestReport.JSON')
@@ -21,6 +21,11 @@ const Doctor = () => {
     //         .then(data => setPatients(data));
 
     // }, [])
+
+
+
+
+
 
 
     // Doctors appointment
@@ -62,15 +67,15 @@ const Doctor = () => {
     // }, [])
     return (
         <div>
-            <div className='grid lg:grid-cols-3 sm:grid-cols-1 gap-6 px-6  '>
-                <div className='bg-state-200 sm:w-full shadow-lg  min-h-[500px] p-5 '>
+            <div className='grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-6 px-6  '>
+                <div className='lg:col-span-1  secondary-color text-white  min-h-[500px] p-5 '>
                     <div class="overflow-x-auto">
                         <table class="table  w-full">
                             {/* <!-- head --> */}
                             <thead>
                                 <tr>
-                                    <th>Patient Name</th>
-                                    <th>See Reports</th>
+                                    <th className=' secondary-color'>Patient Name</th>
+                                    <th className='secondary-color'>See Reports</th>
 
                                 </tr>
                             </thead>
@@ -86,24 +91,23 @@ const Doctor = () => {
                             </tbody>
                         </table>
                     </div>
-
-
                 </div>
-                <div className='bg-state-300 col-span-2 shadow-lg  sm:col-pan-1 min-h-[500px] p-5'>
-                    <div className='border border-inherit flex justify-between p-3 mb-3'>
+                
+                <div className='lg:col-span-3  overflow-auto min-h-[500px] secondary-color  p-5'>
+                    <div className='border border-inherit text-white flex justify-between p-3 mb-3'>
                         <p>Today Patient List</p>
                         <p>Today Appointment Limit-100</p>
                     </div>
                     <div class="overflow-x-auto">
                         <table class="table  w-full">
                             {/* <!-- head --> */}
-                            <thead className='bg-none'>
+                            <thead>
                                 <tr>
-                                    <th>Patient Name</th>
-                                    <th>Time Slot</th>
-                                    <th>Date</th>
-                                    <th> Diagnostic Center name</th>
-                                    <th> Prescription</th>
+                                    <th className='secondary-color text-white' >Patient Name</th>
+                                    <th className='secondary-color text-white'>Time Slot</th>
+                                    <th className='secondary-color text-white'>Date</th>
+                                    <th className='secondary-color text-white '> Diagnostic Center name</th>
+                                    <th className='secondary-color text-white'> Prescription</th>
 
                                 </tr>
                             </thead>
@@ -132,21 +136,14 @@ const Doctor = () => {
                          </PrescriptionDetails>
                       
                         }
-
-                   
-
-
-            
-
                 </div>
+          
+                <div className='lg:col-span-3  overflow-auto min-h-[400px] secondary-color'>    </div>
 
 
-            </div>
 
-            <div className='grid lg:grid-cols-3 sm:grid-cols-1 gap-6 px-6 mt-8 mb-8'>
-                <div className='col-span-2 bg-state-200 shadow-lg min-h-[400px]'>    </div>
-                <div className='bg-state-200  min-h-[400px] grid grid-rows-2 grid-flow-col gap-6'>
-                    <div className='bg-state-200  shadow-lg min-h-[180px] p-5'>
+                <div className='lg:col-span-1  overflow-auto min-h-[400px] secondary-color gap-6 text-white'>
+                    <div className='p-5'>
                         <div className='flex justify-between'>
                             <p>Patient</p>
                             <p>2020/2021</p>

@@ -15,7 +15,8 @@ import RequiredAuth from './Shared/RequiredAuth';
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; //Must Import Css for toast
 import DetailsSearch from './MainPages/SearchBar/DetailsSearch';
-import PrescriptionDetails from './MainPages/Doctor/PrescriptionDetails';
+import Profile from './Shared/Profile';
+
 
 
 function App() {
@@ -31,7 +32,7 @@ function App() {
 
 
   return (
-    <div className="App">
+    <div className="App background-Color">
       <Navbar />
       <Routes>
          <Route path='/detailSearch' element={  <RequiredAuth> <DetailsSearch></DetailsSearch> </RequiredAuth>  }></Route>
@@ -40,7 +41,9 @@ function App() {
         <Route path='/prescription' element={ <RequiredAuth><Prescription></Prescription></RequiredAuth> }></Route>
         <Route path='/patient' element={ <RequiredAuth>  <Patient></Patient></RequiredAuth> }></Route>
         <Route path='/diagnostic' element={ <RequiredAuth><Diagnostic></Diagnostic></RequiredAuth> }></Route>
-
+        <Route path='/profile' element={ <RequiredAuth><Profile></Profile> </RequiredAuth> }></Route>
+       
+          
 
 
         <Route path='/logIn' element={<LogIn></LogIn>}></Route>
