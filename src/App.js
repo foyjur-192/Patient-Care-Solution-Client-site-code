@@ -16,7 +16,7 @@ import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; //Must Import Css for toast
 import DetailsSearch from './MainPages/SearchBar/DetailsSearch';
 import Profile from './Shared/Profile';
-
+import 'simplebar-react/dist/simplebar.min.css';
 
 
 function App() {
@@ -27,6 +27,7 @@ function App() {
   //         .then(res => res.json())
   //         .then(data => setData(data));
 
+
   // }, [])
 
 
@@ -35,6 +36,7 @@ function App() {
     <div className="App background-Color">
       <Navbar />
       <Routes>
+   
          <Route path='/detailSearch' element={  <RequiredAuth> <DetailsSearch></DetailsSearch> </RequiredAuth>  }></Route>
         <Route path='/patient' element={  <RequiredAuth> <Patient></Patient> </RequiredAuth>  }></Route>
         <Route path='/doctor' element={ <RequiredAuth><Doctor></Doctor></RequiredAuth>  }></Route>
@@ -54,8 +56,9 @@ function App() {
        
         {/* <Route path='/searchBar' element={ <SearchBar></SearchBar> }></Route> */}
 
-
+  
       </Routes>
+   
       <ToastContainer/>
     </div>
   );

@@ -14,7 +14,7 @@ const SearchDetails = ({patients, setReports}) => {
             <p className='text-sm '> {patient.doctorEmail}</p>
             </div>
             <label
-            for="delivery-modal"   onClick={() => setReports(patient)} class="btn modal-button">Delivery Report</label>
+              onClick={() => setReports(patient)} for="delivery-modal" class="btn modal-button">Delivery Report</label>
             </div>
 
            ))

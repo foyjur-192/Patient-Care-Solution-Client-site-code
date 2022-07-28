@@ -44,12 +44,12 @@ const Diagnostic = () => {
     return (
         <div>
             <div className='grid lg:w-full sm:w-full gap-6 px-6  '>
-                <div className=' col-span-2 shadow-lg  sm:col-pan-1 h-screen p-5'>
-                    <div className='border border-inherit flex justify-between p-3 mb-3'>
-                        <p className='text-2xl'>Report Delivered today({lists.length})</p>
+                <div className=' col-span-2  sm:col-pan-1 h-screen p-5'>
+                    <div className=' flex justify-between p-3 mb-3'>
+                        <p className='text-2xl text-white'>Report Delivered today({lists.length})</p>
                        
                        
-                        <label for="booking-modal" class="btn modal-button ">Delivery Report</label>
+                        <label for="booking-modal" class="btn modal-button secondary-color-2 ">Delivery Report</label>
                         <input type="checkbox" id="booking-modal" class="modal-toggle" />
                         <div class="modal modal-bottom sm:modal-middle">
                             <div class="modal-box">
@@ -72,15 +72,15 @@ const Diagnostic = () => {
                             </div>
                         </div>
                     </div>
-                    <div class="overflow-x-auto">
-                        <table class="table  w-full">
+                    <div className="secondary-color min-h-[800px]">
+                        <table class="table  w-full ">
                             {/* <!-- head --> */}
                             <thead className='bg-none'>
                                 <tr>
-                                    <th>Patient Name</th>
-                                    <th>Report Type</th>
-                                    <th>Date</th>
-                                    <th>Time</th>
+                                    <th className='tableHead text-white'>Patient Name</th>
+                                    <th className='tableHead text-white'>Report Type</th>
+                                    <th className='tableHead text-white'>Date</th>
+                                    <th className='tableHead text-white'>Time</th>
                                 </tr>
                             </thead>
                             <tbody>

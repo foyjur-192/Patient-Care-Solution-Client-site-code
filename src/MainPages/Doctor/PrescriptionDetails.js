@@ -113,10 +113,10 @@ const PrescriptionDetails = ({prescriptions}) => {
 
     return (
         <div>
-            <input type="checkbox" id="prescription-modal" class="modal-toggle" />
-            <div class="modal modal-bottom sm:modal-middle">
-                <div class="modal-box">
-                    <label for="prescription-modal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+            <input   type="checkbox" id="prescription-modal" class="modal-toggle" />
+            <div class="modal">
+                <div class="modal-box lg:max-w-5xl sm:max-w-xs sm:modal-middle">
+                    <label for="prescription-modal" class="btn btn-sm btn-circle absolute secondary-color-2 right-2 top-2">✕</label>
                    <form onSubmit={handlePrescription}>
                    <div className="flex justify-between mt-8" > 
                   <div>

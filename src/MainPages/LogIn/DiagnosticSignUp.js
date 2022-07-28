@@ -56,13 +56,13 @@ const DiagnosticSignUp = () => {
            <section class="text-gray-600 body-font relative">
                 <div class="container px-5 py-24 mx-auto ">
               
-                    <div class="lg:w-2/5 md:w-2/3 mx-auto bg-state-200 shadow-lg p-8 ">
-                        <h1 class="sm:text-3xl text-2xl font-medium title-font mb-12 text-gray-900 ">Sign up</h1>
+                    <div class="lg:w-2/5 md:w-2/3 mx-auto secondary-color shadow-lg p-8 ">
+                        <h1 class="sm:text-3xl text-2xl font-medium title-font mb-12 text-white ">Sign up</h1>
                         <form onSubmit={handleSubmit(onSubmit)}>
                         <div class="flex flex-wrap -m-2 ">
                                 <div class="p-2 w-full text-left">
                                     <div class="relative">
-                                        <label for="name" class="leading-7 text-sm text-gray-600"> Full Name of Diagnostic Center/ Hospital</label>
+                                        <label for="name" class="leading-7 text-sm text-white"> Full Name of Diagnostic Center/ Hospital</label>
                                         <input 
                                 
                                                {...register("name", {
@@ -76,7 +76,7 @@ const DiagnosticSignUp = () => {
                                               })}
                                         
                                         
-                                        type="text"  name="name" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                        type="text"  name="name" class="w-full secondary-color border-black  rounded border border-gray-300 focus:border-teal-400 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-white py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                                   <label for="name" className="leading-7 text-sm text-gray-600 text-left">
                                             {errors.name?.type === 'required' && <span className='label-text-alt text-red-500 '>{errors.name.message}</span>}
                                            
@@ -85,7 +85,7 @@ const DiagnosticSignUp = () => {
                                 </div>
                                 <div class="p-2 w-full text-left">
                                     <div class="relative">
-                                        <label for="email" class="leading-7 text-sm text-gray-600 text-left">Email</label>
+                                        <label for="email" class="leading-7 text-sm text-white text-left">Email</label>
                                         <input 
                                          {...register("email", {
 
@@ -101,17 +101,17 @@ const DiagnosticSignUp = () => {
                                             }
                                         })}
         
-                                        type="email"  name="email" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                        type="email"  name="email" class="w-full secondary-color border-black rounded border border-gray-300 focus:border-teal-400 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-white py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                                       <label for="email" className="leading-7 text-sm text-gray-600 text-left">
                                             {errors.email?.type === 'required' && <span className='label-text-alt text-red-500 '>{errors.email.message}</span>}
                                             {errors.email?.type === 'pattern' && <span className='label-text-alt text-red-500 '>{errors.email.message}</span>}
                                         </label>
-
+        
                                     </div>
                                 </div>
                                 <div class="p-2 w-full text-left">
                                     <div class="relative">
-                                        <label for="email" class="leading-7 text-sm text-gray-600 text-left">Password</label>
+                                        <label for="email" class="leading-7 text-sm text-white text-left">Password</label>
                                         <input
                                             {...register("password", {
 
@@ -128,7 +128,7 @@ const DiagnosticSignUp = () => {
 
 
                                             })}
-                                            type="text" name="password" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                            type="text" name="password" class="w-full secondary-color border-black  rounded border border-gray-300 focus:border-teal-400  focus:ring-2 focus:ring-indigo-200 text-base outline-none text-white py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                                         <label for="email" className="leading-7 text-sm text-gray-600 text-left">
                                             {errors.password?.type === 'required' && <span className='label-text-alt text-red-500 '>{errors.password.message}</span>}
                                             {errors.password?.type === 'minLength' && <span className='label-text-alt text-red-500 '>{errors.password.message}</span>}
@@ -141,7 +141,7 @@ const DiagnosticSignUp = () => {
 
                                 <div class="p-2 w-full text-left">
                                     <div class="relative">
-                                        <label for="registration" class="leading-7 text-sm text-gray-600 text-left">Registration Number</label>
+                                        <label for="registration" class="leading-7 text-sm text-white text-left">Registration Number</label>
                                         <input 
                                          {...register("registrationNumber", {
 
@@ -153,7 +153,7 @@ const DiagnosticSignUp = () => {
 
                                         })}
     
-                                        type="text"  name="registrationNumber" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                        type="text"  name="registrationNumber" class="w-full secondary-color border-black  rounded border border-gray-300 focus:border-teal-400  focus:ring-2 focus:ring-indigo-200 text-base outline-none text-white py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                                     <label for="registration" className="leading-7 text-sm text-gray-600 text-left">
                                             {errors.registrationNumber?.type === 'required' && <span className='label-text-alt text-red-500 '>{errors.registrationNumber.message}</span>}
                                            
@@ -162,7 +162,7 @@ const DiagnosticSignUp = () => {
                                 </div>
                                 <div class="p-2 w-full text-left">
                                     <div class="relative">
-                                        <label for="address" class="leading-7 text-sm text-gray-600 text-left">Address</label>
+                                        <label for="address" class="leading-7 text-sm text-white text-left">Address</label>
                                         <input 
                                          {...register("address", {
 
@@ -173,7 +173,7 @@ const DiagnosticSignUp = () => {
                                             }
 
                                         })}
-                                        type="text"  name="address" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                        type="text"  name="address" class="w-full secondary-color border-black  rounded border border-gray-300 focus:border-teal-400  focus:ring-2 focus:ring-indigo-200 text-base outline-none text-white py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                                         <label for="address" className="leading-7 text-sm text-gray-600 text-left">
                                             {errors.address?.type === 'required' && <span className='label-text-alt text-red-500 '>{errors.address.message}</span>}
                                            
@@ -182,7 +182,7 @@ const DiagnosticSignUp = () => {
                                 </div>
                                 <div class="p-2 w-full text-left">
                                     <div class="relative">
-                                        <label for="city" class="leading-7 text-sm text-gray-600 text-left">City</label>
+                                        <label for="city" class="leading-7 text-sm text-white text-left">City</label>
                                         <input 
                                              {...register("city", {
 
@@ -193,7 +193,7 @@ const DiagnosticSignUp = () => {
                                                 }
     
                                             })}
-                                        type="text"  name="city" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                        type="text"  name="city" class="w-full secondary-color border-black  rounded border border-gray-300 focus:border-teal-400 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-white py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                                     <label for="city" className="leading-7 text-sm text-gray-600 text-left">
                                             {errors.city?.type === 'required' && <span className='label-text-alt text-red-500 '>{errors.city.message}</span>}
                                            
@@ -202,14 +202,14 @@ const DiagnosticSignUp = () => {
                                 </div>
                                 <div class="p-2 w-full ">
                                 {signInError}
-                                <button className='btn bg-primary lg:w-full md:w-full sm:w-full mt-4'>Sign Up Now</button>
+                                <button className='btn secondary-bg lg:w-full md:w-full sm:w-full mt-4'>Sign Up Now</button>
                                 </div>
                             {/* </form> */}
                         </div>
                         </form>
                         <div className=''>
-                                <p className='pt-5 mb-3'>Already Member?? <span className='text-primary' onClick={() => navigate('/patientLog')}>Log in</span></p>
-                                <button   onClick={() => signInWithGoogle()} className='btn bg-white text-black lg:w-full md:w-full sm:w-full mt-6'> <img src='https://i.ibb.co/HCd5Pxc/google-logo-google-search-google-account-png-favpng-mmf8xek-Yw-FXSgw-Wu9-E96run-PA-removebg-preview.png' alt="" />   Sign Up with Google</button>
+                                <p className='pt-5 mb-3 text-white'>Already Member?? <span className='secondary-color-2 cursor-pointer' onClick={() => navigate('/patientLog')}>Log in</span></p>
+                                <button   onClick={() => signInWithGoogle()} className='btn secondary-bg2 text-black lg:w-full md:w-full sm:w-full mt-6'> <img src='https://i.ibb.co/HCd5Pxc/google-logo-google-search-google-account-png-favpng-mmf8xek-Yw-FXSgw-Wu9-E96run-PA-removebg-preview.png' alt="" />   Sign Up with Google</button>
 
                         </div>
                     </div>

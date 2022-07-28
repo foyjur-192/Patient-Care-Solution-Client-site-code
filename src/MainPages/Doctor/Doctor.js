@@ -5,15 +5,20 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
 import auth from '../../firebase.init';
 import PrescriptionDetails from './PrescriptionDetails';
-
+import SimpleBar from 'simplebar-react';
+import ReactApexChart from 'react-apexcharts';
 
 const Doctor = () => {
 
     const [reports, setReports] = useState([]);
     const [newPatients, setNewPatients] = useState([]);
-   const [prescriptions, setPrescription] = useState(null);
+    const [prescriptions, setPrescription] = useState(null);
     const [user, loading, error] = useAuthState(auth);
-   
+    //Report Popup
+    const [reportPopUps, setReportPopUps] = useState([]);
+    const showReport = (report) => {
+        setReportPopUps([report])
+    };
     // Doctors
     // useEffect(() => {
     //     fetch('latestReport.JSON')
@@ -57,7 +62,59 @@ const Doctor = () => {
 
 
 
+//Apex Chart
+const [state, setState] = useState({
+    series: [{
+        style: {
+            colors: ['#00D8FF'],
+          },
+        name: 'New Patient',
+        data: [31, 40, 28, 51, 42, 109, 100],
+        color: '#41B883',
+       
+    }, {
+        name: 'Old Patient Return',
+        data: [11, 32, 45, 32, 34, 52, 41],
+        color: '#00D8FF',
+    }],
+    options: {
+        chart: {
+            height: 200,
+            type: 'area'
+        },
+        dataLabels: {
+            enabled: true
+        },
+        stroke: {
+            curve: 'smooth'
+        },
 
+        yaxis: {
+            labels: {
+                style: {
+                    colors : ['#ffffff'],
+                    
+                    
+                }
+            },
+            xaxis: {
+
+                type: 'datetime',
+                categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+            },
+        },
+
+
+
+        tooltip: {
+            x: {
+                format: '22/07/2022 05:30'
+            },
+        },
+    },
+
+
+})
 
     // useEffect(() => {
     //     fetch('newPatient.JSON')
@@ -68,84 +125,130 @@ const Doctor = () => {
     return (
         <div>
             <div className='grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-6 px-6  '>
-                <div className='lg:col-span-1  secondary-color text-white  min-h-[500px] p-5 '>
-                    <div class="overflow-x-auto">
-                        <table class="table  w-full">
+                <div className='lg:col-span-1  secondary-color text-white  min-h-[600px] p-5 '>
+                
+                <div>
+                <SimpleBar  style={{ maxHeight: '600px' }}>
+                        <table class="table table-auto w-full text-left  ">
                             {/* <!-- head --> */}
                             <thead>
                                 <tr>
-                                    <th className=' secondary-color'>Patient Name</th>
-                                    <th className='secondary-color'>See Reports</th>
+                                    <th className=' tableHead'>Patient Name</th>
+                                    <th className='tableHead'>See Reports</th>
 
                                 </tr>
                             </thead>
-                            <tbody>
+                            
+                          
+                          
+                            <tbody className=''>
                                 {
                                     reports.map(report =>
-                                        <tr>
-                                            <td>{report.patientName}</td>
-                                            <td className='text-primary'><Link to='prescription'>See Reports</Link></td>
+                                        <tr className=''>
+                                            <td className='text-white secondary-color'>{report.patientName}</td>
+                                            <td className=' secondary-color-2 secondary-color' ><label for="report-modal" className='cursor-pointer' onClick={() => showReport(report)} >See Report</label></td>
                                         </tr>
                                     )
                                 }
+                         
                             </tbody>
+              
+                            
+                          
+                          
                         </table>
-                    </div>
+                        </SimpleBar>
+                        <div>
+
+
+
+                         {/* <!--Pop up --> */}
+                        <input type="checkbox" id="report-modal" class="modal-toggle" />
+                                <div class="modal">
+                                    <div class="modal-box lg:max-w-5xl sm:max-w-xs sm:modal-middle  ">
+                                        <label for="report-modal" class="btn btn-sm btn-circle absolute secondary-color-2 right-2 top-2">✕</label>
+                                        {
+                                            reportPopUps.map(pop =>
+                                                <>
+                                                    <h1 className='text-black text-2xl mb-3'>{pop.reportName}</h1>
+                                                    <img className='w-full h-full text-black' src={pop.img} alt="No Image" />
+                                                </>
+
+                                            )
+                                        }
+
+
+
+
+                                    </div>
+                                </div>
+                        </div>
+                        </div>
+                        
                 </div>
-                
+
                 <div className='lg:col-span-3  overflow-auto min-h-[500px] secondary-color  p-5'>
                     <div className='border border-inherit text-white flex justify-between p-3 mb-3'>
                         <p>Today Patient List</p>
                         <p>Today Appointment Limit-100</p>
                     </div>
-                    <div class="overflow-x-auto">
-                        <table class="table  w-full">
+                    <div class="">
+                    <SimpleBar  style={{ maxHeight: '600px' }}>
+                        <table class="table table-auto  w-full text-left   text-white">
                             {/* <!-- head --> */}
                             <thead>
                                 <tr>
-                                    <th className='secondary-color text-white' >Patient Name</th>
-                                    <th className='secondary-color text-white'>Time Slot</th>
-                                    <th className='secondary-color text-white'>Date</th>
-                                    <th className='secondary-color text-white '> Diagnostic Center name</th>
-                                    <th className='secondary-color text-white'> Prescription</th>
+                                    <th className='tableHead text-white' >Patient Name</th>
+                                    <th className='tableHead text-white'>Time Slot</th>
+                                    <th className='tableHead text-white'>Date</th>
+                                    <th className='tableHead text-white '> Diagnostic Center name</th>
+                                    <th className='tableHead text-white'> Prescription</th>
 
                                 </tr>
                             </thead>
-                            <tbody>
+                           
+                            <tbody className=''>
                                 {
                                     newPatients.map(newPatient =>
-                                        <tr>
-                                            <td>{newPatient.patient}</td>
-                                            <td>{newPatient.slot}</td>
-                                            <td>{newPatient.date}</td>
-                                            <td className='text-sm'>{newPatient.chamber}</td>
-                                            <td className='text-primary'> <label for="prescription-modal"  onClick={() => setPrescription(newPatient)}  class="btn modal-button">open modal</label></td>
+                                        <tr className=''>
+                                            <td className='secondary-color '>{newPatient.patient}</td>
+                                            <td className='secondary-color'>{newPatient.slot}</td>
+                                            <td className='secondary-color'>{newPatient.date}</td>
+                                            <td className='text-sm secondary-color'>{newPatient.chamber}</td>
+                                            <td className='text-primary secondary-color'> <label for="prescription-modal" onClick={() => setPrescription(newPatient)} class="secondary-color-2 cursor-pointer">Create Prescription</label></td>
                                         </tr>
                                     )
                                 }
                             </tbody>
+                            
                         </table>
-
+                        </SimpleBar>
                     </div>
 
-                      {
-                         prescriptions && <PrescriptionDetails
-                         set prescriptions = {prescriptions}
-                         >
+                    {
+                        prescriptions && <PrescriptionDetails
+                            set prescriptions={prescriptions}
+                        >
 
-                         </PrescriptionDetails>
-                      
-                        }
+                        </PrescriptionDetails>
+
+                    }
                 </div>
-          
-                <div className='lg:col-span-3  overflow-auto min-h-[400px] secondary-color'>    </div>
+
+                <div className='lg:col-span-3  overflow-auto min-h-[400px] secondary-color'> 
+              
+                <p className='text-left text-white text-2xl font-medium font-base pl-5 pt-5'>Patient Graph</p>
+                <div >
+                    <ReactApexChart options={state.options} series={state.series} type="area" height={400} className="max-w-full text-white" />
+                </div>
+            </div>   
 
 
 
                 <div className='lg:col-span-1  overflow-auto min-h-[400px] secondary-color gap-6 text-white'>
                     <div className='p-5'>
                         <div className='flex justify-between'>
-                            <p>Patient</p>
+                            <p className='text-2xl'>Patient</p>
                             <p>2020/2021</p>
                         </div>
                         <div>
@@ -172,7 +275,7 @@ const Doctor = () => {
                     </div>
                     <div className='bg-state-200  shadow-lg  min-h-[180px] p-5'>
                         <div className='flex justify-between'>
-                            <p>Man & Women</p>
+                            <p className='text-2xl'>Man & Women</p>
                             <p>2020/2021</p>
                         </div>
                         <div className='mt-8 flex items-center '>

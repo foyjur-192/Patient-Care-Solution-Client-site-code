@@ -53,15 +53,15 @@ let from = location.state?.from?.pathname || "/";
   }
   return (
     <div>
-      <section className="text-gray-600 body-font relative">
+      <section className="text-white  body-font relative">
         <div className="container px-5 py-24 mx-auto ">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="lg:w-2/5 md:w-2/3 mx-auto bg-state-200 shadow-lg p-8 ">
-              <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Sign up</h1>
+            <div className="lg:w-2/5 md:w-2/3 mx-auto bg-state-200 shadow-lg p-8 secondary-color ">
+              <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">Sign up</h1>
               <div className="flex flex-wrap -m-2 ">
                 <div className="p-2 w-full text-left">
                   <div className="relative">
-                    <label for="name" className="leading-7 text-sm text-gray-600">Name</label>
+                    <label for="name" className="leading-7 text-sm text-white">Name</label>
                     <input
                       {...register("name", {
 
@@ -71,15 +71,15 @@ let from = location.state?.from?.pathname || "/";
 
                         }
                       })}
-                      type="text" name="name" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
-                    <label for="name" className="leading-7 text-sm text-gray-600 text-left">
+                      type="text" name="name" className="w-full secondary-color border-black  rounded border border-gray-300 focus:border-teal-400  focus:ring-2 focus:ring-indigo-200 text-white outline-none text-white py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                    <label for="name" className="leading-7 text-sm text-white text-left">
                       {errors.name?.type === 'required' && <span className='label-text-alt text-red-500 '>{errors.name.message}</span>}
                     </label>
                   </div>
                 </div>
                 <div className="p-2 w-full text-left">
                   <div className="relative">
-                    <label for="email" className="leading-7 text-sm text-gray-600 text-left">Email</label>
+                    <label for="email" className="leading-7 text-sm text-white text-left">Email</label>
                     <input
                       {...register("email", {
 
@@ -94,8 +94,8 @@ let from = location.state?.from?.pathname || "/";
                           message: 'provide a valid Email'
                         }
                       })}
-                      type="email" id="email" name="email" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
-                    <label for="email" className="leading-7 text-sm text-gray-600 text-left">
+                      type="email" id="email" name="email" className="w-full  secondary-color border-black rounded border 0 focus:border-teal-400  focus:ring-2 focus:ring-indigo-200 text-white outline-none text-white py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                    <label for="email" className="leading-7 text-sm text-white text-left">
                       {errors.email?.type === 'required' && <span className='label-text-alt text-red-500 '>{errors.email.message}</span>}
                       {errors.email?.type === 'pattern' && <span className='label-text-alt text-red-500 '>{errors.email.message}</span>}
                     </label>
@@ -103,7 +103,7 @@ let from = location.state?.from?.pathname || "/";
                 </div>
                 <div className="p-2 w-full text-left">
                   <div className="relative">
-                    <label for="text" className="leading-7 text-sm text-gray-600 text-left">Password</label>
+                    <label for="text" className="leading-7 text-sm text-white text-left">Password</label>
                     <input
                       {...register("password", {
 
@@ -119,8 +119,8 @@ let from = location.state?.from?.pathname || "/";
                         }
                       })}
 
-                      type="text" name="password" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
-                    <label for="email" className="leading-7 text-sm text-gray-600 text-left">
+                      type="text" name="password" className="w-full  secondary-color border-black  rounded border  focus:border-teal-400  focus:ring-2 focus:ring-indigo-200 text-white outline-none text-white py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                    <label for="email" className="leading-7 text-sm text-white text-left">
                       {errors.password?.type === 'required' && <span className='label-text-alt text-red-500 '>{errors.password.message}</span>}
                       {errors.password?.type === 'minLength' && <span className='label-text-alt text-red-500 '>{errors.password.message}</span>}
                     </label>
@@ -128,7 +128,7 @@ let from = location.state?.from?.pathname || "/";
                 </div>
                 <div className="p-2 w-full text-left">
                   <div className="relative">
-                    <label for="text" className="leading-7 text-sm text-gray-600 text-left">Age</label>
+                    <label for="text" className="leading-7 text-sm text-white text-left">Age</label>
                     <input
                       {...register("age", {
 
@@ -141,15 +141,15 @@ let from = location.state?.from?.pathname || "/";
                       })}
 
 
-                      type="text" name="age" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
-                    <label for="name" className="leading-7 text-sm text-gray-600 text-left">
+                      type="text" name="age" className="w-full secondary-color border-black rounded border focus:border-teal-400  focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                    <label for="name" className="leading-7 text-sm text-white text-left">
                       {errors.age?.type === 'required' && <span className='label-text-alt text-red-500 '>{errors.age.message}</span>}
                     </label>
                   </div>
                 </div>
                 <div className="p-2 w-full text-left">
                   <div className="relative">
-                    <label for="text" className="leading-7 text-sm text-gray-600 text-left">Doctor License ID</label>
+                    <label for="text" className="leading-7 text-sm text-white text-left">Doctor License ID</label>
                     <input
                       {...register("license", {
 
@@ -163,8 +163,8 @@ let from = location.state?.from?.pathname || "/";
 
 
 
-                      type="text" name="license" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
-                    <label for="registration" className="leading-7 text-sm text-gray-600 text-left">
+                      type="text" name="license" className="w-full secondary-color border-black rounded border border-gray-300 focus:border-teal-400  focus:ring-2 focus:ring-indigo-200 text-base outline-none text-white py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                    <label for="registration" className="leading-7 text-sm text-white text-left">
                       {errors.license?.type === 'required' && <span className='label-text-alt text-red-500 '>{errors.license.message}</span>}
                     </label>
 
@@ -172,7 +172,7 @@ let from = location.state?.from?.pathname || "/";
                 </div>
                 <div className="p-2 w-full text-left">
                   <div className="relative">
-                    <label for="text" className="leading-7 text-sm text-gray-600 text-left">Employee of Government Hospital/Private Hospital Name</label>
+                    <label for="text" className="leading-7 text-sm text-white text-left">Employee of Government Hospital/Private Hospital Name</label>
                     <input
                       {...register("hospital", {
 
@@ -185,15 +185,15 @@ let from = location.state?.from?.pathname || "/";
                       })}
 
 
-                      type="text" name="hospital" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
-                    <label for="registration" className="leading-7 text-sm text-gray-600 text-left">
+                      type="text" name="hospital" className="w-full secondary-color border-black rounded border border-gray-300 focus:border-teal-400  focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                    <label for="registration" className="leading-7 text-sm text-white text-left">
                       {errors.hospital?.type === 'required' && <span className='label-text-alt text-red-500 '>{errors.hospital.message}</span>}
                     </label>
                   </div>
                 </div>
                 <div className="p-2 w-full text-left">
                   <div className="relative">
-                    <label for="text" className="leading-7 text-sm text-gray-600 text-left">Designation</label>
+                    <label for="text" className="leading-7 text-sm text-white text-left">Designation</label>
                     <input
                       {...register("designation", {
 
@@ -205,15 +205,15 @@ let from = location.state?.from?.pathname || "/";
 
                       })}
 
-                      type="text" name="designation" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
-                    <label for="registration" className="leading-7 text-sm text-gray-600 text-left">
+                      type="text" name="designation" className="w-full secondary-color border-black rounded border border-gray-300  focus:border-teal-400   focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                    <label for="registration" className="leading-7 text-sm text-white text-left">
                       {errors.designation?.type === 'required' && <span className='label-text-alt text-red-500 '>{errors.designation.message}</span>}
                     </label>
                   </div>
                 </div>
                 <div className="p-2 w-full text-left">
                   <div className="relative">
-                    <label for="text" className="leading-7 text-sm text-gray-600 text-left">Degrees</label>
+                    <label for="text" className="leading-7 text-sm text-white text-left">Degrees</label>
                     <input
                       {...register("degrees", {
 
@@ -226,15 +226,15 @@ let from = location.state?.from?.pathname || "/";
                       })}
 
 
-                      type="text" name="degrees" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
-                    <label for="registration" className="leading-7 text-sm text-gray-600 text-left">
+                      type="text" name="degrees" className="w-full secondary-color border-black rounded border border-gray-300  focus:border-teal-400  focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                    <label for="registration" className="leading-7 text-sm text-white text-left">
                       {errors.degrees?.type === 'required' && <span className='label-text-alt text-red-500 '>{errors.degrees.message}</span>}
                     </label>
                   </div>
                 </div>
                 <div className="p-2 w-full text-left">
                   <div className="relative">
-                    <label for="text" className="leading-7 text-sm text-gray-600 text-left">Yours of Experienced</label>
+                    <label for="text" className="leading-7 text-sm text-white text-left">Yours of Experienced</label>
                     <input
                       {...register("experienced", {
 
@@ -247,15 +247,15 @@ let from = location.state?.from?.pathname || "/";
                       })}
 
 
-                      type="text" name="experienced" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
-                    <label for="experienced" className="leading-7 text-sm text-gray-600 text-left">
+                      type="text" name="experienced" className="w-full secondary-color border-black rounded border border-gray-300   focus:border-teal-400    focus:ring-2 focus:ring-indigo-200 text-white outline-none text-white py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                    <label for="experienced" className="leading-7 text-sm text-white text-left">
                       {errors.experienced?.type === 'required' && <span className='label-text-alt text-red-500 '>{errors.experienced.message}</span>}
                     </label>
                   </div>
                 </div>
                 <div className="p-2 w-full text-left">
                   <div className="relative">
-                    <label for="text" className="leading-7 text-sm text-gray-600 text-left">Field of Expertise</label>
+                    <label for="text" className="leading-7 text-sm text-white text-left">Field of Expertise</label>
                     <input
                       {...register("expertise", {
 
@@ -270,15 +270,15 @@ let from = location.state?.from?.pathname || "/";
 
 
 
-                      type="text" name="expertise" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
-                    <label for="expertise" className="leading-7 text-sm text-gray-600 text-left">
+                      type="text" name="expertise" className="w-full secondary-color border-black rounded border border-gray-300  focus:border-teal-400  focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                    <label for="expertise" className="leading-7 text-sm text-white text-left">
                       {errors.expertise?.type === 'required' && <span className='label-text-alt text-red-500 '>{errors.expertise.message}</span>}
                     </label>
                   </div>
                 </div>
                 <div className="p-2 w-full text-left">
                   <div className="relative">
-                    <label for="text" className="leading-7 text-sm text-gray-600 text-left">Private Chamber Address</label>
+                    <label for="text" className="leading-7 text-sm text-white text-left">Private Chamber Address</label>
                     <input
                       {...register("chamberAddress", {
 
@@ -291,20 +291,20 @@ let from = location.state?.from?.pathname || "/";
                       })}
 
 
-                      type="text" name="chamberAddress" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
-                    <label for="registration" className="leading-7 text-sm text-gray-600 text-left">
+                      type="text" name="chamberAddress" className="w-full secondary-color border-black rounded border border-gray-300  focus:border-teal-400   focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                    <label for="registration" className="leading-7 text-sm text-white text-left">
                       {errors.chamberAddress?.type === 'required' && <span className='label-text-alt text-red-500 '>{errors.chamberAddress.message}</span>}
                     </label>
                   </div>
                 </div>
                 <div className="p-2 w-full ">
                   {signInError}
-                  <button className='btn bg-primary lg:w-full md:w-full sm:w-full mt-4'>Sign Up Now</button>
+                  <button className='btn  lg:w-full secondary-bg md:w-full sm:w-full mt-4'>Sign Up Now</button>
                 </div>
               </div>
               <div className=''>
-                <p className='pt-5 mb-3'>Already Member?? <span className='text-primary' onClick={() => navigate('/patientLog')} >Log in</span></p>
-                <button onClick={() => signInWithGoogle()} className='btn bg-white text-black lg:w-full md:w-full sm:w-full mt-6'> <img src='https://i.ibb.co/HCd5Pxc/google-logo-google-search-google-account-png-favpng-mmf8xek-Yw-FXSgw-Wu9-E96run-PA-removebg-preview.png' alt="" />  Continue with Google</button>
+                <p className='pt-5 mb-3'>Already Member?? <span className='secondary-color-2 cursor-pointer' onClick={() => navigate('/patientLog')} >Log in</span></p>
+                <button onClick={() => signInWithGoogle()} className='btn secondary-bg2 text-black lg:w-full md:w-full sm:w-full mt-6'> <img src='https://i.ibb.co/HCd5Pxc/google-logo-google-search-google-account-png-favpng-mmf8xek-Yw-FXSgw-Wu9-E96run-PA-removebg-preview.png' alt="" />  Continue with Google</button>
 
               </div>
             </div>

@@ -46,8 +46,41 @@
 
 .secondary-color{
   background-color: #353767;
+  background: cover;
+}
+
+.tableHead{
+  background-color: #2F3161;
 }
 
 .secondary-color-2 {
   color: #15D1DF;
+}
+
+.border-black{
+  border: 1px solid #6C6C6C;
+}
+
+.secondary-bg{
+  background-color: #15D1DF;
+}
+
+.secondary-bg2{
+  background-color: #fff;
+
+}
+.secondary-bg2:hover{
+  background-color: #15D1DF;
+  color: #fff;
+}
+
+.border2{
+  border: 1px solid #15D1DF;
+}
+.border-just{
+  border: 1px solid #15D1DF;
+}
+
+.border2:hover{
+  background-color: #15D1DF;
 }

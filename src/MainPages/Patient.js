@@ -2,10 +2,11 @@ import axios from 'axios';
 import auth from '../firebase.init';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { Link, useNavigate } from 'react-router-dom';
+// import { Link, useNavigate } from 'react-router-dom';
 import ReactApexChart from 'react-apexcharts';
 import { toast, ToastContainer } from 'react-toastify';
-import ReportView from './ReportView';
+import SimpleBar from 'simplebar-react';
+
 
 
 
@@ -20,12 +21,18 @@ const Patient = () => {
     const [problems, setProblem] = useState([])
     const [appointments, setAppointment] = useState([]);
     const [medicines, setMedicine] = useState([])
-    const navigate = useNavigate()
     var currentDate = new Date().toLocaleDateString();
+    
     //Report PopUp
     const [popUpContents, setPopUpContent] = useState([]);
     const changeContent = (report) => {
         setPopUpContent([report])
+    };
+
+    //Prescription Popup
+    const [prescriptionPopUps, setPrescriptionPopUps] = useState([]);
+    const showPrescription = (medicine) => {
+        setPrescriptionPopUps([medicine])
     };
     // Doctors
 
@@ -254,41 +261,122 @@ const Patient = () => {
 
 
     return (
+      
         <div className='grid lg:grid-cols-4  gap-4 px-8 md:grid-cols-2 sm:grid-cols-1'>
-            <div className='lg:col-span-3  overflow-auto min-h-[700px] secondary-color'>
+          
+            <div className='lg:col-span-3   min-h-[700px] secondary-color'>
                 <div className='flex justify-between px-5 py-5'>
                     <div><p className='text-white font-bold lg:text-base sm:text-sm'>Visited Doctors</p></div>
                     <div><p className='text-white font-bold sm:text-sm'>2021-2022</p></div>
                 </div>
-                <table className='table-auto w-full text-left whitespace-no-wrap mb-5 text-white ' >
+               <div>
+               <SimpleBar  style={{ maxHeight: '600px' }}>
+                <table className=' table table-auto w-full text-left  whitespace-no-wrap  mb-5 text-white ' >
                     <thead className='pt-6 mb-5'  >
-                        <tr className='' >
-                            <th className=' text-left px-5 py-4 ' >Doctor Name</th>
-                            <th className='text-left  py-4'>Chamber</th>
-                            <th className='text-left  py-4'>Location</th>
-                            <th className='text-left  py-4'>Prescription</th>
+                        <tr className='secondary-color' >
+                            <th className=' text-left px-5 py-4 tableHead ' >Doctor Name</th>
+                            <th className='text-left  py-4 tableHead'>Chamber</th>
+                            <th className='text-left  py-4 tableHead'>Location</th>
+                            <th className='text-left  py-4 tableHead'>Prescription</th>
                         </tr>
                     </thead>
-                    <tbody className='pt-12 border border-blue-900 border-y-gray-600 py-5'>
+                    <tbody className='pt-12    py-5'>
+                   
                         {
                             medicines.map(medicine =>
-                                <tr>
-                                    <td className='text-sm text-left pl-5'>{medicine.doctorName}</td>
-                                    <td className='text-sm text-left'>{medicine.chamber}</td>
-                                    <td className='text-sm text-left'>{medicine.chamberAddress}</td>
-                                    <td className='text-white text-left cursor-pointer secondary-color-2 ' onClick={() => navigate('/prescription')}> View</td>
+                                
+                                <tr >
+                                    <td className='text-sm text-left secondary-color pl-5'>{medicine.doctorName}</td>
+                                    <td className='text-sm text-left secondary-color'>{medicine.chamber}</td>
+                                    <td className='text-sm text-left secondary-color'>{medicine.chamberAddress}</td>
+                                    <td className='text-white text-left cursor-pointer secondary-color-2 secondary-color' ><label for="prescription-modal" onClick={() => showPrescription(medicine)} >See Prescription</label></td>
                                 </tr>
+                             
                             )}
+                  
+                        <input type="checkbox" id="prescription-modal" class="modal-toggle" />
+                        <div class="modal">
+                            <div class="modal-box lg:max-w-5xl sm:max-w-xs sm:modal-middle  ">
+                                <label for="prescription-modal" class="btn btn-sm btn-circle absolute secondary-color-2 right-2 top-2">✕</label>
+                                {
+                                    prescriptionPopUps.map(view =>
+                                        <>
+                                            <div className='bg-state-200 shadow-lg col-span-2 min-h-[700px] text-black'>
+                                                <div className='flex justify-between bg-gray-50 pt-8 px-5 py-3'>
+                                                    <>
+
+
+                                                        <div className='text-left w-30'>
+                                                            <p>Doctor Profile</p>
+                                                            <p>{view.doctorName}</p>
+                                                            <p>{view.degree}</p>
+                                                            <p>{view.expertise}</p>
+                                                            <p>{view.chamber}</p>
+                                                        </div>
+
+
+                                                    </>
+                                                    <>
+
+                                                        <div className='text-left w-30'>
+                                                            <p>Patient Profile</p>
+                                                            <p>Name: {view.patient}</p>
+                                                            <p>Age: {view.age}</p>
+                                                            <p>Address: {view.address}</p>
+                                                            <p>Patient Type: {view.patientType}</p>
+                                                        </div>
+
+                                                    </>
+
+
+
+                                                </div>
+                                                <div className='grid grid-cols-1 p-5 min-h-[600px] '>
+
+                                                    <textarea className='p-5' type='text' name='prescription'>{view.prescriptionText}</textarea>
+
+
+
+
+
+                                                </div>
+
+
+                                            </div>
+                                        </>
+
+                                    )
+                                }
+
+
+
+
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
                     </tbody>
                 </table>
+                </SimpleBar>
+                </div>
+            
             </div>
-            <div className='lg:col-span-1 min-h-[250px] secondary-color text-white '>
+            <div className='lg:col-span-1 min-h-[250px]  sticky secondary-color text-white '>
                 <div className=''>
                     <div className='bg-Slate-300  text-left px-4  py-8'>
-                        <h2 className='text-2xl font-median-bold mb-6 '>Appointment</h2>
+                        <h2 className='text-2xl font-median-bold mb-6  '>Appointment</h2>
+                        <SimpleBar  style={{ maxHeight: '600px' }}>
                         {
-                            appointments.slice(0, 3).map(appointment =>
+                            appointments.map(appointment =>
                                 <div>
+                                    
                                     <div className='flex inline-block mt-5'>
                                         <img alt="doctor" class="w-12 h-12 mb-3 object-cover object-center rounded-full inline-block border-2" src="https://t4.ftcdn.net/jpg/00/58/33/17/240_F_58331714_RO7gYyfIE19CcD9MzJZxwEqqeetvtyhA.jpg" />
                                         <p className='mt-2 ml-3'>Doctor: {appointment.doctor}</p>
@@ -302,10 +390,12 @@ const Patient = () => {
                                     </div>
 
                                     <p className='mt-3 text-red-500'>Alart- You should arrive in Chamber 2 Hours Earlier of appointment time</p>
+                                   
                                 </div>
 
                             )
                         }
+                         </SimpleBar>
                     </div>
                 </div>
             </div>
@@ -338,42 +428,51 @@ const Patient = () => {
             </div>
 
             <div className='lg:col-span-2  min-h-[336px] secondary-color'>
-                <table className='table-auto w-full text-left whitespace-no-wrap mb-5 text-white ' >
-                    <thead className='pt-6 mb-5'  >
-                        <tr className='' >
-                            <th className=' text-left px-5 py-4 ' >Recent Medical Report</th>
-                            <th className='text-left  py-4'>Date</th>
-                            <th className='text-left  py-4'>Report</th>
-
+            
+                <div>
+                <SimpleBar  style={{ maxHeight: '336px' }}>
+                <table className='table table-auto w-full text-left whitespace-no-wrap mb-5 text-white  ' >
+              
+                    <thead className='pt-6 mb-5'>
+                       
+                        <tr>
+                            <th className=' text-left px-5 py-4 tableHead' >Recent Medical Report</th>
+                            <th className='text-left  py-4 tableHead'>Date</th>
+                            <th className='text-left  py-4 tableHead'>Report</th>
                         </tr>
+                       
                     </thead>
-                    <tbody className='pt-12 border border-blue-900 border-y-gray-600 py-5'>
+                  
+                 
+                    <tbody className='pt-12   py-5 '>
+                    
                         {
                             reports.map(report =>
-                                <tr>
-                                    <td className='text-sm text-left pl-5'>{report.reportName}</td>
-                                    <td className='text-sm text-left'>{report.date}</td>
-                                    <td className='text-white text-left cursor-pointer secondary-color-2 '><label onClick={() => changeContent(report)} for="report-modal" >View Report</label></td>
-
-
+                              
+                                <tr >
+                                    <td className='text-sm text-left pl-5 secondary-color'>{report.reportName}</td>
+                                    <td className='text-sm text-left secondary-color'>{report.date}</td>
+                                    <td className='text-white text-left cursor-pointer secondary-color-2 secondary-color '><label onClick={() => changeContent(report)} for="report-modal" >View Report</label></td>
                                 </tr>
+                              
                             )}
+                     
                         <input type="checkbox" id="report-modal" class="modal-toggle" />
                         <div class="modal">
                             <div class="modal-box lg:max-w-5xl sm:max-w-xs sm:modal-middle  ">
                                 <label for="report-modal" class="btn btn-sm btn-circle absolute secondary-color-2 right-2 top-2">✕</label>
-                               {
-                                popUpContents.map(pop => 
-                                    <>
-                                    <h1 className='text-black text-2xl mb-3'>{pop.reportName}</h1>
-                                    <img className='w-full h-full' src={pop.img} alt="No Image"/>
-                                    </>
-                            
-                                )
-                               }
-                               
-                               
-                                
+                                {
+                                    popUpContents.map(pop =>
+                                        <>
+                                            <h1 className='text-black text-2xl mb-3'>{pop.reportName}</h1>
+                                            <img className='w-full h-full' src={pop.img} alt="No Image" />
+                                        </>
+
+                                    )
+                                }
+
+
+
 
                             </div>
                         </div>
@@ -381,15 +480,21 @@ const Patient = () => {
 
 
                     </tbody>
+                   
+            
                 </table>
+                </SimpleBar>
+                </div>
+               
             </div>
             <div className='lg:col-span-2  min-h-[336px] secondary-color '>
+          
                 <table className='table-auto w-full text-left whitespace-no-wrap mb-5 text-white ' >
                     <thead className='pt-6 mb-5'  >
                         <tr className='' >
-                            <th className=' text-left px-5 py-4 ' >Decreased Names</th>
-                            <th className='text-left  py-4'>Common Decease</th>
-                            <th className='text-left  py-4'>2010-2021</th>
+                            <th className=' text-left px-5 py-4 tableHead ' >Decreased Names</th>
+                            <th className='text-left  py-4 tableHead '>Common Decease</th>
+                            <th className='text-left  py-4 tableHead '>2010-2021</th>
                         </tr>
                     </thead>
                     <tbody className='pt-12 border border-blue-900 py-5 px-5'>
@@ -488,8 +593,10 @@ const Patient = () => {
                         </tr>
                     </tbody>
                 </table>
+               
             </div>
             <ToastContainer />
+            
         </div>
 
 

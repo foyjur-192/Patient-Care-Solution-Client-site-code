@@ -36,7 +36,7 @@ const Navbar = () => {
     <div>
       <div class="navbar  background-color px-8">
         <div class="navbar-start  ">
-          <h2>Find Doctor</h2>
+          <h2 className='text-3xl secondary-color-2'>Patient Care Solution</h2>
         </div>
 
         <div class="navbar-center">
