@@ -7,7 +7,7 @@ const DetailsSearch = ({users,setAppointment}) => {
                
         {
            users.slice(0,5).map(user => (
-            <div className='lg:flex lg:justify-between sm:items-left items-center bg-white shadow-lg mb-5 p-8'> 
+            <div className='lg:flex lg:justify-between sm:items-left items-center bg-gray-300 shadow-lg mb-5 p-8'> 
             
             <div className=' mb-5  text-left '>
             <h1 key={user.id} className="text-2xl" >{user.doctorName} </h1>

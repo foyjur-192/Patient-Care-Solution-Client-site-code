@@ -294,7 +294,21 @@ const Patient = () => {
                              
                             )}
                   
-                        <input type="checkbox" id="prescription-modal" class="modal-toggle" />
+                  
+
+
+
+
+
+
+
+
+
+                    </tbody>
+                </table>
+                </SimpleBar>
+                {/* Popup */}
+                <input type="checkbox" id="prescription-modal" class="modal-toggle" />
                         <div class="modal">
                             <div class="modal-box lg:max-w-5xl sm:max-w-xs sm:modal-middle  ">
                                 <label for="prescription-modal" class="btn btn-sm btn-circle absolute secondary-color-2 right-2 top-2">✕</label>
@@ -353,18 +367,6 @@ const Patient = () => {
 
                             </div>
                         </div>
-
-
-
-
-
-
-
-
-
-                    </tbody>
-                </table>
-                </SimpleBar>
                 </div>
             
             </div>
@@ -457,7 +459,18 @@ const Patient = () => {
                               
                             )}
                      
-                        <input type="checkbox" id="report-modal" class="modal-toggle" />
+                  
+
+
+
+                    </tbody>
+                   
+            
+                </table>
+                </SimpleBar>
+
+                {/* Popup */}
+                <input type="checkbox" id="report-modal" class="modal-toggle" />
                         <div class="modal">
                             <div class="modal-box lg:max-w-5xl sm:max-w-xs sm:modal-middle  ">
                                 <label for="report-modal" class="btn btn-sm btn-circle absolute secondary-color-2 right-2 top-2">✕</label>
@@ -476,14 +489,6 @@ const Patient = () => {
 
                             </div>
                         </div>
-
-
-
-                    </tbody>
-                   
-            
-                </table>
-                </SimpleBar>
                 </div>
                
             </div>

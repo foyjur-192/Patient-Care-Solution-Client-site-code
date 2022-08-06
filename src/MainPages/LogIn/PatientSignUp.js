@@ -48,10 +48,10 @@ const PatientSignUp = () => {
 
     return (
         <div>
-            <section class="text-gray-600 body-font relative ">
-                <div class="container px-5 py-24 mx-auto ">
+            <section class="text-gray-600 body-font relative background-Color py-6">
+                <div class="container px-5 py-24 mx-auto">
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        <div class="lg:w-2/5 md:w-2/3 mx-auto bg-state-200 shadow-lg p-8 secondary-color ">
+                        <div class="lg:w-2/5 md:w-2/3 mx-auto  shadow-lg p-8 secondary-color ">
                             <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">Sign up</h1>
                             <div class="flex flex-wrap -m-2 ">
 

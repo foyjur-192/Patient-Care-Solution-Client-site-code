@@ -9,7 +9,7 @@ const LogIn = () => {
     return (
 
         <div className='background-Color  max-h-[fit] ml-50px mr-50px'>
-            <div className='grid lg:grid-cols-3 sm:grid-cols-1 mt-4 gap-5'>
+            <div className='grid lg:grid-cols-3 sm:grid-cols-1  gap-5'>
                 <div className='col-span-2  '>
                 <div className='pl-10 '>
                 <img src={img} alt="" width='100%' height='auto'  />

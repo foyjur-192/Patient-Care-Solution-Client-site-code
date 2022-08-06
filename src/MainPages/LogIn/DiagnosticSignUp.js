@@ -208,7 +208,7 @@ const DiagnosticSignUp = () => {
                         </div>
                         </form>
                         <div className=''>
-                                <p className='pt-5 mb-3 text-white'>Already Member?? <span className='secondary-color-2 cursor-pointer' onClick={() => navigate('/patientLog')}>Log in</span></p>
+                                <p className='pt-5 mb-3 text-white'>Already Member?? <span className='secondary-color-2 cursor-pointer' onClick={() => navigate('/diagnosticLogIn')}>Log in</span></p>
                                 <button   onClick={() => signInWithGoogle()} className='btn secondary-bg2 text-black lg:w-full md:w-full sm:w-full mt-6'> <img src='https://i.ibb.co/HCd5Pxc/google-logo-google-search-google-account-png-favpng-mmf8xek-Yw-FXSgw-Wu9-E96run-PA-removebg-preview.png' alt="" />   Sign Up with Google</button>
 
                         </div>

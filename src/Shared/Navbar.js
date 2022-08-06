@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import DetailsSearch from '../MainPages/SearchBar/DetailsSearch';
 import BookingAppointment from '../MainPages/SearchBar/BookingAppointment';
 import auth from '../firebase.init';
-
+import SimpleBar from 'simplebar-react';
 
 const Navbar = () => {
   const [users, setUsers] = useState([]);
@@ -33,14 +33,14 @@ const Navbar = () => {
 
 
   return (
-    <div>
-      <div class="navbar  background-color px-8">
+    <div className=''>
+      <div class="navbar  background-color  d px-8">
         <div class="navbar-start  ">
           <h2 className='text-3xl secondary-color-2'>Patient Care Solution</h2>
         </div>
 
         <div class="navbar-center">
-      <div class="form-control">
+      <div class="form-control text-white">
       <form action="" class="relative mx-auto w-max">
         <input
         onChange={(event) => setQuery(event.target.value)}
@@ -76,17 +76,22 @@ const Navbar = () => {
                   <img src="https://api.lorem.space/image/face?hash=33791" />
                 </div>
               </label>
-              <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+              <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow tableHead text-white rounded-box w-52">
                 <li>
-                  <a className="justify-between cursor-pointer" onClick={() => navigate('/profile')}>Profile</a>
+                  <a className="justify-between cursor-pointer text-md" onClick={() => navigate('/profile')}>Profile</a>
                 </li>
+         
+                 {
+                  user && <li className='text-white text-left' ><Link to='/dashboard'></Link>Dashboard </li>
+                 }
+               
                 <li><a>Settings</a></li>
-                <li> { user ? <button class="btn btn-ghost" onClick={Logout}>log Out</button> : <Link to="/login">Log in</Link>} </li>
+                <li className='text-left'> { user ? <button class="btn btn-ghost " onClick={Logout}>log Out</button> : <Link to="/login">Log in</Link>} </li>
               </ul>
             </div>
           </div>
         </div>
-        <ul className='text-white'>
+        {/* <ul className='text-white'>
           <li><Link to='patient'>Patient</Link>   </li>
           <li><Link to='doctor'>Doctor</Link>   </li>
           <li><Link to='prescription'>Prescription</Link></li>
@@ -94,12 +99,18 @@ const Navbar = () => {
           <li><Link to='login'>login</Link></li>
           <li><Link to='diagnostic'>diagnostic</Link></li>
          
-        </ul>
+        </ul> */}
       </div>
       <div className='flex justify-center  '>
-      <div className='lg:w-6/12 sm:w-96 absolute  p-5  min-h-[auto]'>
+      <>
+      <div className='lg:w-6/12 sm:w-96 absolute background-search  px-6  min-h-[auto]'>
+      <SimpleBar  style={{ maxHeight: '600px' }}>
       <DetailsSearch setAppointment={setAppointment} users={search(users)}  />
+      </SimpleBar>
       </div>
+   
+      </>
+      
       {
         appointment && <BookingAppointment 
         set
