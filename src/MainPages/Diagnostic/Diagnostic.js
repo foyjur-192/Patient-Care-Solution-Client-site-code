@@ -6,6 +6,8 @@ import SearchDetails from './SearchDetails';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import axios from 'axios';
+import SimpleBar from 'simplebar-react';
+
 
 const Diagnostic = () => {
     const [user, loading, error] = useAuthState (auth);
@@ -14,7 +16,7 @@ const Diagnostic = () => {
     const [query, setQuery] = useState([]);
     const [reports, setReports] = useState(null);
 
-
+   console.log(lists);
     const search = (patients) => {
         return patients.filter((patient) => patient.patient.toLowerCase().includes(query))
     }
@@ -24,7 +26,7 @@ const Diagnostic = () => {
   useEffect ( () => {
     const getAppointment = async() => {
         const email = user.email;
-        const url =`http://localhost:5000/patientReport?email=${email}`;
+        const url =`http://localhost:5000/diagnosticCenter?email=${email}`;
       console.log(url);
         const {data} = await axios.get(url);
         setList(data);
@@ -43,13 +45,78 @@ const Diagnostic = () => {
 
     return (
         <div>
-            <div className='grid lg:w-full sm:w-full gap-6 px-6  '>
-                <div className=' col-span-2  sm:col-pan-1 h-screen p-5'>
-                    <div className=' flex justify-between p-3 mb-3'>
-                        <p className='text-2xl text-white'>Report Delivered today({lists.length})</p>
-                       
-                       
-                        <label for="booking-modal" class="btn modal-button secondary-color-2 ">Delivery Report</label>
+
+
+           <div className=''>
+          <div className=' lg:max-w-full sm:max-w-xs  py-5 '>
+          <div className='flex justify-between   py-5 px-8'>
+                        <div> <p className='lg:text-2xl sm:text-xl text-left text-white'>Report Delivered<br/> today({lists.length})</p></div>
+                       <div> <label for="booking-modal" class="btn modal-button secondary-bg text-white ">Delivery Report</label></div>
+                        </div>
+          </div>
+
+          <div className='lg:max-w-full sm:max-w-xs  bg-gray-500'>
+
+ <div className="secondary-color px-8 h-screen">
+ <SimpleBar  style={{ minHeight: '600px' }}>
+                        <table class="table  w-full ">
+                            {/* <!-- head --> */}
+                            <thead className=''>
+                                <tr>
+                                    <th className='tableHead text-white'>Patient Name</th>
+                                    <th className='tableHead text-white'>Report Type</th>
+                                    <th className='tableHead text-white'>Date</th>
+                                    <th className='tableHead text-white'>Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                           
+                                {
+                                    lists.map(list =>
+                                        <tr>
+                                            <td  className='secondary-color text-white'>{list.patientName}</td>
+                                            <td className='secondary-color text-white'>{list.reportName}</td>
+                                            <td className='secondary-color text-white'>{list.date}</td>
+                                            <td className='secondary-color text-white'>{list.time}</td>
+
+                                        </tr>
+                                    )
+                                }
+                               
+                            </tbody>
+                        </table>
+                        </SimpleBar>
+                    </div>
+          </div>
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <div>
+             <div className='  '>
+                <div className=' p-5'>
                         <input type="checkbox" id="booking-modal" class="modal-toggle" />
                         <div class="modal modal-bottom sm:modal-middle">
                             <div class="modal-box">
@@ -71,47 +138,11 @@ const Diagnostic = () => {
                                 }
                             </div>
                         </div>
-                    </div>
-                    <div className="secondary-color min-h-[800px]">
-                        <table class="table  w-full ">
-                            {/* <!-- head --> */}
-                            <thead className='bg-none'>
-                                <tr>
-                                    <th className='tableHead text-white'>Patient Name</th>
-                                    <th className='tableHead text-white'>Report Type</th>
-                                    <th className='tableHead text-white'>Date</th>
-                                    <th className='tableHead text-white'>Time</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    lists.map(list =>
-                                        <tr>
-                                            <td>{list.patientName}</td>
-                                            <td>{list.reportName}</td>
-                                            <td>{list.date}</td>
-                                            <td>{list.time}</td>
-
-                                        </tr>
-                                    )
-                                }
-                            </tbody>
-                        </table>
-                    </div>
+                
                 </div>
-                <div className='flex  absolute   '>
-                    <div className='lg:w-6/12 sm:w-96 absolute  backdrop-blur-sm  p-5  min-h-[auto]'>
-                       
-                    </div>
-
-                </div>
-
-
-
-
-
-
+        
             </div>
+             </div> 
         </div>
 
     );

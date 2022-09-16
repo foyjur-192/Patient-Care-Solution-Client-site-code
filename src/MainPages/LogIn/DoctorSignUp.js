@@ -20,18 +20,12 @@ const DoctorSignUp = () => {
   const { register, formState: { errors }, handleSubmit } = useForm();
   const navigate = useNavigate();
   let signInError;
- const location = useLocation();
-let from = location.state?.from?.pathname || "/";
-
 
   if (loading || eLoading || updating) {
     <Loading />
   }
 
-  if (user || eUser || updating) {
-    navigate(from, {replace: true});
 
-  }
 
   if (error || eError || updateError) {
     signInError = <p className='text-red-500'>{error?.message || eError?.message || updating?.message}</p>

@@ -19,7 +19,7 @@ const DoctorLogIn = () => {
     const navigate = useNavigate();
     let signInError;
     const location = useLocation();
-    let from = location.state?.from?.pathname || "/doctor";
+    let from = location.state?.from?.pathname || "/";
     
     if(loading || eLoading){
       <Loading/>

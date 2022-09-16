@@ -127,3 +127,11 @@ html, body {
   -o-transform: translateY(-50%);
   transform: translateY(-50%);
 }
+
+.deep-color{
+  color: #9698C6;
+}
+
+.box-position{
+  position: absolute;
+}

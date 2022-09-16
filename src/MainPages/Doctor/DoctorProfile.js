@@ -1,11 +1,11 @@
-import React from 'react';
+// import React from 'react';
 
-const DoctorProfile = () => {
-    return (
-        <div>
+// const DoctorProfile = () => {
+//     return (
+//         <div>
             
-        </div>
-    );
-};
+//         </div>
+//     );
+// };
 
-export default DoctorProfile;
+// export default DoctorProfile;

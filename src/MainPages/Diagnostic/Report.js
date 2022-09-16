@@ -176,7 +176,7 @@ const Report = ({ reports }) => {
                                         </label>
                                     </div>
                                 </div>
-                                <div class="p-2 w-full text-left">
+                                <div class=" w-full text-left">
                                     <div class="relative">
                                        
                                         <input
@@ -193,14 +193,14 @@ const Report = ({ reports }) => {
                                                 //     message: 'provide a valid Email'
                                                 // }
                                             })}
-                                            type="hidden" value={patientEmail} name="email" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                            type="hidden" value={patientEmail} name="email" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                                         <label for="email" className="leading-7 text-sm text-gray-600 text-left">
                                             {errors.email?.type === 'required' && <span className='label-text-alt text-red-500 '>{errors.email.message}</span>}
                                             {errors.email?.type === 'pattern' && <span className='label-text-alt text-red-500 '>{errors.email.message}</span>}
                                         </label>
                                     </div>
                                 </div>
-                                <div class="p-2 w-full text-left">
+                                <div class=" w-full text-left">
                                     <div class="relative">
                                      
                                         <input
@@ -217,14 +217,14 @@ const Report = ({ reports }) => {
                                                 //     message: 'provide a valid Email'
                                                 // }
                                             })}
-                                            type="hidden" value={doctorEmail} name="email" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                            type="hidden" value={doctorEmail} name="email" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700  px-3 leading-8 transition-colors duration-200 ease-in-out" />
                                         <label for="email" className="leading-7 text-sm text-gray-600 text-left">
                                             {errors.email?.type === 'required' && <span className='label-text-alt text-red-500 '>{errors.email.message}</span>}
                                             {errors.email?.type === 'pattern' && <span className='label-text-alt text-red-500 '>{errors.email.message}</span>}
                                         </label>
                                     </div>
                                 </div>
-                                <div class="p-2 w-full text-left">
+                                <div class=" w-full text-left">
                                     <div class="relative">
                                      
                                         <input
@@ -241,7 +241,7 @@ const Report = ({ reports }) => {
                                                 //     message: 'provide a valid Email'
                                                 // }
                                             })}
-                                            type="hidden" value={user?.email} name="email" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                            type="hidden" value={user?.email} name="email" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700  px-3 leading-8 transition-colors duration-200 ease-in-out" />
                                         <label for="email" className="leading-7 text-sm text-gray-600 text-left">
                                             {errors.email?.type === 'required' && <span className='label-text-alt text-red-500 '>{errors.email.message}</span>}
                                             {errors.email?.type === 'pattern' && <span className='label-text-alt text-red-500 '>{errors.email.message}</span>}
@@ -294,7 +294,7 @@ const Report = ({ reports }) => {
                                     </div>
                                 </div>
 
-                                <div class="p-2 w-full text-left">
+                                <div class=" w-full text-left">
                                     <div class="relative">
                                         <input 
                                          {...register("time", {
@@ -308,7 +308,7 @@ const Report = ({ reports }) => {
                                         })}
                                         
                                         
-                                        type="hidden" value={currentTime}  name="currentTime" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                        type="hidden" value={currentTime}  name="currentTime" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700  px-3 leading-8 transition-colors duration-200 ease-in-out" />
                                     <label for="age" className="leading-7 text-sm text-gray-600 text-left">
                                             {errors.age?.type === 'required' && <span className='label-text-alt text-red-500 '>{errors.age.message}</span>}
                                            
@@ -342,7 +342,7 @@ const Report = ({ reports }) => {
                                     </div>
                                 </div>
                                 <div class="p-2 w-full ">
-                                    <button className='btn bg-primary lg:w-full md:w-full sm:w-full mt-4'>Submit</button>
+                                    <button className='btn secondary-bg border-none lg:w-full md:w-full sm:w-full mt-4'>Submit</button>
                                 </div>
                                 {/* </form> */}
                             </div>

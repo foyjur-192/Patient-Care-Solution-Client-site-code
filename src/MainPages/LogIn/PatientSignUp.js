@@ -4,6 +4,7 @@ import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfil
 import { useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
 import Loading from '../../Shared/Loading';
+import useToken from '../../Hook/useToken';
 
 const PatientSignUp = () => {
     const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
@@ -17,30 +18,33 @@ const PatientSignUp = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const navigate = useNavigate();
 
-    let signInError;
-    const location = useLocation();
-    let from = location.state?.from?.pathname || "/";
+    const [token] = useToken(user || eUser);
 
-    if(loading || eLoading || updating){
-        <Loading/>
-      }
-  
-      if (user || eUser || updating) {
-        navigate(from, {replace: true});
-  
-      }
-  
+
+    let signInError;
+
+    if (loading || eLoading || updating) {
+        return <Loading></Loading>
+    }
+
+
+
       if(error || eError ||  updateError){
           signInError = <p className='text-red-500'>{error?.message || eError?.message  || updating?.message }</p>
       }
 
+
+      if (token) {
+        navigate('/patient');
+    }
+  
    
 
     const onSubmit = async data => {
         console.log(data);
         await createUserWithEmailAndPassword(data.email, data.password)
         await updateProfile({ displayName: data.name, displayAge: data.age, displayDistrict: data.district});
-        navigate('/patient');
+        console.log('update done');
     }
 
 

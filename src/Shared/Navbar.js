@@ -17,6 +17,7 @@ const Navbar = () => {
 
   const Logout = () => {
     signOut (auth);
+    localStorage.removeItem('accessToken')
   };
 
   const search = (users) => {
@@ -36,23 +37,13 @@ const Navbar = () => {
     <div className=''>
       <div class="navbar  background-color  d px-8">
         <div class="navbar-start  ">
-          <h2 className='text-3xl secondary-color-2'>Patient Care Solution</h2>
+          <h2 className='lg:text-2xl sm:text-xl text-left secondary-color-2'>Patient Care Solution</h2>
         </div>
-
-        <div class="navbar-center">
-      <div class="form-control text-white">
-      <form action="" class="relative mx-auto w-max">
-        <input
-        onChange={(event) => setQuery(event.target.value)}
-         type="search" 
-              class="peer cursor-pointer relative z-10 h-12 w-12 rounded-full border bg-transparent pl-12 outline-none focus:w-full focus:cursor-text focus:border-gray-300 focus:pl-16 focus:pr-4" />
-        <svg xmlns="http://www.w3.org/2000/svg" class="absolute inset-y-0 my-auto h-8 w-12 border-r border-transparent stroke-gray-500 px-3.5 peer-focus:border-gray-300 peer-focus:stroke-lime-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        </svg>
-      </form>
-
-    </div> 
-    </div>
+        <label for="my-modal-4" class="btn modal-button cursor-pointer">
+    <button class="cursor-pointer">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+    </button>
+    </label>
     
 
       
@@ -78,39 +69,51 @@ const Navbar = () => {
               </label>
               <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow tableHead text-white rounded-box w-52">
                 <li>
-                  <a className="justify-between cursor-pointer text-md" onClick={() => navigate('/profile')}>Profile</a>
+                  <a className="justify-between cursor-pointer text-md text-left" onClick={() => navigate('/profile')}>Profile</a>
                 </li>
          
                  {
-                  user && <li className='text-white text-left' ><Link to='/dashboard'></Link>Dashboard </li>
+                  user && <li className='text-white text-left cursor-pointer text-left ' onClick={() => navigate('/dashboard')} >Dashboard </li>
                  }
                
                 <li><a>Settings</a></li>
-                <li className='text-left'> { user ? <button class="btn btn-ghost " onClick={Logout}>log Out</button> : <Link to="/login">Log in</Link>} </li>
+                <li className='text-left text-white text-left'> { user ? <button class="btn btn-ghost " onClick={Logout}>log Out</button> : <Link to="/login">Log in</Link>} </li>
               </ul>
             </div>
           </div>
         </div>
-        {/* <ul className='text-white'>
-          <li><Link to='patient'>Patient</Link>   </li>
-          <li><Link to='doctor'>Doctor</Link>   </li>
-          <li><Link to='prescription'>Prescription</Link></li>
-          <li><Link to='searchBar'>Search</Link></li>
-          <li><Link to='login'>login</Link></li>
-          <li><Link to='diagnostic'>diagnostic</Link></li>
-         
-        </ul> */}
+       
       </div>
-      <div className='flex justify-center  '>
-      <>
-      <div className='lg:w-6/12 sm:w-96 absolute background-search  px-6  min-h-[auto]'>
-      <SimpleBar  style={{ maxHeight: '600px' }}>
-      <DetailsSearch setAppointment={setAppointment} users={search(users)}  />
-      </SimpleBar>
-      </div>
-   
-      </>
-      
+    
+      {/* Popup */}
+    
+
+
+
+<input type="checkbox" id="my-modal-4" class="modal-toggle" />
+<div class="modal">
+  <div class="modal-box w-11/12 max-w-5xl min-h-[600px]">
+  <label for="my-modal-4" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+  <div class="navbar-center mb-3">
+      <div class="form-control text-white">
+      <form action="" class="relative mx-auto w-max">
+        <input
+        onChange={(event) => setQuery(event.target.value)}
+         type="search" 
+            Placeholder="Type k"  class="peer cursor-pointer relative z-10 h-12 w-12 rounded-full border bg-transparent text-gray-500 pl-12 outline-none focus:w-full focus:cursor-text focus:border-gray-300 focus:pl-16 focus:pr-4" />
+        <svg xmlns="http://www.w3.org/2000/svg" class="absolute inset-y-0 my-auto h-8 w-12 border-r border-transparent stroke-gray-500 px-3.5 peer-focus:border-gray-300 peer-focus:stroke-lime-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </form>
+
+    </div> 
+</div>
+<div className='flex justify-center  '>
+  <DetailsSearch  setAppointment={setAppointment} users={search(users)}  />
+  </div>
+</div>
+</div>
+  
       {
         appointment && <BookingAppointment 
         set
@@ -120,7 +123,7 @@ const Navbar = () => {
       }
       </div>
    
-    </div>
+ 
   );
 };
 

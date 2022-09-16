@@ -4,6 +4,7 @@ import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfil
 import { useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
 import Loading from '../../Shared/Loading';
+import useToken from '../../Hook/useToken';
 
 const DiagnosticSignUp = () => {
     const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
@@ -19,17 +20,15 @@ const DiagnosticSignUp = () => {
       const { register, formState: { errors }, handleSubmit } = useForm();
   
       let signInError;
-      const location = useLocation();
-      let from = location.state?.from?.pathname || "/";
 
+      
+      const [token] = useToken(user || eUser);
+      
       if(loading || eLoading || updating){
           <Loading/>
         }
     
-        if (user || eUser || updating) {
-            navigate(from, {replace: true});
-    
-        }
+
     
         if(error || eError ||  updateError){
             signInError = <p className='text-red-500'>{error?.message || eError?.message  || updating?.message }</p>
@@ -38,8 +37,8 @@ const DiagnosticSignUp = () => {
   
   
   
-      if (user || eUser) {
-          console.log(user);
+      if (token) {
+        navigate('/diagnostic');;
       }
     
   
@@ -47,7 +46,7 @@ const DiagnosticSignUp = () => {
           console.log(data);
           await createUserWithEmailAndPassword(data.email, data.password)
           await updateProfile({ displayName: data.name, displayAddress: data.address, displayRegistrationNumber: data.registrationNumber, displayCity: data.city });
-          navigate('/diagnostic');
+        
       }
   
 
