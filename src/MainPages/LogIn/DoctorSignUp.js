@@ -4,6 +4,7 @@ import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfil
 import { useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
 import Loading from '../../Shared/Loading';
+import useToken from '../../Hook/useToken';
 
 const DoctorSignUp = () => {
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
@@ -21,6 +22,8 @@ const DoctorSignUp = () => {
   const navigate = useNavigate();
   let signInError;
 
+  const [token] = useToken(user || eUser);
+
   if (loading || eLoading || updating) {
     <Loading />
   }
@@ -34,8 +37,8 @@ const DoctorSignUp = () => {
 
 
 
-  if (user || eUser) {
-    console.log(user);
+  if (token) {
+    navigate('/doctor');
   }
  
 
@@ -43,7 +46,7 @@ const DoctorSignUp = () => {
     console.log(data);
     await createUserWithEmailAndPassword(data.email, data.password)
     await updateProfile({ displayName: data.name, displayAge: data.age, displayLicense: data.license, displayHospital: data.hospital, displayDesignation: data.designation, displayDegrees: data.degrees, displayExperienced: data.experienced, displayExpertise: data.expertise, displayChamberAddress: data.chamberAddress });
-    navigate('/doctor');
+ 
   }
   return (
     <div>

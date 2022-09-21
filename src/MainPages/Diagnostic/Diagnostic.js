@@ -74,10 +74,10 @@ const Diagnostic = () => {
                                 {
                                     lists.map(list =>
                                         <tr>
-                                            <td  className='secondary-color text-white'>{list.patientName}</td>
-                                            <td className='secondary-color text-white'>{list.reportName}</td>
-                                            <td className='secondary-color text-white'>{list.date}</td>
-                                            <td className='secondary-color text-white'>{list.time}</td>
+                                            <td  className='border-y-gray-600 secondary-color text-white'>{list.patientName}</td>
+                                            <td className=' border-y-gray-600 secondary-color text-white'>{list.reportName}</td>
+                                            <td className='border-y-gray-600 secondary-color text-white'>{list.date}</td>
+                                            <td className='border-y-gray-600 secondary-color text-white'>{list.time}</td>
 
                                         </tr>
                                     )

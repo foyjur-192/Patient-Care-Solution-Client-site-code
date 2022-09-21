@@ -20,18 +20,18 @@ const PatientLog = () => {
     const [token] = useToken(user || eUser);
 
     let signInError;
-    const location = useLocation();
-    let from = location.state?.from?.pathname || "/";
+    // const location = useLocation();
+    // let from = location.state?.from?.pathname && "/patient";
     
   
     
 
     useEffect(() => {
         if (token) {
-            navigate(from, {replace: true});
+            navigate('/patient');
     
         }
-    }, [token, from, navigate ])    
+    }, [token])    
 
     if (loading || eLoading) {
         return <Loading></Loading>

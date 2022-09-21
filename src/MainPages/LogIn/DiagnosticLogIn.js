@@ -18,8 +18,8 @@ const DiagnosticLogIn = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const navigate = useNavigate();
     let signInError;
-    const location = useLocation();
-    let from = location.state?.from?.pathname || "/";
+    // const location = useLocation();
+    // let from = location.state?.from?.pathname || "/";
     
     const [token] = useToken(user || eUser);
 
@@ -29,10 +29,10 @@ const DiagnosticLogIn = () => {
 
     useEffect(() => {
         if (token) {
-            navigate(from, {replace: true});
-    
+           
+            navigate('/diagnostic');
         }
-    }, [token, from, navigate ])    
+    }, [token])    
 
     if(error || eError){
         signInError = <p className='text-red-500'>{error?.message || eError?.message}</p>

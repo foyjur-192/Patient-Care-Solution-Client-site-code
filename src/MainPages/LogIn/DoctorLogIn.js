@@ -4,6 +4,7 @@ import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-fireba
 import { useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
 import Loading from '../../Shared/Loading';
+import useToken from '../../Hook/useToken';
 
 const DoctorLogIn = () => {
 
@@ -14,23 +15,23 @@ const DoctorLogIn = () => {
         eLoading,
         eError,
       ] = useSignInWithEmailAndPassword (auth);
-
+      const [token] = useToken (user || eUser);
     const { register, formState: { errors }, handleSubmit } = useForm();
     const navigate = useNavigate();
     let signInError;
-    const location = useLocation();
-    let from = location.state?.from?.pathname || "/";
+    // const location = useLocation();
+    // let from = location.state?.from?.pathname || "/";
     
     if(loading || eLoading){
       <Loading/>
     }
 
     useEffect(() => {
-        if (user || eUser) {
-            navigate(from, {replace: true});
+        if (token) {
+            navigate('/doctor');
     
         }
-    }, [user, eUser, from, navigate ])    
+    }, [token])    
 
     if(error || eError){
         signInError = <p className='text-red-500'>{error?.message || eError?.message}</p>

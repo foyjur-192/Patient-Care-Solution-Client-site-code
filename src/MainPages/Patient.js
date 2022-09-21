@@ -6,6 +6,8 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import ReactApexChart from 'react-apexcharts';
 import { toast, ToastContainer } from 'react-toastify';
 import SimpleBar from 'simplebar-react';
+import { signOut } from 'firebase/auth';
+import { useNavigate, useParams } from 'react-router-dom';
 
 
 
@@ -17,12 +19,14 @@ import SimpleBar from 'simplebar-react';
 const Patient = () => {
     const [user] = useAuthState(auth);
     const [reports, setReports] = useState([]);
-    const [pressures, setPressure] = useState([])
+    const [deceases, setDeceases] = useState([])
     const [problems, setProblem] = useState([])
     const [appointments, setAppointment] = useState([]);
     const [medicines, setMedicine] = useState([])
     var currentDate = new Date().toLocaleDateString();
     
+    const params = useParams();
+    const navigate = useNavigate()
     //Report PopUp
     const [popUpContents, setPopUpContent] = useState([]);
     const changeContent = (report) => {
@@ -33,6 +37,12 @@ const Patient = () => {
     const [prescriptionPopUps, setPrescriptionPopUps] = useState([]);
     const showPrescription = (medicine) => {
         setPrescriptionPopUps([medicine])
+    };
+
+    //update Decease Popup
+    const [deceaseUpdate, setDeceaseUpdatePopUps] = useState([]);
+    const update = (decease) => {
+        setDeceaseUpdatePopUps([decease])
     };
     // Doctors
 
@@ -58,44 +68,80 @@ const Patient = () => {
 
 
     //Reports
+    // useEffect(() => {
+    //     const getReports = async () => {
+    //         const email = user.email;
+    //         const url = `http://localhost:5000/userReport?email=${email}`;
+    //         console.log(url);
+    //         const { data } = await axios.get(url);
+    //         setReports(data);
+    //         console.log(data);
+    //     }
+    //     getReports();
+    // }, [user])
+
     useEffect(() => {
-        const getReports = async () => {
-            const email = user.email;
-            const url = `http://localhost:5000/userReport?email=${email}`;
-            console.log(url);
-            const { data } = await axios.get(url);
-            setReports(data);
-            console.log(data);
+        if (user) {
+            fetch(`http://localhost:5000/userReport?email=${user.email}`, {
+
+                method: 'GET',
+                headers: {
+                    'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                }
+
+            })
+                .then(res => {
+                    console.log('res', res);
+                    if (res.status === 401 || res.status === 403) {
+                        signOut(auth);
+                        localStorage.removeItem('accessToken');
+                        navigate('/');
+                    }
+                    return res.json()
+                })
+                .then(data => {
+
+                    setReports(data);
+                });
+
+
         }
-        getReports();
+
     }, [user])
 
+
+//Get internal Data
+    useEffect(() => {
+        fetch('/update.json')
+         .then(res => res.json())
+         .then(data => setDeceases(data));
+        },[])
 
     //update Blood Pressure
-    useEffect(() => {
-        const getBloodPressure = async () => {
-            const email = user.email;
-            const url = `http://localhost:5000/pressureData?email=${email}`;
-            console.log(url);
-            const { data } = await axios.get(url);
-            setPressure(data);
-            console.log(data);
-        }
-        getBloodPressure();
-    }, [user])
+    // useEffect(() => {
+    //     const getBloodPressure = async () => {
+    //         const email = user.email;
+    //         const url = `http://localhost:5000/pressureData?email=${email}`;
+    //         console.log(url);
+    //         const { data } = await axios.get(url);
+    //         setPressure(data);
+    //         console.log(data);
+    //     }
+    //     getBloodPressure();
+    // }, [user])
 
     //update Heart Data
-    useEffect(() => {
-        const getBloodPressure = async () => {
-            const email = user.email;
-            const url = `http://localhost:5000/heartData?email=${email}`;
-            console.log(url);
-            const { data } = await axios.get(url);
-            setProblem(data);
-            console.log(data);
-        }
-        getBloodPressure();
-    }, [user])
+    // useEffect(() => {
+    //     const getBloodPressure = async () => {
+    //         const email = user.email;
+    //         const url = `http://localhost:5000/heartData?email=${email}`;
+    //         console.log(url);
+    //         const { data } = await axios.get(url);
+    //         setProblem(data);
+    //         console.log(data);
+    //     }
+    //     getBloodPressure();
+    // }, [user])
 
 
 
@@ -124,9 +170,8 @@ const Patient = () => {
     // }, [])
 
     //Handle the Blood Pressure update
-    const handlePressureUpdate = event => {
+    const handleDeceaseUpdate = event => {
         event.preventDefault()
-
         const update = event.target.update.value;
         const email = event.target.email.value;
         const date = event.target.date.value;
@@ -139,9 +184,9 @@ const Patient = () => {
         }
         console.log(pressureData);
 
-        fetch('http://localhost:5000/pressureData', {
+        fetch( ` http://localhost:5000/pressureData=${params}`, {
 
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'content-type': 'application/json'
             },
@@ -160,39 +205,37 @@ const Patient = () => {
 
 
     //Handle the Heart problem update
-    const handleHeartUpdate = event => {
-        event.preventDefault()
+    // const handleHeartUpdate = event => {
+    //     event.preventDefault()
 
-        const heartUpdate = event.target.heartUpdate.value;
-        const email = event.target.email.value;
-        const dates = event.target.dates.value;
+    //     const heartUpdate = event.target.heartUpdate.value;
+    //     const email = event.target.email.value;
+    //     const dates = event.target.dates.value;
 
-        const heartProblem = {
-            heartUpdate,
-            email,
-            dates
+    //     const heartProblem = {
+    //         heartUpdate,
+    //         email,
+    //         dates
 
-        }
-        console.log(heartProblem);
+    //     }
+    //     console.log(heartProblem);
 
-        fetch('http://localhost:5000/heartData', {
+    //     fetch('http://localhost:5000/heartData', {
 
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(heartProblem)
+    //         method: 'POST',
+    //         headers: {
+    //             'content-type': 'application/json'
+    //         },
+    //         body: JSON.stringify(heartProblem)
 
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    toast(`Updated Successfully set`)
-                }
-            })
-    }
-
-
+    //     })
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             if (data.success) {
+    //                 toast(`Updated Successfully set`)
+    //             }
+    //         })
+    // }
 
 
 
@@ -208,6 +251,8 @@ const Patient = () => {
 
 
 
+
+    //Grap
 
     const [state, setState] = useState({
         series: [{
@@ -261,143 +306,143 @@ const Patient = () => {
 
 
     return (
-      
+
         <div className='grid lg:grid-cols-4  gap-4 px-8 md:grid-cols-2 sm:grid-cols-1'>
-          
+
             <div className='lg:col-span-3   min-h-[700px] secondary-color'>
                 <div className='flex justify-between px-5 py-5'>
                     <div><p className='text-white font-bold lg:text-base sm:text-sm'>Visited Doctors</p></div>
                     <div><p className='text-white font-bold sm:text-sm'>2021-2022</p></div>
                 </div>
-               <div>
-               <SimpleBar  style={{ maxHeight: '600px' }}>
-                <table className=' table table-auto w-full text-left  whitespace-no-wrap  mb-5 text-white ' >
-                    <thead className='pt-6 mb-5'  >
-                        <tr className='secondary-color' >
-                            <th className=' text-left px-5 py-4 tableHead ' >Doctor Name</th>
-                            <th className='text-left  py-4 tableHead'>Chamber</th>
-                            <th className='text-left  py-4 tableHead'>Location</th>
-                            <th className='text-left  py-4 tableHead'>Prescription</th>
-                        </tr>
-                    </thead>
-                    <tbody className='pt-12    py-5'>
-                   
-                        {
-                            medicines.map(medicine =>
-                                
-                                <tr >
-                                    <td className='text-sm text-left secondary-color pl-5'>{medicine.doctorName}</td>
-                                    <td className='text-sm text-left secondary-color'>{medicine.chamber}</td>
-                                    <td className='text-sm text-left secondary-color'>{medicine.chamberAddress}</td>
-                                    <td className='text-white text-left cursor-pointer secondary-color-2 secondary-color' ><label for="prescription-modal" onClick={() => showPrescription(medicine)} >See Prescription</label></td>
+                <div>
+                    <SimpleBar style={{ maxHeight: '600px' }}>
+                        <table className=' table table-auto w-full text-left  whitespace-no-wrap  mb-5 text-white ' >
+                            <thead className='pt-6 mb-5'  >
+                                <tr className='secondary-color' >
+                                    <th className=' text-left px-5 py-4 tableHead ' >Doctor Name</th>
+                                    <th className='text-left  py-4 tableHead'>Chamber</th>
+                                    <th className='text-left  py-4 tableHead'>Location</th>
+                                    <th className='text-left  py-4 tableHead'>Prescription</th>
                                 </tr>
-                             
-                            )}
-                  
-                  
+                            </thead>
+                            <tbody className='pt-12    py-5'>
 
-
-
-
-
-
-
-
-
-                    </tbody>
-                </table>
-                </SimpleBar>
-                {/* Popup */}
-                <input type="checkbox" id="prescription-modal" class="modal-toggle" />
-                        <div class="modal">
-                            <div class="modal-box lg:max-w-5xl sm:max-w-xs sm:modal-middle  ">
-                                <label for="prescription-modal" class="btn btn-sm btn-circle absolute secondary-color-2 right-2 top-2">✕</label>
                                 {
-                                    prescriptionPopUps.map(view =>
-                                        <>
-                                            <div className='bg-state-200 shadow-lg col-span-2 min-h-[700px] text-black'>
-                                                <div className='flex justify-between bg-gray-50 pt-8 px-5 py-3'>
-                                                    <>
+                                    medicines.map(medicine =>
 
+                                        <tr >
+                                            <td className='text-sm border-y-gray-600 text-left secondary-color pl-5'>{medicine.doctorName}</td>
+                                            <td className='text-sm border-y-gray-600 text-left secondary-color'>{medicine.chamber}</td>
+                                            <td className='text-sm border-y-gray-600 text-left secondary-color'>{medicine.chamberAddress}</td>
+                                            <td className='text-white border-y-gray-600 text-left cursor-pointer secondary-color-2 secondary-color' ><label for="prescription-modal" onClick={() => showPrescription(medicine)} >See Prescription</label></td>
+                                        </tr>
 
-                                                        <div className='text-left w-30'>
-                                                            <p>Doctor Profile</p>
-                                                            <p>{view.doctorName}</p>
-                                                            <p>{view.degree}</p>
-                                                            <p>{view.expertise}</p>
-                                                            <p>{view.chamber}</p>
-                                                        </div>
-
-
-                                                    </>
-                                                    <>
-
-                                                        <div className='text-left w-30'>
-                                                            <p>Patient Profile</p>
-                                                            <p>Name: {view.patient}</p>
-                                                            <p>Age: {view.age}</p>
-                                                            <p>Address: {view.address}</p>
-                                                            <p>Patient Type: {view.patientType}</p>
-                                                        </div>
-
-                                                    </>
-
-
-
-                                                </div>
-                                                <div className='grid grid-cols-1 p-5 min-h-[600px] '>
-
-                                                    <textarea className='p-5' type='text' name='prescription'>{view.prescriptionText}</textarea>
+                                    )}
 
 
 
 
 
-                                                </div>
+
+
+
+
+
+
+                            </tbody>
+                        </table>
+                    </SimpleBar>
+                    {/* Popup */}
+                    <input type="checkbox" id="prescription-modal" class="modal-toggle" />
+                    <div class="modal">
+                        <div class="modal-box lg:max-w-5xl sm:max-w-xs sm:modal-middle  ">
+                            <label for="prescription-modal" class="btn btn-sm btn-circle absolute secondary-color-2 right-2 top-2">✕</label>
+                            {
+                                prescriptionPopUps.map(view =>
+                                    <>
+                                        <div className='bg-state-200 shadow-lg col-span-2 min-h-[700px] text-black'>
+                                            <div className='flex justify-between bg-gray-50 pt-8 px-5 py-3'>
+                                                <>
+
+
+                                                    <div className='text-left w-30'>
+                                                        <p>Doctor Profile</p>
+                                                        <p>{view.doctorName}</p>
+                                                        <p>{view.degree}</p>
+                                                        <p>{view.expertise}</p>
+                                                        <p>{view.chamber}</p>
+                                                    </div>
+
+
+                                                </>
+                                                <>
+
+                                                    <div className='text-left w-30'>
+                                                        <p>Patient Profile</p>
+                                                        <p>Name: {view.patient}</p>
+                                                        <p>Age: {view.age}</p>
+                                                        <p>Address: {view.address}</p>
+                                                        <p>Patient Type: {view.patientType}</p>
+                                                    </div>
+
+                                                </>
+
 
 
                                             </div>
-                                        </>
+                                            <div className='grid grid-cols-1 p-5 min-h-[600px] '>
 
-                                    )
-                                }
-
+                                                <textarea className='p-5' type='text' name='prescription'>{view.prescriptionText}</textarea>
 
 
 
-                            </div>
+
+
+                                            </div>
+
+
+                                        </div>
+                                    </>
+
+                                )
+                            }
+
+
+
+
                         </div>
+                    </div>
                 </div>
-            
+
             </div>
             <div className='lg:col-span-1 min-h-[250px]  sticky secondary-color text-white '>
                 <div className=''>
                     <div className='bg-Slate-300  text-left px-4  py-8'>
                         <h2 className='text-2xl font-median-bold mb-6  '>Appointment</h2>
-                        <SimpleBar  style={{ maxHeight: '600px' }}>
-                        {
-                            appointments.map(appointment =>
-                                <div>
-                                    
-                                    <div className='flex inline-block mt-5'>
-                                        <img alt="doctor" class="w-12 h-12 mb-3 object-cover object-center rounded-full inline-block border-2" src="https://t4.ftcdn.net/jpg/00/58/33/17/240_F_58331714_RO7gYyfIE19CcD9MzJZxwEqqeetvtyhA.jpg" />
-                                        <p className='mt-2 ml-3'>Doctor: {appointment.doctor}</p>
-                                    </div>
-                                    <div className='flex content-center'>
-                                        <div className='flex-initial text-left'> <p className=''>Your Appointment Time </p>
-                                            <p className='ml-3'>{appointment.slot}</p>
-                                            <p className='ml-3'>{appointment.date}</p>
+                        <SimpleBar style={{ maxHeight: '600px' }}>
+                            {
+                                appointments.map(appointment =>
+                                    <div>
+
+                                        <div className='flex inline-block mt-5'>
+                                            <img alt="doctor" class="w-12 h-12 mb-3 object-cover object-center rounded-full inline-block border-2" src="https://t4.ftcdn.net/jpg/00/58/33/17/240_F_58331714_RO7gYyfIE19CcD9MzJZxwEqqeetvtyhA.jpg" />
+                                            <p className='mt-2 ml-3'>Doctor: {appointment.doctor}</p>
+                                        </div>
+                                        <div className='flex content-center'>
+                                            <div className='flex-initial text-left'> <p className=''>Your Appointment Time </p>
+                                                <p className='ml-3'>{appointment.slot}</p>
+                                                <p className='ml-3'>{appointment.date}</p>
+                                            </div>
+
                                         </div>
 
+                                        <p className='mt-3 text-red-500'>Alart- You should arrive in Chamber 2 Hours Earlier of appointment time</p>
+
                                     </div>
 
-                                    <p className='mt-3 text-red-500'>Alart- You should arrive in Chamber 2 Hours Earlier of appointment time</p>
-                                   
-                                </div>
-
-                            )
-                        }
-                         </SimpleBar>
+                                )
+                            }
+                        </SimpleBar>
                     </div>
                 </div>
             </div>
@@ -430,178 +475,137 @@ const Patient = () => {
             </div>
 
             <div className='lg:col-span-2  min-h-[336px] secondary-color'>
-            
+
                 <div>
-                <SimpleBar  style={{ maxHeight: '336px' }}>
-                <table className='table table-auto w-full text-left whitespace-no-wrap mb-5 text-white  ' >
-              
-                    <thead className='pt-6 mb-5'>
-                       
-                        <tr>
-                            <th className=' text-left px-5 py-4 tableHead' >Recent Medical Report</th>
-                            <th className='text-left  py-4 tableHead'>Date</th>
-                            <th className='text-left  py-4 tableHead'>Report</th>
-                        </tr>
-                       
-                    </thead>
-                  
-                 
-                    <tbody className='pt-12   py-5 '>
-                    
-                        {
-                            reports.map(report =>
-                              
-                                <tr >
-                                    <td className='text-sm text-left pl-5 secondary-color'>{report.reportName}</td>
-                                    <td className='text-sm text-left secondary-color'>{report.date}</td>
-                                    <td className='text-white text-left cursor-pointer secondary-color-2 secondary-color '><label onClick={() => changeContent(report)} for="report-modal" >View Report</label></td>
+                    <SimpleBar style={{ maxHeight: '336px' }}>
+                        <table className='table table-auto w-full text-left whitespace-no-wrap mb-5 text-white  ' >
+
+                            <thead className='pt-6 mb-5'>
+
+                                <tr>
+                                    <th className=' text-left px-5 py-4 tableHead' >Recent Medical Report</th>
+                                    <th className='text-left  py-4 tableHead'>Date</th>
+                                    <th className='text-left  py-4 tableHead'>Report</th>
                                 </tr>
-                              
-                            )}
-                     
-                  
+
+                            </thead>
 
 
+                            <tbody className='pt-12   py-5 '>
 
-                    </tbody>
-                   
-            
-                </table>
-                </SimpleBar>
-
-                {/* Popup */}
-                <input type="checkbox" id="report-modal" class="modal-toggle" />
-                        <div class="modal">
-                            <div class="modal-box lg:max-w-5xl sm:max-w-xs sm:modal-middle  ">
-                                <label for="report-modal" class="btn btn-sm btn-circle absolute secondary-color-2 right-2 top-2">✕</label>
                                 {
-                                    popUpContents.map(pop =>
-                                        <>
-                                            <h1 className='text-black text-2xl mb-3'>{pop.reportName}</h1>
-                                            <img className='w-full h-full' src={pop.img} alt="No Image" />
-                                        </>
+                                    reports.map(report =>
 
-                                    )
-                                }
+                                        <tr >
+                                            <td className='text-sm border-y-gray-600 text-left pl-5 secondary-color'>{report.reportName}</td>
+                                            <td className='text-sm border-y-gray-600 text-left secondary-color'>{report.date}</td>
+                                            <td className='text-white border-y-gray-600 text-left cursor-pointer secondary-color-2 secondary-color '><label onClick={() => changeContent(report)} for="report-modal" >View Report</label></td>
+                                        </tr>
+
+                                    )}
 
 
 
 
-                            </div>
+
+                            </tbody>
+
+
+                        </table>
+                    </SimpleBar>
+
+                    {/* Popup */}
+                    <input type="checkbox" id="report-modal" class="modal-toggle" />
+                    <div class="modal">
+                        <div class="modal-box lg:max-w-5xl sm:max-w-xs sm:modal-middle  ">
+                            <label for="report-modal" class="btn btn-sm btn-circle absolute secondary-color-2 right-2 top-2">✕</label>
+                            {
+                                popUpContents.map(pop =>
+                                    <>
+                                        <h1 className='text-black text-2xl mb-3'>{pop.reportName}</h1>
+                                        <img className='w-full h-full' src={pop.img} alt="No Image" />
+                                    </>
+
+                                )
+                            }
+
+
+
+
                         </div>
+                    </div>
                 </div>
-               
+
             </div>
             <div className='lg:col-span-2  min-h-[336px] secondary-color '>
-          
-                <table className='table-auto w-full text-left whitespace-no-wrap mb-5 text-white ' >
+            <SimpleBar style={{ maxHeight: '336px' }}>
+                <table className='table table-auto w-full text-left whitespace-no-wrap mb-5 text-white ' >
                     <thead className='pt-6 mb-5'  >
                         <tr className='' >
                             <th className=' text-left px-5 py-4 tableHead ' >Decreased Names</th>
                             <th className='text-left  py-4 tableHead '>Common Decease</th>
                             <th className='text-left  py-4 tableHead '>2010-2021</th>
+                            <th className='text-left  py-4 tableHead '>Update</th>
                         </tr>
                     </thead>
                     <tbody className='pt-12 border border-blue-900 py-5 px-5'>
-                        <tr >
-                            <td className=' border-y-gray-600 pl-5'>High Blood Pressure</td><td>
+                      
+                           
+                           
                                 {
-                                    pressures.slice(0, 1).map(pressure =>
+                                    deceases.map(decease =>
+                                      
+                                        <tr>
+                                        <td className=' border-y-gray-600  secondary-color pl-5'>{decease.name}</td>
+                                        <td className=' border-y-gray-600 secondary-color'><p>{decease.update}</p></td>
+                                        <td className='border-y-gray-600 secondary-color'><p>{decease.date}</p></td>
+                                        <td className='border-y-gray-600 secondary-color'><label for="pressure-modal" onClick={() => update(decease)} class="secondary-color-2 cursor-pointer">Update</label></td>
 
-                                        <p>{pressure.update}</p>
-
+                                        </tr>
+                                
+                             
+                                     
                                     )
                                 }
 
-                            </td>
-                            <td>
-                                <label for="pressure-modal" class="secondary-color-2 cursor-pointer">Update</label>
+                           
+                        
+                    </tbody>
+                </table>
+                </SimpleBar>
 
-
-                                <input type="checkbox" id="pressure-modal" class="modal-toggle" />
+                {/* PopUp */}
+                <input type="checkbox" id="pressure-modal" class="modal-toggle" />
                                 <div class="modal modal-bottom sm:modal-middle">
                                     <div class="modal-box secondary-color">
                                         <label for="pressure-modal" class="btn btn-sm secondary-color-2 absolute right-2 top-2">✕</label>
-                                        <p className='text-white text-xl'>Update the Blood Pressure Condition</p>
-                                        <form onSubmit={handlePressureUpdate}>
-                                            <input type="text" name='update' class="mb-2 mt-5 text-black input input-bordered w-full max-w-xs " required />
-                                            <input type="hidden" name='email' value={user?.email} class=" mb-2 input input-bordered w-full max-w-xs" />
-                                            <input type="hidden" name='date' value={currentDate} class=" mb-2 input input-bordered w-full max-w-xs" />
-
-                                            <div class="modal-action justify-start" >
-                                                <input for="pressure-modal" type="submit" value="Update" class="btn bg-teal-500 mb-2 ml-2  cursor-pointer " />
-
-                                            </div>
-                                        </form>
-
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className='pl-5'>Heart Problem</td>
-                            <td>
-                                {
-                                    // eslint-disable-next-line array-callback-return
-                                    problems.slice(0, 1).map(problem =>
-
-                                        <p>{problem.update}</p>
-
-                                    )
-                                }
+                                        <p className='text-white text-2xl text-left'> Decease Condition Update</p>
+                                        {
+                                            deceaseUpdate.map( update =>
+                                                
+                                                <form onSubmit={handleDeceaseUpdate}>
+                                                  
+                                                <input type="text" name='name' value={update.name} class="mb-2 mt-5 text-normal secondary-color text-white input input-bordered border-gray-400 w-full  focus:ring-2 focus:ring-cyan-400 " required />
+                                                <input type="text" name='update' placeholder='Condition of Decease' class="mb-2 mt-5 secondary-color text-white border-gray-400 input input-bordered w-full focus:ring-2 focus:ring-cyan-400 " required />
+                                                <input type="hidden" name='email' value={user?.email} class=" mb-2 input input-bordered w-full max-w-xs" />
+                                                <input type="hidden" name='date' value={currentDate} class=" mb-2 input input-bordered w-full max-w-xs" />
+    
+                                                <div class="modal-action justify-start" >
+                                                    <input for="pressure-modal" type="submit" value="Update" class="btn secondary-bg  mb-2   cursor-pointer " />
+    
+                                                </div>
+                                            </form>
 
 
 
-
-
-                            </td>
-                            <td className='text-primary'>
-                                <label for="heart-modal" class="secondary-color-2 cursor-pointer">Update</label>
-
-
-                                <input type="checkbox" id="heart-modal" class="modal-toggle" />
-                                <div class="modal modal-bottom sm:modal-middle  ">
-                                    <div class="modal-box secondary-color ">
-                                        <label for="heart-modal" class="btn btn-sm btn-circle absolute secondary-color-2 right-2 top-2">✕</label>
-                                        <p className='text-white text-xl'>Update the Heart Condition</p>
-                                        <form onSubmit={handleHeartUpdate}>
-                                            <input type="text" name='heartUpdate' class="mb-2 mt-5 text-black input input-bordered-white w-full max-w-xs " required />
-                                            <input type="hidden" name='email' value={user?.email} class=" mb-2 input input-bordered w-full max-w-xs" />
-                                            <input type="hidden" name='dates' value={currentDate} class=" mb-2 input input-bordered w-full max-w-xs" />
-                                            <div class="modal-action justify-start">
-                                                <input for="heart-modal" type="submit" value="Update" class="btn bg-teal-500 mb-2 ml-2  cursor-pointer " />
-                                            </div>
-                                        </form>
+                                            )}
+                                   
 
                                     </div>
                                 </div>
-
-
-
-
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className='pl-5'>cholesterol's</td>
-                            <td>Running</td>
-                            <td className='secondary-color-2 cursor-pointer'>Update</td>
-                        </tr>
-                        <tr>
-                            <td className='pl-5'>Zoint Pain</td>
-                            <td>Running</td>
-                            <td className='secondary-color-2 cursor-pointer'>Update</td>
-                        </tr>
-                        <tr>
-                            <td className='pl-5'>Fever</td>
-                            <td>Sometimes</td>
-                            <td className='secondary-color-2 cursor-pointer'>Update</td>
-                        </tr>
-                    </tbody>
-                </table>
-               
             </div>
             <ToastContainer />
-            
+
         </div>
 
 

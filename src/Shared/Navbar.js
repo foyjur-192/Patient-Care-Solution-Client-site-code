@@ -6,13 +6,17 @@ import DetailsSearch from '../MainPages/SearchBar/DetailsSearch';
 import BookingAppointment from '../MainPages/SearchBar/BookingAppointment';
 import auth from '../firebase.init';
 import SimpleBar from 'simplebar-react';
+import useAdmin from '../Hook/useAdmin';
 
 const Navbar = () => {
   const [users, setUsers] = useState([]);
   const [query, setQuery] = useState();
   const [appointment, setAppointment] = useState(null);
+  const [user] = useAuthState (auth);
+
+  const [admin] = useAdmin(user)
 //authState
-  const [user, loading, error] = useAuthState (auth);
+
   const navigate = useNavigate()
 
   const Logout = () => {
@@ -26,10 +30,18 @@ const Navbar = () => {
 
 
   useEffect(() => {
-  fetch('http://localhost:5000/data')
-  .then(res => res.json())
-  .then(data => setUsers(data));
-  },[])
+    fetch('http://localhost:5000/data', {
+ 
+    method: 'GET',
+    headers:{
+     authorization: `Bearer ${localStorage.getItem('accessToken')}`
+ }
+ 
+    })
+     .then(res => res.json())
+     .then(data => setUsers(data));
+    },[])
+   
 
 
 
@@ -40,9 +52,9 @@ const Navbar = () => {
           <h2 className='lg:text-2xl sm:text-xl text-left secondary-color-2'>Patient Care Solution</h2>
         </div>
         <label for="my-modal-4" class="btn modal-button cursor-pointer">
-    <button class="cursor-pointer">
+  
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-    </button>
+   
     </label>
     
 
@@ -73,7 +85,7 @@ const Navbar = () => {
                 </li>
          
                  {
-                  user && <li className='text-white text-left cursor-pointer text-left ' onClick={() => navigate('/dashboard')} >Dashboard </li>
+                  admin && <li className='text-white text-left cursor-pointer text-left ' onClick={() => navigate('/dashboard')} >Dashboard </li>
                  }
                
                 <li><a>Settings</a></li>

@@ -1,8 +1,91 @@
-# Getting Started with Create React App
+# Project Name: 
+Patient Care Solution
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Project Description-
+PCS Designed and developed from real life experience based solution.Personally, I faced so much trouble situation to consulting doctors in diagnostic Center.The app developed focus on flexible and effort health care service for patient.
+Very often I go to diagnostic Center with my Mom to consult doctor.The key issue behind the app development is trouble to
+book appointment in the morning always mobile phone busy, Appointment book failed, Long hours waiting for health test result.Its painful  for a weak patient to wait 3-4 hours.To facing the painful process I got motivation to solve the problem.
 
-## Available Scripts
+In my application the key problem was painful to book appointment, late report delivery, Medical report and prescription lost, Patient pain etc
+
+I have learnt So many key point what exactly needed to develop a application.It was painful and error full process but accomplishment was super happiness feeling.One thing I learnt that is keep patent and try super hard.
+
+
+# Installation
+*React 
+*node js 
+*Tailwind 
+*React query 
+*Stripe 
+*React Router
+*Express js
+*Mongodb
+*dot
+*apexcharts
+*axios
+*daisyui
+*get-google-fonts
+*react-toastify
+*simplebar-react
+*react-scrollbar
+
+
+
+# Usage
+The Application has three different users 
+
+*Patient
+1.Client on Sign up 
+2.Select Patient Log in
+3.Sign up with 
+4.Also have Social media log in option with Google
+5.In Dashboard Patient will get all necessary  data.
+6.Search option- click on search option and type any letter then the doctor list will appear
+-click on Book appointment a pop up will appear then fill the form and confirm.
+7.Prescription table click on view a pop up will appear with a prescription patient can Print it
+8.Current Health condition
+9.bottom have a report section click on view report will appear
+
+
+*Doctor
+1.Client on Sign up 
+2.Select Patient Log in
+3.Sign up with 
+4.Also have Social media log in option with Google
+5.Doctor must have paid subscription otherwise their profile will not appear in search 
+5.In Dashboard Patient will get all necessary  data.
+6.First table displaying patient report click on view they can review it.
+7.Right side new appointments will appear 
+8.Create prescription a pup up will appear for write prescription and saved or print
+
+*Diagnostic Center/Hospital
+1.Client on Sign up 
+2.Select Patient Log in
+3.Sign up with 
+4.Also have Social media log in option with Google
+5.Click on Delivery report a pop up will appear and search patient name and click on delivery write the report name
+and upload the report and click on deliry
+
+
+## Features
+* Search Doctor
+* Book Appointment
+* E-prescription
+* E-report
+* Create Prescription
+* Report review
+* report Delivery
+* Patient can book only one appointment a day
+
+
+# How to Contribute
+I'm very  open with listening yours idea to improve the application
+
+# Application on test
+
+
+
+
 
 In the project directory, you can run:
 

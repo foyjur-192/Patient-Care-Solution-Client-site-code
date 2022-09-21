@@ -30,6 +30,8 @@ import Profile from './Shared/Profile';
 import Doctors from './MainPages/Dashboard/Doctors';
 import DiagnosticCenter from './MainPages/Dashboard/DiagnosticCenter';
 import Users from './MainPages/Dashboard/Users';
+import RequiredAdmin from './Hook/RequiredAdmin';
+import LandingPage from './Landing page/LandingPage';
 ;
 
 function App() {
@@ -37,19 +39,16 @@ function App() {
 
   return (
     <div className="App background-Color">
+      
   
    {
     user && <Navbar/>
    }
   
-    
-   
-
-    
       <Routes>
-      <Route path='/' element={<LogIn></LogIn>}></Route>
+      <Route path='/' element={<LandingPage/>}></Route>
+      <Route path='landingPage' element={<LandingPage/>}></Route>
       <Route path='login' element={<LogIn></LogIn>}></Route>
-        <Route path='home' element={<Home></Home>}></Route>
         <Route path='doctorLogIn' element={ <DoctorLogIn></DoctorLogIn> }></Route>
         <Route path='diagnosticLogIn' element={ <DiagnosticLogIn></DiagnosticLogIn> }></Route>
         <Route path='patientLog' element={<PatientLog></PatientLog>}></Route>
@@ -57,17 +56,17 @@ function App() {
         <Route path='diagnosticSignUp' element={<DiagnosticSignUp></DiagnosticSignUp>}></Route>
         <Route path='PatientSignUp' element={<PatientSignUp></PatientSignUp>}></Route>
         <Route path='detailSearch' element={  <RequiredAuth >  <DetailsSearch></DetailsSearch> </RequiredAuth>  } ></Route>
-        <Route path='patient' element={  <RequiredAuth> <Patient></Patient> </RequiredAuth>  }></Route>
-        <Route path='doctor' element={ <RequiredAuth><Doctor></Doctor></RequiredAuth>  }></Route>
+        <Route path='patient' element={  <RequiredAuth><Patient/></RequiredAuth>  }></Route>
+        <Route path='doctor' element={<RequiredAuth> <Doctor/> </RequiredAuth> }></Route>
         <Route path='prescription' element={ <RequiredAuth><Prescription></Prescription></RequiredAuth> }></Route>
         <Route path='patient' element={ <RequiredAuth>  <Patient></Patient></RequiredAuth> }></Route>
-        <Route path='diagnostic' element={ <RequiredAuth><Diagnostic></Diagnostic></RequiredAuth> }></Route>
+        <Route path='diagnostic' element={ <RequiredAuth> <Diagnostic/> </RequiredAuth> }></Route>
         <Route path='profile' element={ <RequiredAuth> <Profile></Profile> </RequiredAuth> }></Route>
         {/* Nasted Route */}
-        <Route path='dashboard' element={ <RequiredAuth> <Dashboard></Dashboard> </RequiredAuth> }>
-        <Route index element={<Doctors/>}></Route>
-        <Route path='users' element={<Users/>}></Route>
-        <Route path='diagnosticCenter' element={<DiagnosticCenter/>}></Route>
+        <Route path='dashboard' element={ <RequiredAuth> <Dashboard/> </RequiredAuth> }>
+        <Route index element={<RequiredAdmin> <Doctors/> </RequiredAdmin>}></Route>
+        <Route path='users' element={ <RequiredAdmin> <Users/> </RequiredAdmin>  }></Route>
+        <Route path='diagnosticCenter' element={<RequiredAdmin> <DiagnosticCenter/> </RequiredAdmin>}></Route>
         </Route>
       
 

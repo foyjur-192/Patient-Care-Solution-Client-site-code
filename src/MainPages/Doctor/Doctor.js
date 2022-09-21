@@ -134,7 +134,7 @@ const [state, setState] = useState({
                             <thead>
                                 <tr>
                                     <th className=' tableHead'>Patient Name</th>
-                                    <th className='tableHead'>See Reports</th>
+                                    <th className=' tableHead'>See Reports</th>
 
                                 </tr>
                             </thead>
@@ -145,8 +145,8 @@ const [state, setState] = useState({
                                 {
                                     reports.map(report =>
                                         <tr className=''>
-                                            <td className='text-white secondary-color'>{report.patientName}</td>
-                                            <td className=' secondary-color-2 secondary-color' ><label for="report-modal" className='cursor-pointer' onClick={() => showReport(report)} >See Report</label></td>
+                                            <td className='border-y-gray-600 text-white secondary-color'>{report.patientName}</td>
+                                            <td className='  border-y-gray-600 secondary-color-2 secondary-color' ><label for="report-modal" className='cursor-pointer' onClick={() => showReport(report)} >See Report</label></td>
                                         </tr>
                                     )
                                 }
@@ -211,11 +211,11 @@ const [state, setState] = useState({
                                 {
                                     newPatients.map(newPatient =>
                                         <tr className=''>
-                                            <td className='secondary-color '>{newPatient.patient}</td>
-                                            <td className='secondary-color'>{newPatient.slot}</td>
-                                            <td className='secondary-color'>{newPatient.date}</td>
-                                            <td className='text-sm secondary-color'>{newPatient.chamber}</td>
-                                            <td className='text-primary secondary-color'> <label for="prescription-modal" onClick={() => setPrescription(newPatient)} class="secondary-color-2 cursor-pointer">Create Prescription</label></td>
+                                            <td className='border-y-gray-600 secondary-color '>{newPatient.patient}</td>
+                                            <td className=' border-y-gray-600 secondary-color'>{newPatient.slot}</td>
+                                            <td className='border-y-gray-600 secondary-color'>{newPatient.date}</td>
+                                            <td className='border-y-gray-600 text-sm secondary-color'>{newPatient.chamber}</td>
+                                            <td className='border-y-gray-600 text-primary secondary-color'> <label for="prescription-modal" onClick={() => setPrescription(newPatient)} class="secondary-color-2 cursor-pointer">Create Prescription</label></td>
                                         </tr>
                                     )
                                 }

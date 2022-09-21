@@ -44,6 +44,17 @@ html, body {
 }
 
 
+
+.headline{
+  font-size: 48px;
+  line-height: 60px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+
+
 .background-Color{
   background-color: #282c34;
  height: 100vh;
@@ -55,10 +66,6 @@ html, body {
 .background-Color2{
   background-color: #282c34;
  height: 100vh;
-
- 
-
- 
 }
 
 .background-search{
@@ -84,6 +91,10 @@ html, body {
 
 .secondary-bg{
   background-color: #15D1DF;
+}
+
+.stock-bg{
+  border: #15D1DF;
 }
 
 .secondary-bg2{
@@ -134,4 +145,18 @@ html, body {
 
 .box-position{
   position: absolute;
+}
+
+.shadow{
+ box-shadow: -12px -12px 24px rgba(255, 255, 255, 0.25), 12px 12px 24px rgba(0, 0, 0, 0.75);
+}
+
+.headline{
+  font-family: "Heebo";
+  font-weight: bold;
+}
+
+.body{
+  font-family: "Rubik";
+  font-weight: "Regular";
 }

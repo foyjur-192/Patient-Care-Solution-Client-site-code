@@ -1,7 +1,14 @@
 module.exports = {
   content: ["./src/**/*.{html,js}"],
   theme: {
-    extend: {},
+    
+    extend: {
+      fontFamily: {
+       
+        'headline': ["Heebo", "Bold"],
+        'body': ["Rubik","Regular"]
+      },
+    },
     daisyui: {
       DoctorTheme: {
         primary: "#282B4C",
@@ -10,6 +17,7 @@ module.exports = {
         neutral: "#3d4451",
         "base-100": "#ffffff",
       },
+   
     },
   },
   plugins: [require("daisyui")],
