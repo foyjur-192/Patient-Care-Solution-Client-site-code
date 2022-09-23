@@ -11,7 +11,7 @@ const CheckoutForm = () => {
 
 
   //  useEffect(() => {  
-  //        fetch('http://localhost:5000/create-payment-intent',{
+  //        fetch('https://search-doctor-server-production.up.railway.app/create-payment-intent',{
 
   //           method: "POST",
   //           headers: {

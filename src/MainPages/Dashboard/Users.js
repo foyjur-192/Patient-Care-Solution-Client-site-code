@@ -10,7 +10,7 @@ const Users = () => {
     const [user] = useAuthState(auth);
   
   
-    const { data: users, isLoading, refetch } = useQuery('users', () => fetch('http://localhost:5000/users', {
+    const { data: users, isLoading, refetch } = useQuery('users', () => fetch('https://search-doctor-server-production.up.railway.app/users', {
       method: 'GET',
       headers:{
           authorization: `Bearer ${localStorage.getItem('accessToken')}`

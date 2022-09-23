@@ -5,7 +5,7 @@ const MakeAdmin = ({user, refetch}) => {
         console.log(email);
     
         const makeAdmin = () => {
-            fetch(`http://localhost:5000/users/admin/${email}`, {
+            fetch(`https://search-doctor-server-production.up.railway.app/users/admin/${email}`, {
             method: 'PUT',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`

@@ -67,7 +67,7 @@
     
 //         console.log(data);
     
-//         fetch('http://localhost:5000/data', {
+//         fetch('https://search-doctor-server-production.up.railway.app/data', {
     
 //             method: 'POST',
 //             headers: {
@@ -85,7 +85,7 @@
 //     }
 
 
-//     const url = `http://localhost:5000/priceData/${id}`;
+//     const url = `https://search-doctor-server-production.up.railway.app/priceData/${id}`;
 
 //   const { data: payment, isLoading } = useQuery (['priceData', id], () => fetch(url, {
 //       method: 'GET',

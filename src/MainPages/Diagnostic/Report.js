@@ -44,7 +44,7 @@ const Report = ({ reports }) => {
                     img: img
                    }
                    //Send to your Database
-                   fetch('http://localhost:5000/report', {
+                   fetch('https://search-doctor-server-production.up.railway.app/report', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
@@ -112,7 +112,7 @@ const Report = ({ reports }) => {
 // }
 // console.log(report);
 // // console.log(booking);
-// fetch('http://localhost:5000/report', {
+// fetch('https://search-doctor-server-production.up.railway.app/report', {
 
 // method: 'POST',
 // headers: {

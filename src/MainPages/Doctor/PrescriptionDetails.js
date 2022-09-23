@@ -45,7 +45,7 @@ const PrescriptionDetails = ({prescriptions}) => {
     }
     console.log(prescriptionData);
 
-    fetch('http://localhost:5000/prescriptionData', {
+    fetch('https://search-doctor-server-production.up.railway.app/prescriptionData', {
 
         method: 'POST',
         headers: {
@@ -101,7 +101,7 @@ const PrescriptionDetails = ({prescriptions}) => {
     useEffect(() => {
         const getDoctorDetails = async () => {
             const email = user.email;
-            const url = `http://localhost:5000/doctorDetails?email=${email}`;
+            const url = `https://search-doctor-server-production.up.railway.app/doctorDetails?email=${email}`;
             const { data } = await axios.get(url);
             setDetails(data);
         }

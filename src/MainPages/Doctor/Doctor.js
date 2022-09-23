@@ -37,7 +37,7 @@ const Doctor = () => {
     useEffect(() => {
         const getPatient = async () => {
             const email = user.email;
-            const url = `http://localhost:5000/patientAppointment?email=${email}`;
+            const url = `https://search-doctor-server-production.up.railway.app/patientAppointment?email=${email}`;
             console.log(url);
             const { data } = await axios.get(url);
             setNewPatients(data);
@@ -50,7 +50,7 @@ const Doctor = () => {
     useEffect(() => {
         const getPatientReport = async () => {
             const email = user.email;
-            const url = `http://localhost:5000/patientReport?email=${email}`;
+            const url = `https://search-doctor-server-production.up.railway.app/patientReport?email=${email}`;
             console.log(url);
             const { data } = await axios.get(url);
             setReports(data);

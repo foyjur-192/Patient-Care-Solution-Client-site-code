@@ -26,7 +26,7 @@ const Diagnostic = () => {
   useEffect ( () => {
     const getAppointment = async() => {
         const email = user.email;
-        const url =`http://localhost:5000/diagnosticCenter?email=${email}`;
+        const url =`https://search-doctor-server-production.up.railway.app/diagnosticCenter?email=${email}`;
       console.log(url);
         const {data} = await axios.get(url);
         setList(data);
@@ -38,7 +38,7 @@ const Diagnostic = () => {
 
 
     useEffect(() => {
-        fetch('http://localhost:5000/dataForSearch')
+        fetch('https://search-doctor-server-production.up.railway.app/dataForSearch')
             .then(res => res.json())
             .then(data => setPatient(data));
     }, [])

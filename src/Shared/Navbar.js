@@ -30,7 +30,7 @@ const Navbar = () => {
 
 
   useEffect(() => {
-    fetch('http://localhost:5000/data', {
+    fetch('https://search-doctor-server-production.up.railway.app/data', {
  
     method: 'GET',
     headers:{

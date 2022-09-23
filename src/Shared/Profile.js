@@ -11,7 +11,7 @@ const Profile = () => {
     useEffect(() => {
         const getData = async () => {
             const email = user.email;
-            const url = `http://localhost:5000/patientData?email=${email}`;
+            const url = `https://search-doctor-server-production.up.railway.app/patientData?email=${email}`;
             console.log(url);
             const { data } = await axios.get(url);
             setProfile(data);

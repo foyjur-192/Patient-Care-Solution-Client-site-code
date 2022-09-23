@@ -40,7 +40,7 @@ var displayTodaysDate = showDate.getDate()+'/'+(showDate.getMonth()+1)+'/'+showD
 
     console.log(booking);
 
-fetch('http://localhost:5000/booking', {
+fetch('https://search-doctor-server-production.up.railway.app/booking', {
 
 method: 'POST',
 headers: {

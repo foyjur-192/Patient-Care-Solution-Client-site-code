@@ -57,7 +57,7 @@ const Patient = () => {
     useEffect(() => {
         const getMedicine = async () => {
             const email = user.email;
-            const url = `http://localhost:5000/prescriptionMedicine?email=${email}`;
+            const url = `https://search-doctor-server-production.up.railway.app/prescriptionMedicine?email=${email}`;
             console.log(url);
             const { data } = await axios.get(url);
             setMedicine(data);
@@ -71,7 +71,7 @@ const Patient = () => {
     // useEffect(() => {
     //     const getReports = async () => {
     //         const email = user.email;
-    //         const url = `http://localhost:5000/userReport?email=${email}`;
+    //         const url = `https://search-doctor-server-production.up.railway.app/userReport?email=${email}`;
     //         console.log(url);
     //         const { data } = await axios.get(url);
     //         setReports(data);
@@ -82,7 +82,7 @@ const Patient = () => {
 
     useEffect(() => {
         if (user) {
-            fetch(`http://localhost:5000/userReport?email=${user.email}`, {
+            fetch(`https://search-doctor-server-production.up.railway.app/userReport?email=${user.email}`, {
 
                 method: 'GET',
                 headers: {
@@ -121,7 +121,7 @@ const Patient = () => {
     // useEffect(() => {
     //     const getBloodPressure = async () => {
     //         const email = user.email;
-    //         const url = `http://localhost:5000/pressureData?email=${email}`;
+    //         const url = `https://search-doctor-server-production.up.railway.app/pressureData?email=${email}`;
     //         console.log(url);
     //         const { data } = await axios.get(url);
     //         setPressure(data);
@@ -134,7 +134,7 @@ const Patient = () => {
     // useEffect(() => {
     //     const getBloodPressure = async () => {
     //         const email = user.email;
-    //         const url = `http://localhost:5000/heartData?email=${email}`;
+    //         const url = `https://search-doctor-server-production.up.railway.app/heartData?email=${email}`;
     //         console.log(url);
     //         const { data } = await axios.get(url);
     //         setProblem(data);
@@ -149,7 +149,7 @@ const Patient = () => {
     useEffect(() => {
         const getAppointment = async () => {
             const email = user.email;
-            const url = `http://localhost:5000/appointment?email=${email}`;
+            const url = `https://search-doctor-server-production.up.railway.app/appointment?email=${email}`;
             console.log(url);
             const { data } = await axios.get(url);
             setAppointment(data);
@@ -160,7 +160,7 @@ const Patient = () => {
 
     // useEffect ( () => {
     //     const getAppointment = async() => {
-    //         const url =`http://localhost:5000/appointment`;
+    //         const url =`https://search-doctor-server-production.up.railway.app/appointment`;
     //         console.log(url);
     //         const {data} = await axios.get(url);
     //         setAppointment(data);
@@ -184,7 +184,7 @@ const Patient = () => {
         }
         console.log(pressureData);
 
-        fetch( ` http://localhost:5000/pressureData=${params}`, {
+        fetch( ` https://search-doctor-server-production.up.railway.app/pressureData=${params}`, {
 
             method: 'PUT',
             headers: {
@@ -220,7 +220,7 @@ const Patient = () => {
     //     }
     //     console.log(heartProblem);
 
-    //     fetch('http://localhost:5000/heartData', {
+    //     fetch('https://search-doctor-server-production.up.railway.app/heartData', {
 
     //         method: 'POST',
     //         headers: {
