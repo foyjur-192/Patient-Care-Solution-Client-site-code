@@ -68,7 +68,7 @@ const DoctorSignUp = () => {
 
                         }
                       })}
-                      type="text" name="name" className="w-full secondary-color border-black  rounded border border-gray-300 focus:border-teal-400  focus:ring-2 focus:ring-indigo-200 text-white outline-none text-white py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                      type="text" name="name" className="w-full secondary-color border-black  rounded border border-gray-300 focus:border-teal-400  focus:ring-2 focus:ring-indigo-200 text-white outline-none text-gray-200 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                     <label for="name" className="leading-7 text-sm text-white text-left">
                       {errors.name?.type === 'required' && <span className='label-text-alt text-red-500 '>{errors.name.message}</span>}
                     </label>
@@ -91,7 +91,7 @@ const DoctorSignUp = () => {
                           message: 'provide a valid Email'
                         }
                       })}
-                      type="email" id="email" name="email" className="w-full  secondary-color border-black rounded border 0 focus:border-teal-400  focus:ring-2 focus:ring-indigo-200 text-white outline-none text-white py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                      type="email" id="email" name="email" className="w-full  secondary-color border-black rounded border 0 focus:border-teal-400  focus:ring-2 focus:ring-indigo-200 text-white outline-none text-gray-200 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                     <label for="email" className="leading-7 text-sm text-white text-left">
                       {errors.email?.type === 'required' && <span className='label-text-alt text-red-500 '>{errors.email.message}</span>}
                       {errors.email?.type === 'pattern' && <span className='label-text-alt text-red-500 '>{errors.email.message}</span>}
@@ -116,7 +116,7 @@ const DoctorSignUp = () => {
                         }
                       })}
 
-                      type="text" name="password" className="w-full  secondary-color border-black  rounded border  focus:border-teal-400  focus:ring-2 focus:ring-indigo-200 text-white outline-none text-white py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                      type="text" name="password" className="w-full  secondary-color border-black  rounded border  focus:border-teal-400  focus:ring-2 focus:ring-indigo-200  outline-none text-gray-200 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                     <label for="email" className="leading-7 text-sm text-white text-left">
                       {errors.password?.type === 'required' && <span className='label-text-alt text-red-500 '>{errors.password.message}</span>}
                       {errors.password?.type === 'minLength' && <span className='label-text-alt text-red-500 '>{errors.password.message}</span>}
@@ -138,7 +138,7 @@ const DoctorSignUp = () => {
                       })}
 
 
-                      type="text" name="age" className="w-full secondary-color border-black rounded border focus:border-teal-400  focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                      type="text" name="age" className="w-full secondary-color text-gray-200 border-black rounded border focus:border-teal-400  focus:ring-2 focus:ring-indigo-200 text-base outline-none  py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                     <label for="name" className="leading-7 text-sm text-white text-left">
                       {errors.age?.type === 'required' && <span className='label-text-alt text-red-500 '>{errors.age.message}</span>}
                     </label>
@@ -160,7 +160,7 @@ const DoctorSignUp = () => {
 
 
 
-                      type="text" name="license" className="w-full secondary-color border-black rounded border border-gray-300 focus:border-teal-400  focus:ring-2 focus:ring-indigo-200 text-base outline-none text-white py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                      type="text" name="license" className="w-full text-gray-200 secondary-color border-black rounded border border-gray-300 focus:border-teal-400  focus:ring-2 focus:ring-indigo-200 text-base outline-none py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                     <label for="registration" className="leading-7 text-sm text-white text-left">
                       {errors.license?.type === 'required' && <span className='label-text-alt text-red-500 '>{errors.license.message}</span>}
                     </label>
@@ -182,7 +182,7 @@ const DoctorSignUp = () => {
                       })}
 
 
-                      type="text" name="hospital" className="w-full secondary-color border-black rounded border border-gray-300 focus:border-teal-400  focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                      type="text" name="hospital" className="w-full  secondary-color border-black rounded border border-gray-300 focus:border-teal-400  focus:ring-2 focus:ring-indigo-200  outline-none text-gray-200 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                     <label for="registration" className="leading-7 text-sm text-white text-left">
                       {errors.hospital?.type === 'required' && <span className='label-text-alt text-red-500 '>{errors.hospital.message}</span>}
                     </label>
@@ -202,7 +202,7 @@ const DoctorSignUp = () => {
 
                       })}
 
-                      type="text" name="designation" className="w-full secondary-color border-black rounded border border-gray-300  focus:border-teal-400   focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                      type="text" name="designation" className="w-full text-white secondary-color border-black rounded border border-gray-300  focus:border-teal-400   focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-200 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                     <label for="registration" className="leading-7 text-sm text-white text-left">
                       {errors.designation?.type === 'required' && <span className='label-text-alt text-red-500 '>{errors.designation.message}</span>}
                     </label>
@@ -223,7 +223,7 @@ const DoctorSignUp = () => {
                       })}
 
 
-                      type="text" name="degrees" className="w-full secondary-color border-black rounded border border-gray-300  focus:border-teal-400  focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                      type="text" name="degrees" className="w-full  secondary-color border-black rounded border border-gray-300  focus:border-teal-400  focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-200 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                     <label for="registration" className="leading-7 text-sm text-white text-left">
                       {errors.degrees?.type === 'required' && <span className='label-text-alt text-red-500 '>{errors.degrees.message}</span>}
                     </label>
@@ -244,7 +244,7 @@ const DoctorSignUp = () => {
                       })}
 
 
-                      type="text" name="experienced" className="w-full secondary-color border-black rounded border border-gray-300   focus:border-teal-400    focus:ring-2 focus:ring-indigo-200 text-white outline-none text-white py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                      type="text" name="experienced" className="w-full  secondary-color border-black rounded border border-gray-300   focus:border-teal-400    focus:ring-2 focus:ring-indigo-200  outline-none text-gray-200 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                     <label for="experienced" className="leading-7 text-sm text-white text-left">
                       {errors.experienced?.type === 'required' && <span className='label-text-alt text-red-500 '>{errors.experienced.message}</span>}
                     </label>
@@ -267,7 +267,7 @@ const DoctorSignUp = () => {
 
 
 
-                      type="text" name="expertise" className="w-full secondary-color border-black rounded border border-gray-300  focus:border-teal-400  focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                      type="text" name="expertise" className="w-full text-gray-200 secondary-color border-black rounded border border-gray-300  focus:border-teal-400  focus:ring-2 focus:ring-indigo-200 text-base outline-none  py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                     <label for="expertise" className="leading-7 text-sm text-white text-left">
                       {errors.expertise?.type === 'required' && <span className='label-text-alt text-red-500 '>{errors.expertise.message}</span>}
                     </label>
@@ -288,7 +288,7 @@ const DoctorSignUp = () => {
                       })}
 
 
-                      type="text" name="chamberAddress" className="w-full secondary-color border-black rounded border border-gray-300  focus:border-teal-400   focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                      type="text" name="chamberAddress" className="w-full text-gray-200 secondary-color border-black rounded border border-gray-300  focus:border-teal-400   focus:ring-2 focus:ring-indigo-200 text-base outline-none  py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                     <label for="registration" className="leading-7 text-sm text-white text-left">
                       {errors.chamberAddress?.type === 'required' && <span className='label-text-alt text-red-500 '>{errors.chamberAddress.message}</span>}
                     </label>

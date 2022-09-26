@@ -21,7 +21,8 @@ const [userData, setUserData] = useState([])
 console.log(doctor);
 const { id } = useParams ();
 
-
+var showDate = new Date();
+var displayTodaysDate = showDate.getDate()+'/'+(showDate.getMonth()+1)+'/'+showDate.getFullYear();
 
 
 
@@ -41,13 +42,14 @@ const handlePayment = event => {
     const visitingHour = event.target.visitingHour.value;
     const closed = event.target.closed.value;
     const chamberName = event.target.chamberName.value;
+    const date = event.target.date.value;
     const slots = event.target.slots.value;
     const price = event.target.price.value;
   
    
 
 
-    const data = {
+    const doctorData = {
         doctorName,
         email,
         age,
@@ -61,28 +63,32 @@ const handlePayment = event => {
         visitingHour,
         closed,
         slots,
+        date,
         chamberName,
         price
 
     }
 
-    console.log(data);
+    console.log(doctorData);
 
-    fetch('https://search-doctor-server-production.up.railway.app/data', {
+    fetch('https://search-doctor-server-production.up.railway.app/newData', {
 
         method: 'POST',
         headers: {
             'content-type': 'application/json'
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(doctorData)
 
     })
         .then(res => res.json())
         .then(data => {
-            if (data.success) {
-                toast(`upload Successfully set`)
-            }
-        })
+          if(data.success){
+              toast(`Data Update Successfully`)
+          }
+         else {
+          toast.error(`You already have been submitted data`)
+         }
+      })
 }
 
 useEffect (() => {
@@ -216,6 +222,9 @@ useEffect (() => {
   <label for="my-modal-1" class="btn secondary-bg btn-sm btn-circle absolute right-2 top-2">✕</label>
   <h1 className='text-3xl text-white font-medium'>Fill up the Form Properly</h1>
 
+{
+  doctor.slice(0,1).map(doctors =>
+  
 
       <form onSubmit={handlePayment}>
         <div class="form-control w-full mb-3 text-white mt-8">
@@ -322,22 +331,26 @@ useEffect (() => {
         <input type="hidden" name='price' value={2000} placeholder="Private Chamber Address" class="input  border-gray-400   secondary-color input-bordered w-full " />
       </div>
         <div class="form-control w-full mb-2">
+        <input type="hidden" name='date' value={displayTodaysDate}  placeholder="Private Chamber Address" class="input  border-gray-400  text-gray-300 secondary-color input-bordered w-full " />
+      </div>
+        <div class="form-control w-full mb-2">
         <label class="label">
           <span class="label-text text-white">Serial Time Slots</span>
         </label>
-        <input type="text" name='slots'  placeholder="Private Chamber Address" class="input  border-gray-400  text-gray-300 secondary-color input-bordered w-full " />
+        <input type="text" name='slots' value={doctors.slots} placeholder="Private Chamber Address" class="input  border-gray-400  text-gray-300 secondary-color input-bordered w-full " />
       </div>
       
       <button className='btn'><label for="my-modal-6" class="btn modal-button px-3">Next</label></button>
       </form>
-        
+         
+         )}
         
 
  
   </div>
 </div>
 
-{/* Payment */}
+
 
 
 

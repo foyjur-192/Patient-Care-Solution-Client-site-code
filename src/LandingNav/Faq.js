@@ -4,14 +4,14 @@ const Faq = () => {
     return (
         <section className='py-16'>
         <div className='container mx-auto'>
-        <div className='px-40'>
-            <h1 className='font-bold text-5xl text-white mb-24'>Frequently Ask Quesiton</h1>
+        <div className='lg:px-40 px-2'>
+            <h1 className='font-bold lg:text-5xl text-2xl text-white lg:text-left text-center mb-24'>Frequently Ask Quesiton</h1>
         <div tabindex="0" class="collapse collapse-arrow border mb-5 border-gray-500  rounded-box">
         <div class="collapse-title text-left text-xl text-white ">
-        Can I book doctor appointment from my dashboard??
+        Is the Application free for patient??
         </div>
         <div class="collapse-content text-left text-white"> 
-          <p>tabindex="0" attribute is necessary to make the div focusable</p>
+          <p>Yes,Its 100% free for patient</p>
         </div>
       </div>
 
@@ -20,17 +20,19 @@ const Faq = () => {
         How can I Find Doctors???
         </div>
         <div class="collapse-content text-white text-left"> 
-          <p>tabindex="0" attribute is necessary to make the div focusable</p>
+          <p>Its really simple, Just click on Search button and type what specialist you need of if do you know the name just 
+            type doctor name.
+          </p>
         </div>
       </div>
 
 
       <div tabindex="0" class="collapse collapse-arrow border mb-5 border-gray-500  rounded-box">
         <div class="collapse-title text-xl text-left  text-white">
-        Is it free for Patients???
+        Is my Medical history safe??
         </div>
         <div class="collapse-content text-white text-left"> 
-          <p>tabindex="0" attribute is necessary to make the div focusable</p>
+          <p>Yes, Your Data security is our Priority</p>
         </div>
       </div>
 
@@ -40,7 +42,7 @@ const Faq = () => {
         Is it free for Doctors??
         </div>
         <div class="collapse-content text-white text-left"> 
-          <p>tabindex="0" attribute is necessary to make the div focusable</p>
+          <p>No, Doctor Have to paid a yearly Subscription for keep their name in search </p>
         </div>
       </div>
 
@@ -50,25 +52,25 @@ const Faq = () => {
         Is it free for Diagnostic Center or Hospitals??
         </div>
         <div class="collapse-content text-white text-left"> 
-          <p>tabindex="0" attribute is necessary to make the div focusable</p>
+          <p>Yes, Its free for Diagnostic Center </p>
         </div>
       </div>
 
 
       <div tabindex="0" class="collapse collapse-arrow border mb-5 border-gray-500  rounded-box">
         <div class="collapse-title text-xl text-white  text-left">
-        Is e-prescription appear in my Dashboard???
+        Where can i get my prescription??
         </div>
         <div class="collapse-content text-white text-left"> 
-          <p>tabindex="0" attribute is necessary to make the div focusable</p>
+          <p>You can find your prescription in your dashboard Visited doctor Column</p>
         </div>
       </div>
       <div tabindex="0" class="collapse collapse-arrow border mb-5 border-gray-500  rounded-box">
         <div class="collapse-title text-xl text-white  text-left">
-        Is Diagnostic Center can delivery the report to patient account???
+       How Diagnostic Center can delivery the report to patient account???
         </div>
         <div class="collapse-content text-white text-left"> 
-          <p>tabindex="0" attribute is necessary to make the div focusable</p>
+          <p>Its really simple, if the patient book any  appointment then Diagnostic center can find his profile in delivery search.</p>
         </div>
       </div>
       <div tabindex="0" class="collapse collapse-arrow border mb-5 border-gray-500  rounded-box">
@@ -76,16 +78,27 @@ const Faq = () => {
         A patient how often can book appointment???
         </div>
         <div class="collapse-content text-white text-left"> 
-          <p>tabindex="0" attribute is necessary to make the div focusable</p>
+          <p>Patient Can take a single appointment  for per day</p>
         </div>
       </div>
       <div tabindex="0" class="collapse collapse-arrow border mb-5 border-gray-500  rounded-box">
         <div class="collapse-title text-xl text-white  text-left">
-        Is doctor will received notification after book appointment and patient report arrival??
+        Is doctor will received notification after book appointment and patient report receive??
         </div>
         <div class="collapse-content text-white text-left"> 
-          <p>tabindex="0" attribute is necessary to make the div focusable</p>
+          <p>Yes, Doctor can find report and appointment details right on his dashboard</p>
         </div>
+        
+      </div>
+
+      <div tabindex="0" class="collapse collapse-arrow border mb-5 border-gray-500  rounded-box">
+        <div class="collapse-title text-xl text-white  text-left">
+        How can a doctor will review e-report??
+        </div>
+        <div class="collapse-content text-white text-left"> 
+          <p>Simply click on view a Pop up will appear with report</p>
+        </div>
+        
       </div>
 
       </div>

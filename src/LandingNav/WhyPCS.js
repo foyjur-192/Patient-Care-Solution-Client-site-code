@@ -10,8 +10,8 @@ const WhyPCS = () => {
                         <img alt="feature" class="object-cover object-center h-full w-full" src={img} />
                     </div>
                     <div class=" flex-wrap lg:py-6 -mb-10 lg:w-1/2 lg:pl-12 lg:text-left text-white text-center">
-                        <h1 className='font-bold text-5xl mb-8'>Why Medical Care Solution?</h1>
-                        <p className='mb-6   text-normal leading-6'>
+                        <h1 className='font-bold lg:text-5xl text-2xl mb-8'>Why Medical Care Solution?</h1>
+                        <p className='mb-6   text-normal leading-7'>
                             Medical care solution developed  basded on Bangladesh medical
                             services perspectives.70% Patient in Bangladesh appoint doctors
                             in private diagnostic center. Every morning doctor asistance book appointment through phone call.The booking time is 9 am to 10am sometimes they don’t received call or avoid for their hidden benefit.Generally doctor come to private chamber after his offical duty hours in hospital.
@@ -30,7 +30,7 @@ const WhyPCS = () => {
                             reports in their spear time because they can review in online anytime anywhere.
                         </p>
 
-                     <button className='btn secondary-bg mt-5 font-medium  px-3 '> <a href="https://www.behance.net/gallery/151613079/Doctor-Consulting-Process-Solution-System" target="_blank">Case Study</a> </button>
+                     <button className='btn secondary-bg mt-5 font-medium shadow px-3 '> <a href="https://www.behance.net/gallery/151613079/Doctor-Consulting-Process-Solution-System" target="_blank">Case Study</a> </button>
                     </div>
                 </div>
             </section>

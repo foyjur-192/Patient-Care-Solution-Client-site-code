@@ -307,22 +307,21 @@ const Patient = () => {
 
     return (
 
-        <div className='grid lg:grid-cols-4  gap-4 px-8 md:grid-cols-2 sm:grid-cols-1'>
-
-            <div className='lg:col-span-3   min-h-[700px] secondary-color'>
-                <div className='flex justify-between px-5 py-5'>
+        <div className='grid lg:grid-cols-4  gap-4 lg:px-8 md:grid-cols-2 sm:grid-cols-1'>
+            <div className='lg:col-span-3  min-h-[700px] secondary-color'>
+                <div className='flex justify-between lg:px-5 px-5 py-5'>
                     <div><p className='text-white font-bold lg:text-base sm:text-sm'>Visited Doctors</p></div>
                     <div><p className='text-white font-bold sm:text-sm'>2021-2022</p></div>
                 </div>
                 <div>
                     <SimpleBar style={{ maxHeight: '600px' }}>
-                        <table className=' table table-auto w-full text-left  whitespace-no-wrap  mb-5 text-white ' >
+                        <table className='table table-auto table-fixed lg:w-full w-80 text-left  whitespace-no-wrap  mb-5 text-white ' >
                             <thead className='pt-6 mb-5'  >
                                 <tr className='secondary-color' >
-                                    <th className=' text-left px-5 py-4 tableHead ' >Doctor Name</th>
-                                    <th className='text-left  py-4 tableHead'>Chamber</th>
-                                    <th className='text-left  py-4 tableHead'>Location</th>
-                                    <th className='text-left  py-4 tableHead'>Prescription</th>
+                                    <th className=' text-left overflow-hidden px-5 py-4 tableHead ' >Doctor Name</th>
+                                    <th className='text-left overflow-hidden  py-4 tableHead'>Chamber</th>
+                                    <th className='text-left overflow-hidden  py-4 tableHead'>Location</th>
+                                    <th className='text-left overflow-hidden  py-4 tableHead'>Prescription</th>
                                 </tr>
                             </thead>
                             <tbody className='pt-12    py-5'>
@@ -331,9 +330,9 @@ const Patient = () => {
                                     medicines.map(medicine =>
 
                                         <tr >
-                                            <td className='text-sm border-y-gray-600 text-left secondary-color pl-5'>{medicine.doctorName}</td>
-                                            <td className='text-sm border-y-gray-600 text-left secondary-color'>{medicine.chamber}</td>
-                                            <td className='text-sm border-y-gray-600 text-left secondary-color'>{medicine.chamberAddress}</td>
+                                            <td className='text-sm border-y-gray-600 text-left overflow-hidden secondary-color pl-5'>{medicine.doctorName}</td>
+                                            <td className='text-sm border-y-gray-600 text-left overflow-hidden secondary-color'>{medicine.chamber}</td>
+                                            <td className='text-sm border-y-gray-600 text-left overflow-hidden secondary-color'>{medicine.chamberAddress}</td>
                                             <td className='text-white border-y-gray-600 text-left cursor-pointer secondary-color-2 secondary-color' ><label for="prescription-modal" onClick={() => showPrescription(medicine)} >See Prescription</label></td>
                                         </tr>
 
