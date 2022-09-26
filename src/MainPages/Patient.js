@@ -8,6 +8,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import SimpleBar from 'simplebar-react';
 import { signOut } from 'firebase/auth';
 import { useNavigate, useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 
 
@@ -26,6 +27,11 @@ const Patient = () => {
     var currentDate = new Date().toLocaleDateString();
     
     const params = useParams();
+
+useEffect(() => {
+    console.warn(params);
+},[])
+
     const navigate = useNavigate()
     //Report PopUp
     const [popUpContents, setPopUpContent] = useState([]);
@@ -44,15 +50,8 @@ const Patient = () => {
     const update = (decease) => {
         setDeceaseUpdatePopUps([decease])
     };
-    // Doctors
+  
 
-    //  //Reports
-    // useEffect(() => {
-    //   fetch('report.JSON')
-    //   .then(res => res.json())
-    //   .then(data => setReports(data));
-
-    //  },[])
     //Prescription
     useEffect(() => {
         const getMedicine = async () => {
@@ -67,18 +66,7 @@ const Patient = () => {
     }, [user])
 
 
-    //Reports
-    // useEffect(() => {
-    //     const getReports = async () => {
-    //         const email = user.email;
-    //         const url = `https://search-doctor-server-production.up.railway.app/userReport?email=${email}`;
-    //         console.log(url);
-    //         const { data } = await axios.get(url);
-    //         setReports(data);
-    //         console.log(data);
-    //     }
-    //     getReports();
-    // }, [user])
+ 
 
     useEffect(() => {
         if (user) {
@@ -117,31 +105,7 @@ const Patient = () => {
          .then(data => setDeceases(data));
         },[])
 
-    //update Blood Pressure
-    // useEffect(() => {
-    //     const getBloodPressure = async () => {
-    //         const email = user.email;
-    //         const url = `https://search-doctor-server-production.up.railway.app/pressureData?email=${email}`;
-    //         console.log(url);
-    //         const { data } = await axios.get(url);
-    //         setPressure(data);
-    //         console.log(data);
-    //     }
-    //     getBloodPressure();
-    // }, [user])
-
-    //update Heart Data
-    // useEffect(() => {
-    //     const getBloodPressure = async () => {
-    //         const email = user.email;
-    //         const url = `https://search-doctor-server-production.up.railway.app/heartData?email=${email}`;
-    //         console.log(url);
-    //         const { data } = await axios.get(url);
-    //         setProblem(data);
-    //         console.log(data);
-    //     }
-    //     getBloodPressure();
-    // }, [user])
+    
 
 
 
@@ -158,19 +122,10 @@ const Patient = () => {
         getAppointment();
     }, [user])
 
-    // useEffect ( () => {
-    //     const getAppointment = async() => {
-    //         const url =`https://search-doctor-server-production.up.railway.app/appointment`;
-    //         console.log(url);
-    //         const {data} = await axios.get(url);
-    //         setAppointment(data);
-    //         console.log(data);
-    //     }
-    //     getAppointment();
-    // }, [])
+    
 
     //Handle the Blood Pressure update
-    const handleDeceaseUpdate = event => {
+    const handleDeceaseUpdate = async event  => {
         event.preventDefault()
         const update = event.target.update.value;
         const email = event.target.email.value;
@@ -183,59 +138,55 @@ const Patient = () => {
             date
         }
         console.log(pressureData);
+       console.warn(params);
 
-        fetch( ` https://search-doctor-server-production.up.railway.app/pressureData=${params}`, {
+      
+        
+        let result =  await fetch(`https://search-doctor-server-production.up.railway.app/pressureData=${params.id}`,{
+        method: 'PUT',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify(pressureData)
 
-            method: 'PUT',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(pressureData)
+
 
         })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    toast(`Updated Successfully set`)
-                }
-            })
+        result = await result.json()
+        console.warn(result);
+     
+        
     }
 
 
-
-
-    //Handle the Heart problem update
-    // const handleHeartUpdate = event => {
-    //     event.preventDefault()
-
-    //     const heartUpdate = event.target.heartUpdate.value;
-    //     const email = event.target.email.value;
-    //     const dates = event.target.dates.value;
-
-    //     const heartProblem = {
-    //         heartUpdate,
-    //         email,
-    //         dates
-
-    //     }
-    //     console.log(heartProblem);
-
-    //     fetch('https://search-doctor-server-production.up.railway.app/heartData', {
-
-    //         method: 'POST',
-    //         headers: {
-    //             'content-type': 'application/json'
-    //         },
-    //         body: JSON.stringify(heartProblem)
-
-    //     })
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             if (data.success) {
-    //                 toast(`Updated Successfully set`)
-    //             }
-    //         })
-    // }
+//Delete
+const handleDelete = async (id) => {
+    Swal.fire({
+      title: 'Are you sure to Remove Appointment ?',
+      text: "You won't be able to revert this !",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+     
+      confirmButtonText: 'Yes, Delete it'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const url = `https://search-doctor-server-production.up.railway.app/deleteAppointment/${id}`
+        axios
+          .delete(url)
+          .then(response => {
+            const filterDelete = appointments.filter(appointment => appointment._id !== id)
+            setAppointment(filterDelete)
+          })
+        Swal.fire(
+          'Deleted!',
+          'The Appointment has been deleted Permanently.',
+          'Success'
+        )
+      }
+    })
+  }
 
 
 
@@ -306,7 +257,7 @@ const Patient = () => {
 
 
     return (
-
+ <div>
         <div className='grid lg:grid-cols-4  gap-4 lg:px-8 md:grid-cols-2 sm:grid-cols-1'>
             <div className='lg:col-span-3  min-h-[700px] secondary-color'>
                 <div className='flex justify-between lg:px-5 px-5 py-5'>
@@ -416,16 +367,20 @@ const Patient = () => {
             </div>
             <div className='lg:col-span-1 min-h-[250px]  sticky secondary-color text-white '>
                 <div className=''>
-                    <div className='bg-Slate-300  text-left px-4  py-8'>
+                    <div className='  text-left px-4  py-8'>
                         <h2 className='text-2xl font-median-bold mb-6  '>Appointment</h2>
                         <SimpleBar style={{ maxHeight: '600px' }}>
                             {
                                 appointments.map(appointment =>
                                     <div>
 
-                                        <div className='flex inline-block mt-5'>
-                                            <img alt="doctor" class="w-12 h-12 mb-3 object-cover object-center rounded-full inline-block border-2" src="https://t4.ftcdn.net/jpg/00/58/33/17/240_F_58331714_RO7gYyfIE19CcD9MzJZxwEqqeetvtyhA.jpg" />
-                                            <p className='mt-2 ml-3'>Doctor: {appointment.doctor}</p>
+                                        <div className='flex inline-block justify-between items-stretch mt-5'>
+                                            <div className='flex inline-block mt-5'> <img alt="doctor" class="w-12 h-12 mb-3 object-cover object-center rounded-full inline-block border-2" src="https://t4.ftcdn.net/jpg/00/58/33/17/240_F_58331714_RO7gYyfIE19CcD9MzJZxwEqqeetvtyhA.jpg" />
+                                            <p className='mt-2 ml-3 '>Doctor: {appointment.doctor}</p></div>
+                                            <div className='self-center lg:mr-5 mr-3 '>
+                                               <p className='font-xl font-bold secondary-color-2 hover:text-gray-200 cursor-pointer ' onClick={() =>handleDelete(appointment._id)}><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></p> 
+                                            </div>
+                                           
                                         </div>
                                         <div className='flex content-center'>
                                             <div className='flex-initial text-left'> <p className=''>Your Appointment Time </p>
@@ -604,130 +559,9 @@ const Patient = () => {
                                 </div>
             </div>
             <ToastContainer />
-
+          
         </div>
-
-
-
-
-
-
-
-
-        // <div className='mt-12'>
-        //    <div className=' lg:w-4/5 sm:max-w-xs gap-5 px-6'>
-        //    <div className='bg-Slate-100 min-h-[500px]'>
-        //    <div class="overflow-x-auto">
-        //     <table class="table  w-full">
-
-        //         <thead>
-        //             <tr>
-        //                 <th>Doctor Name</th>
-        //                 <th>Chamber</th>
-        //                 <th>Location</th>
-        //                 <th>Prescription</th>
-        //             </tr>
-        //         </thead>
-        //         <tbody>
-        //         {
-        //             medicines.map(medicine => 
-        //                 <tr>
-        //                 <td>{medicine.doctorName}</td>
-        //                 <td>{medicine.chamber}</td>
-        //                 <td>{medicine.chamberAddress}</td>
-        //                 <td className='text-primary cursor-pointer ' onClick={() => navigate('/prescription')}> View</td>
-        //             </tr>
-        //             )
-        //             }
-        //   </tbody>
-        //     </table>
-        //         </div>
-        //    </div>
-        // <div className=''>
-        //     <div className='bg-Slate-100 min-h-[500px] mt-8 shadow-lg p-5 '>
-        //    <div class="overflow-x-auto">
-        //    <table class="table  w-full">
-        //                 <thead>
-        //                     <tr>
-        //                         <th>Recent Medical Report</th>
-        //                         <th>Date</th>
-        //                         <th>Reports</th>
-        //                     </tr>
-        //                 </thead>
-        //                 <tbody>
-        //                 {
-        //                     reports.map(report => 
-        //                         <tr>
-        //                         <td>{report.reportName}</td>
-        //                         <td>{report.date}</td>
-        //                         <td className='text-primary'><Link to='prescription'>View Report</Link></td>
-        //                     </tr>
-        //                     )
-
-        //                 }
-        //           </tbody>
-        //             </table>
-        //         </div>
-        //    </div>
-        // </div>
-
-
-
-        //    <div className='bg-Slate-100 min-h-[500px]'>
-        //     <div className=''>
-        //     <div className='bg-Slate-100 min-h-[500px] mt-8 shadow-lg p-5 '>
-        //    <div class="overflow-x-auto">
-        //             <table class="table  w-full ">
-
-        //                 <thead>
-        //                     <tr>
-
-        //                         <th>Decreased Names</th>
-        //                         <th>Common Decease</th>
-        //                         <th>2010-2021</th>
-        //                     </tr>
-        //                 </thead>
-        //                 <tbody>
-
-        //                     <tr>
-        //                         <td>High Blood Pressure</td>
-        //                         <td>Running</td>
-        //                         <td className='text-primary'><Link to='prescription'>Edit</Link></td>
-        //                     </tr>
-        //                     <tr>
-        //                         <td>Heart Problem</td>
-        //                         <td>Running</td>
-        //                         <td className='text-primary'><Link to='prescription'>Edit</Link></td>
-        //                     </tr>
-        //                     <tr>
-        //                         <td>Cholesterols</td>
-        //                         <td>Running</td>
-        //                         <td className='text-primary'><Link to='prescription'>Edit</Link></td>
-        //                     </tr>
-        //                     <tr>
-        //                         <td>Zoint Pain</td>
-        //                         <td>Running</td>
-        //                         <td className='text-primary'><Link to='prescription'>Edit</Link></td>
-        //                     </tr>
-        //                     <tr>
-        //                         <td>Fever</td>
-        //                         <td>Sometimes</td>
-        //                         <td className='text-primary'><Link to='prescription'>Edit</Link></td>
-        //                     </tr>
-
-        //           </tbody>
-        //             </table>
-        //         </div>
-        //    </div>
-        //     </div>
-
-        //    </div>
-        //    </div>
-
-
-
-        // </div>
-
+        </div>
     );
 };
 

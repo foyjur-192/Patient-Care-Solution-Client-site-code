@@ -28,6 +28,7 @@
     "react-table-scrollbar": "^0.1.11",
     "react-toastify": "^9.0.4",
     "simplebar-react": "^2.4.1",
+    "sweetalert2": "^11.4.33",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

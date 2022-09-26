@@ -129,7 +129,7 @@ const [state, setState] = useState({
                 
                 <div>
                 <SimpleBar  style={{ maxHeight: '600px' }}>
-                        <table class="table table-auto w-full text-left  ">
+                        <table class="table table-auto w-full text-left ">
                             {/* <!-- head --> */}
                             <thead>
                                 <tr>
