@@ -56,7 +56,7 @@ useEffect(() => {
     useEffect(() => {
         const getMedicine = async () => {
             const email = user.email;
-            const url = `https://search-doctor-server-production.up.railway.app/prescriptionMedicine?email=${email}`;
+            const url = `https://dark-pink-tortoise-slip.cyclic.app/prescriptionMedicine?email=${email}`;
             console.log(url);
             const { data } = await axios.get(url);
             setMedicine(data);
@@ -70,7 +70,7 @@ useEffect(() => {
 
     useEffect(() => {
         if (user) {
-            fetch(`https://search-doctor-server-production.up.railway.app/userReport?email=${user.email}`, {
+            fetch(`https://dark-pink-tortoise-slip.cyclic.app/userReport?email=${user.email}`, {
 
                 method: 'GET',
                 headers: {
@@ -113,7 +113,7 @@ useEffect(() => {
     useEffect(() => {
         const getAppointment = async () => {
             const email = user.email;
-            const url = `https://search-doctor-server-production.up.railway.app/appointment?email=${email}`;
+            const url = `https://dark-pink-tortoise-slip.cyclic.app/appointment?email=${email}`;
             console.log(url);
             const { data } = await axios.get(url);
             setAppointment(data);
@@ -142,7 +142,7 @@ useEffect(() => {
 
       
         
-        let result =  await fetch(`https://search-doctor-server-production.up.railway.app/pressureData=${params.id}`,{
+        let result =  await fetch(`https://dark-pink-tortoise-slip.cyclic.app/pressureData=${params.id}`,{
         method: 'PUT',
         headers: {
             'content-type': 'application/json'
@@ -172,7 +172,7 @@ const handleDelete = async (id) => {
       confirmButtonText: 'Yes, Delete it'
     }).then((result) => {
       if (result.isConfirmed) {
-        const url = `https://search-doctor-server-production.up.railway.app/deleteAppointment/${id}`
+        const url = `https://dark-pink-tortoise-slip.cyclic.app/deleteAppointment/${id}`
         axios
           .delete(url)
           .then(response => {

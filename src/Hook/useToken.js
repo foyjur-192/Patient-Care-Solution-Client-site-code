@@ -6,7 +6,7 @@ const useToken = user => {
      const email = user?.user?.email;
 const currentUser = {email: email};
 if(email){
-    fetch(`https://search-doctor-server-production.up.railway.app/users/${email}` , {
+    fetch(`https://dark-pink-tortoise-slip.cyclic.app/users/${email}` , {
 
     method: 'PUT',
     headers: {

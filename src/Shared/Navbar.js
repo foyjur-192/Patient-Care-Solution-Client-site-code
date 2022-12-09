@@ -7,6 +7,7 @@ import BookingAppointment from '../MainPages/SearchBar/BookingAppointment';
 import auth from '../firebase.init';
 import SimpleBar from 'simplebar-react';
 import useAdmin from '../Hook/useAdmin';
+import img from '../assets/logo.png'
 
 const Navbar = () => {
   const [users, setUsers] = useState([]);
@@ -30,7 +31,7 @@ const Navbar = () => {
 
 
   useEffect(() => {
-    fetch('https://search-doctor-server-production.up.railway.app/data', {
+    fetch('https://dark-pink-tortoise-slip.cyclic.app/data', {
  
     method: 'GET',
     headers:{
@@ -47,9 +48,9 @@ const Navbar = () => {
 
   return (
     <div className=''>
-      <div class="navbar  background-color  d px-8">
+      <div class="navbar  background-color  px-8">
         <div class="navbar-start  ">
-          <h2 className='lg:text-2xl sm:text-xl text-left secondary-color-2'>Patient Care Solution</h2>
+          <h2 className='lg:text-2xl sm:text-xl text-left secondary-color-2'><img src={img}    alt='No log found' /></h2>
         </div>
         <label for="my-modal-4" class="btn modal-button cursor-pointer">
   

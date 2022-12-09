@@ -12,7 +12,7 @@ const Doctors = () => {
     const navigate = useNavigate();
 
    useEffect(() => {
-   fetch('https://search-doctor-server-production.up.railway.app/data', {
+   fetch('https://dark-pink-tortoise-slip.cyclic.app/data', {
 
    method: 'GET',
    headers:{

@@ -67,7 +67,7 @@
     
 //         console.log(data);
     
-//         fetch('https://search-doctor-server-production.up.railway.app/data', {
+//         fetch('https://dark-pink-tortoise-slip.cyclic.app/data', {
     
 //             method: 'POST',
 //             headers: {
@@ -85,7 +85,7 @@
 //     }
 
 
-//     const url = `https://search-doctor-server-production.up.railway.app/priceData/${id}`;
+//     const url = `https://dark-pink-tortoise-slip.cyclic.app/priceData/${id}`;
 
 //   const { data: payment, isLoading } = useQuery (['priceData', id], () => fetch(url, {
 //       method: 'GET',

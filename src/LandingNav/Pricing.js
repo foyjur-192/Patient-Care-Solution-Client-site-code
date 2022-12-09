@@ -71,7 +71,7 @@ const handlePayment = event => {
 
     console.log(doctorData);
 
-    fetch('https://search-doctor-server-production.up.railway.app/newData', {
+    fetch('https://dark-pink-tortoise-slip.cyclic.app/newData', {
 
         method: 'POST',
         headers: {
@@ -94,7 +94,7 @@ const handlePayment = event => {
 useEffect (() => {
   const getMedicine = async () => {
       const email = user.email;
-      const url = `https://search-doctor-server-production.up.railway.app/userData?email=${email}`;
+      const url = `https://dark-pink-tortoise-slip.cyclic.app/userData?email=${email}`;
       console.log(url);
       const { data } = await axios.get(url);
       setUserData(data);
@@ -113,7 +113,7 @@ useEffect (() => {
    
 //    useEffect(() => {
 //     const email = user.email;
-//     fetch( `https://search-doctor-server-production.up.railway.app/priceData?email=${email}`, {
+//     fetch( `https://dark-pink-tortoise-slip.cyclic.app/priceData?email=${email}`, {
  
 //     method: 'GET',
 //     headers:{
@@ -126,7 +126,7 @@ useEffect (() => {
 //     },[])
 
 
-  // const url = `https://search-doctor-server-production.up.railway.app/priceData/${id}`;
+  // const url = `https://dark-pink-tortoise-slip.cyclic.app/priceData/${id}`;
 
   // const { data: payment, isLoading } = useQuery (['priceData', id], () => fetch(url, {
   //     method: 'GET',
