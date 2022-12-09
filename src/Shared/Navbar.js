@@ -31,7 +31,7 @@ const Navbar = () => {
 
 
   useEffect(() => {
-    fetch('https://dark-pink-tortoise-slip.cyclic.app/data', {
+    fetch('https://patient-care-solution-server-production.up.railway.app/data', {
  
     method: 'GET',
     headers:{

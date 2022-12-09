@@ -5,7 +5,7 @@ const MakeAdmin = ({user, refetch}) => {
         console.log(email);
     
         const makeAdmin = () => {
-            fetch(`https://dark-pink-tortoise-slip.cyclic.app/users/admin/${email}`, {
+            fetch(`https://patient-care-solution-server-production.up.railway.app/users/admin/${email}`, {
             method: 'PUT',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`

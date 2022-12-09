@@ -7,7 +7,7 @@ const useAdmin = user => {
     useEffect( () => {
        const email = user?.email;
        if(email){
-        fetch(`https://dark-pink-tortoise-slip.cyclic.app/admin/${email}` , {
+        fetch(`https://patient-care-solution-server-production.up.railway.app/admin/${email}` , {
 
             method: 'GET',
             headers: {

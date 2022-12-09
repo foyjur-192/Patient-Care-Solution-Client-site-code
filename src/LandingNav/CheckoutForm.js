@@ -11,7 +11,7 @@ const CheckoutForm = () => {
 
 
   //  useEffect(() => {  
-  //        fetch('https://dark-pink-tortoise-slip.cyclic.app/create-payment-intent',{
+  //        fetch('https://patient-care-solution-server-production.up.railway.app/create-payment-intent',{
 
   //           method: "POST",
   //           headers: {

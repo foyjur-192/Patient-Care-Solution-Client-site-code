@@ -17,7 +17,7 @@ const Prescription = () => {
     useEffect(() => {
         const getMedicine = async () => {
             const email = user.email;
-            const url = `https://dark-pink-tortoise-slip.cyclic.app/prescriptionMedicine?email=${email}`;
+            const url = `https://patient-care-solution-server-production.up.railway.app/prescriptionMedicine?email=${email}`;
             console.log(url);
             const { data } = await axios.get(url);
             setMedicine(data);

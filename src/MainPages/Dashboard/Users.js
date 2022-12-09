@@ -10,7 +10,7 @@ const Users = () => {
     const [user] = useAuthState(auth);
   
   
-    const { data: users, isLoading, refetch } = useQuery('users', () => fetch('https://dark-pink-tortoise-slip.cyclic.app/users', {
+    const { data: users, isLoading, refetch } = useQuery('users', () => fetch('https://patient-care-solution-server-production.up.railway.app/users', {
       method: 'GET',
       headers:{
           authorization: `Bearer ${localStorage.getItem('accessToken')}`

@@ -26,7 +26,7 @@ const Diagnostic = () => {
   useEffect ( () => {
     const getAppointment = async() => {
         const email = user.email;
-        const url =`https://dark-pink-tortoise-slip.cyclic.app/diagnosticCenter?email=${email}`;
+        const url =`https://patient-care-solution-server-production.up.railway.app/diagnosticCenter?email=${email}`;
       console.log(url);
         const {data} = await axios.get(url);
         setList(data);
@@ -38,7 +38,7 @@ const Diagnostic = () => {
 
 
     useEffect(() => {
-        fetch('https://dark-pink-tortoise-slip.cyclic.app/dataForSearch')
+        fetch('https://patient-care-solution-server-production.up.railway.app/dataForSearch')
             .then(res => res.json())
             .then(data => setPatient(data));
     }, [])

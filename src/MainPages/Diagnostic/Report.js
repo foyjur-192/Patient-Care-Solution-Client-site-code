@@ -44,7 +44,7 @@ const Report = ({ reports }) => {
                     img: img
                    }
                    //Send to your Database
-                   fetch('https://dark-pink-tortoise-slip.cyclic.app/report', {
+                   fetch('https://patient-care-solution-server-production.up.railway.app/report', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
@@ -112,7 +112,7 @@ const Report = ({ reports }) => {
 // }
 // console.log(report);
 // // console.log(booking);
-// fetch('https://dark-pink-tortoise-slip.cyclic.app/report', {
+// fetch('https://patient-care-solution-server-production.up.railway.app/report', {
 
 // method: 'POST',
 // headers: {

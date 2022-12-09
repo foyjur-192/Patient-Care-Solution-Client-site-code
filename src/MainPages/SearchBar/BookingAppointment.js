@@ -40,7 +40,7 @@ var displayTodaysDate = showDate.getDate()+'/'+(showDate.getMonth()+1)+'/'+showD
 
     console.log(booking);
 
-fetch('https://dark-pink-tortoise-slip.cyclic.app/booking', {
+fetch('https://patient-care-solution-server-production.up.railway.app/booking', {
 
 method: 'POST',
 headers: {

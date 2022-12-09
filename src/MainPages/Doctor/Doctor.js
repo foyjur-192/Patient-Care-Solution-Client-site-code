@@ -37,7 +37,7 @@ const Doctor = () => {
     useEffect(() => {
         const getPatient = async () => {
             const email = user.email;
-            const url = `https://dark-pink-tortoise-slip.cyclic.app/patientAppointment?email=${email}`;
+            const url = `https://patient-care-solution-server-production.up.railway.app/patientAppointment?email=${email}`;
             console.log(url);
             const { data } = await axios.get(url);
             setNewPatients(data);
@@ -50,7 +50,7 @@ const Doctor = () => {
     useEffect(() => {
         const getPatientReport = async () => {
             const email = user.email;
-            const url = `https://dark-pink-tortoise-slip.cyclic.app/patientReport?email=${email}`;
+            const url = `https://patient-care-solution-server-production.up.railway.app/patientReport?email=${email}`;
             console.log(url);
             const { data } = await axios.get(url);
             setReports(data);
